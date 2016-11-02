@@ -156,7 +156,6 @@ body {
 
 }
 
-
 .grid {
 
   height: 450px;
@@ -172,8 +171,8 @@ body {
 .report-grid{
   height: 450px;
   /*margin-top:200px;*/
-  width:600px;
-  /*margin: 0 auto;*/
+  width:650px;
+  margin: 0 auto;
 }
 .serpro-grid{
   height: 450px;
@@ -489,15 +488,14 @@ height: 49px;
   padding: 30px 15px;
 }
 .Modal-report-holder {
-    background: white;
-    opacity: 0.9;
-    border-radius: 20px;
-    height: 100%;
-    left: 29%;
-    position: absolute;
-    top: 47%;
-    /*width: 100%;*/
-    z-index: 100;
+   position: fixed;
+  top: 0px;
+  left: 0px;
+  height:100%;
+  width:100%;
+  background: transparent;
+  z-index: 4;
+  padding: 30px 15px;
 }
 .Modal-holder-project div#mycalendar{
   width: 50%
@@ -1244,7 +1242,7 @@ padding-top: 0px !important;
   width: 100%;
 }
 .navdiv{
-  z-index: 3;
+  z-index: 4;
 }
 .padTop{
   padding: 1%;
@@ -1271,7 +1269,7 @@ padding-top: 0px !important;
     font-size: 16px;
     left: 47%;
     position: absolute;
-    top: 60%;
+    top: 47%;
 }
 .btn-customcolor {
     background-color: #7b7b7b !important;
@@ -1334,22 +1332,25 @@ padding-top: 0px !important;
 }
 
 .Modal-backdrop{
-  z-index:3;
+  z-index:4;
 }
 .Modal-backdrop-project{
- z-index:3; 
+ z-index:4; 
 }
 .Modal-holder-project{
- z-index:3;  
+ z-index:4;  
 }
 .Modal-holder{
- z-index:3;    
+ z-index:4;    
 }
 .dropdown-menu{
-  z-index: 2 !important;
+  z-index: 3 !important;
 }
 .nv-legendWrap{
 display:none;
+}
+.donut-div{
+  width: 88%;
 }
 .donut-div svg.nvd3-svg {
     left: 32% !important;
@@ -1424,7 +1425,7 @@ display:none;
 
 .progress-bar > .progress-type {
   padding-left: 10px;
-  color: black;
+  color: white;
 }
 
 .progress-meter {
@@ -1471,5 +1472,46 @@ display:none;
 .row.mainknob {
     padding: 3%;
     width: 74%;
+}
+hr.horline {
+  height: 10px;
+  border: 0;
+  box-shadow: 0px 8px 10px -10px #939ca6 inset;
+  margin: 10px auto;
+}
+.report-grp{
+  padding:0% 0% 9%
+}
+.modal-container{
+  /*background: white none repeat scroll 0 0;*/
+    width: 40%;
+    z-index: 7 !important;
+    margin: 5% auto;
+}
+.reportfont {
+    /*background-color: #333333;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: white;*/
+    font-size: 18px;
+    /*margin: 0 auto;*/
+    /*padding: 20px;*/
+}
+.innerfont {
+    font-size: 30px;
+}
+.popuptext {
+    color: white;
+    font-size: 22px;
+}
+.pierepdata {
+    color: white;
+    font-size: 28px;
+    left: 48%;
+    position: absolute;
+    top: 36%;
+}
+#doughnut {
+    margin-bottom: 50px;
 }
 /*----*/

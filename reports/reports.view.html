@@ -1,0 +1,17 @@
+<div class="Modal-backdrop" ng-show="popoverIsVisible" ></div>
+<div class="Modal-report-holder"  autoscroll="false">
+<div  >
+					<div class="modal-container" >
+					<span class="popuptext">{{name}} -- {{emp_id}} -- Utilization for {{filter}}</span>
+					<div class="pierepdata">{{perc}} %</div>
+					  <canvas id="doughnut" class="chart chart-doughnut mar-top"
+					          chart-data="ydata" chart-colors="colors" chart-labels="labels">
+					        </canvas>
+					        <!-- <a href="#/home"> -->
+					<button class="btn btn-danger" ui-sref="home" >Close</button>
+					<!-- </a> -->
+
+					</div>
+
+					</div>
+</div>
