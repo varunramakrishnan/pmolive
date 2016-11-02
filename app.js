@@ -78,11 +78,50 @@
             controllerAs: 'vm'
 
             })
-            .state('home', {
-                    url: "/home",
+            // .state('home', {
+            //         url: "/home",
+            //         controller: 'HomeController',
+            //         templateUrl: 'home/home.view.html',
+            //         controllerAs: 'vm'
+            //     })
+            .state('calendar', {
+                    url: "/calendar",
                     controller: 'HomeController',
                     templateUrl: 'home/home.view.html',
                     controllerAs: 'vm'
+                })
+
+            .state('home', {
+                url: "/home",
+                templateUrl : 'reports/reports.html',
+                controller  : 'ReportsController',
+                controllerAs: 'vm',
+                // onEnter: ["$state", function($state) {
+                //   $(document).on("click", ".btn-danger", function() {
+                //     $state.go("home");
+                //   });
+
+                  
+                // }],
+            })
+            .state('home.view', {
+                url: '/view/:id',
+                views:{
+                      "modal": {
+                        templateUrl: "reports/reports.view.html",
+                        controller  : 'ReportsController',
+                        controllerAs: 'vm',
+                        // onEnter: ["$state", function($state) {
+                        //   $(document).on("click", ".btn-danger", function() {
+                        //     $state.go("home");
+                        //   });
+
+                          
+                        // }],
+                      }
+                    },
+                    
+                // controller  : 'AccountController',
                 })
 
             .state('register', {
@@ -462,20 +501,20 @@
 
                       }
                     },
-                })
-            .state('reports', {
-                url: "/reports",
-                templateUrl : 'reports/reports.html',
-                controller  : 'ReportsController',
-                controllerAs: 'vm',
-                onEnter: ["$state", function($state) {
-                  $(document).on("click", ".btn-danger", function() {
-                    $state.go("reports");
-                  });
+                });
+            // .state('reports', {
+            //     url: "/reports",
+            //     templateUrl : 'reports/reports.html',
+            //     controller  : 'ReportsController',
+            //     controllerAs: 'vm',
+            //     // onEnter: ["$state", function($state) {
+            //     //   $(document).on("click", ".btn-danger", function() {
+            //     //     $state.go("reports");
+            //     //   });
 
                   
-                }],
-            }); 
+            //     // }],
+            // }); 
             $urlRouterProvider.otherwise('/login');
 
 
