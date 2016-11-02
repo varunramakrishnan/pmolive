@@ -96,14 +96,33 @@
                 templateUrl : 'reports/reports.html',
                 controller  : 'ReportsController',
                 controllerAs: 'vm',
-                onEnter: ["$state", function($state) {
-                  $(document).on("click", ".btn-danger", function() {
-                    $state.go("reports");
-                  });
+                // onEnter: ["$state", function($state) {
+                //   $(document).on("click", ".btn-danger", function() {
+                //     $state.go("home");
+                //   });
 
                   
-                }],
+                // }],
             })
+            .state('home.view', {
+                url: '/view/:id',
+                views:{
+                      "modal": {
+                        templateUrl: "reports/reports.view.html",
+                        controller  : 'ReportsController',
+                        controllerAs: 'vm',
+                        onEnter: ["$state", function($state) {
+                          $(document).on("click", ".btn-danger", function() {
+                            $state.go("home");
+                          });
+
+                          
+                        }],
+                      }
+                    },
+                    
+                // controller  : 'AccountController',
+                })
 
             .state('register', {
                 url: "/register",

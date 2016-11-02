@@ -3,13 +3,17 @@
 
     angular
         .module('app')
-        .controller('ReportsController', ReportsController);
+        .controller('ReportsController', ReportsController)
+        .controller('ReportEditController', ReportEditController);
 	ReportsController.$inject = ['$rootScope','$q','$timeout','$cookieStore','$scope','$state','$log','$http','UserService', '$location', 'FlashService','RowEditor','$uibModal','$document'];
 	function ReportsController($rootScope,$q,$timeout,$cookieStore,$scope,$state,$log,$http,UserService, $location,FlashService,RowEditor,$uibModal, $document) {
 
         var vm = this;
         vm.getreportdata = getreportdata;
         vm.getnewreport = getnewreport;
+        var splits=$location.url().toString().split("/");
+        console.log(splits);
+        
         $scope.colors = [ '#fdb45c', '#00ADF9', '#f7464a', '#46BFBD', '#32cd32', '#28022f', '#feca9a'];
         $scope.gridOptions = {};
         $scope.gridOptions.enableHorizontalScrollbar = 0; 
@@ -150,14 +154,26 @@ $scope.hidePopover = function () {
 //         },
 //     }
 // ];
- getreportdata("today").then(function(response){
+if(splits[3]){
+          $scope.repdata.forEach(function (d) {
+            if (d.id == splits[3]){
+              $scope.labels = d.spark.label;
+              $scope.ydata = d.spark.ydata;
+              $scope.name = d.name;
+              $scope.emp_id = d.emp_id;
+              $scope.perc = d.perc;
+              $scope.popoverIsVisible = true;
+            }
+          });
+        }else{
+          getreportdata("today").then(function(response){
   $scope.knobvalue = response.util;
   $scope.total_hrs = response.total_hrs;
   $scope.util_hrs = response.util_hrs;
  var data = $scope.repdata = response.donut;
 
       // data.forEach(function (d) {
-    		// d.spark.options = {};
+        // d.spark.options = {};
       //   d.spark.options.chart =  {
       //         type: 'pieChart',
       //         donut:true,
@@ -173,7 +189,40 @@ $scope.hidePopover = function () {
       
       $scope.gridOptions.data = data;
       });
+
+        }
+ 
     }
+
+
+    ReportEditController.$inject = ['$scope','$state','$rootScope','$log','$http','UserService', '$location', 'FlashService','$timeout','$routeParams'];
+function ReportEditController($scope,$state,$rootScope,$log,$http,UserService, $location,FlashService,$timeout,$routeParams) {
+  var vm=this;
+   // vm.getpiereport = saveresource;
+  var splits=$location.url().toString().split("/");
+  // console.log(splits);
+  UserService.getResource(splits[splits.length - 1])
+                  .then(function (response) {
+                      if (response.data) {
+                        $scope.labels = d.spark.label;
+                        $scope.ydata = d.spark.ydata;
+                        $scope.name = d.name;
+                        $scope.emp_id = d.emp_id;
+                        $scope.perc = d.perc;
+                        // $scope.resmodel=vm.resource.resmodel;
+                        //$scope.sermodel=vm.account.sermodel=
+                       // vm.account.start_date=$scope.minEndDate;
+             // //vm.account.end_date=$scope.maxEndDate;
+             // vm.account.anticipated_value = vm.account.anticipated_value.concat(" ").concat(vm.account.anticipated_value_currency);
+                      } 
+                  });
+
+                 
+  
+  
+      
+
+  }
 
 
 
