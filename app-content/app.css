@@ -171,7 +171,7 @@ body {
 .report-grid{
   height: 450px;
   /*margin-top:200px;*/
-  width:600px;
+  width:650px;
   margin: 0 auto;
 }
 .serpro-grid{
@@ -1349,6 +1349,9 @@ padding-top: 0px !important;
 .nv-legendWrap{
 display:none;
 }
+.donut-div{
+  width: 88%;
+}
 .donut-div svg.nvd3-svg {
     left: 32% !important;
     position: absolute;
@@ -1422,7 +1425,7 @@ display:none;
 
 .progress-bar > .progress-type {
   padding-left: 10px;
-  color: black;
+  color: white;
 }
 
 .progress-meter {

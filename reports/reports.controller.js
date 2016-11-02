@@ -24,7 +24,7 @@
     { field:'emp_id', width:100 },
     { field:'name' , width:100 },
     { field:'hours', width:80 },
-    { field: 'bullet', name:"Click the meter for detailed info", cellTemplate: 'reports/bullet-cell.html',width:350},
+    { field: 'bullet', name:"Click the meter for detailed info", cellTemplate: 'reports/bullet-cell.html',width:400},
   ];
   
   $scope.knoboptions = {
@@ -34,16 +34,16 @@
   readOnly: true,
   subText: {
     enabled: true,
-    text: 'loaded',
-    color: 'gray',
+    // text: 'loaded',
+    color: 'black',
     font: '2px'
   },
   // barCap: 10,
   trackWidth: 15,
   barWidth: 13,
-  trackColor: '#656D7F',
-  barColor: '#378006',
-  textColor: '#378006'
+  trackColor: '#cfcfcf',
+  barColor: 'limegreen',
+  textColor: 'black'
 };
   $scope.moused = function(id)
   {
