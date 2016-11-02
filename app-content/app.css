@@ -1242,7 +1242,7 @@ padding-top: 0px !important;
   width: 100%;
 }
 .navdiv{
-  z-index: 3;
+  z-index: 4;
 }
 .padTop{
   padding: 1%;
@@ -1332,19 +1332,19 @@ padding-top: 0px !important;
 }
 
 .Modal-backdrop{
-  z-index:3;
+  z-index:4;
 }
 .Modal-backdrop-project{
- z-index:3; 
+ z-index:4; 
 }
 .Modal-holder-project{
- z-index:3;  
+ z-index:4;  
 }
 .Modal-holder{
- z-index:3;    
+ z-index:4;    
 }
 .dropdown-menu{
-  z-index: 2 !important;
+  z-index: 3 !important;
 }
 .nv-legendWrap{
 display:none;
@@ -1483,7 +1483,7 @@ hr.horline {
   /*background: white none repeat scroll 0 0;*/
     width: 40%;
     z-index: 7 !important;
-    margin: 20% auto;
+    margin: 5% auto;
 }
 .reportfont {
     /*background-color: #333333;
@@ -1506,7 +1506,7 @@ hr.horline {
     font-size: 28px;
     left: 48%;
     position: absolute;
-    top: 64%;
+    top: 36%;
 }
 #doughnut {
     margin-bottom: 50px;
