@@ -111,13 +111,13 @@
                         templateUrl: "reports/reports.view.html",
                         controller  : 'ReportsController',
                         controllerAs: 'vm',
-                        onEnter: ["$state", function($state) {
-                          $(document).on("click", ".btn-danger", function() {
-                            $state.go("home");
-                          });
+                        // onEnter: ["$state", function($state) {
+                        //   $(document).on("click", ".btn-danger", function() {
+                        //     $state.go("home");
+                        //   });
 
                           
-                        }],
+                        // }],
                       }
                     },
                     
@@ -501,20 +501,20 @@
 
                       }
                     },
-                })
-            .state('reports', {
-                url: "/reports",
-                templateUrl : 'reports/reports.html',
-                controller  : 'ReportsController',
-                controllerAs: 'vm',
-                onEnter: ["$state", function($state) {
-                  $(document).on("click", ".btn-danger", function() {
-                    $state.go("reports");
-                  });
+                });
+            // .state('reports', {
+            //     url: "/reports",
+            //     templateUrl : 'reports/reports.html',
+            //     controller  : 'ReportsController',
+            //     controllerAs: 'vm',
+            //     // onEnter: ["$state", function($state) {
+            //     //   $(document).on("click", ".btn-danger", function() {
+            //     //     $state.go("reports");
+            //     //   });
 
                   
-                }],
-            }); 
+            //     // }],
+            // }); 
             $urlRouterProvider.otherwise('/login');
 
 

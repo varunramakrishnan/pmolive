@@ -494,7 +494,7 @@ height: 49px;
   height:100%;
   width:100%;
   background: transparent;
-  z-index: 3;
+  z-index: 4;
   padding: 30px 15px;
 }
 .Modal-holder-project div#mycalendar{
