@@ -1,0 +1,9 @@
+<div class="donut-div ui-grid-cell-contents" >
+<div class="progress"  ng-click="grid.appScope.moused({{row.entity.id}})">
+				<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{row.entity.perc}}%;background-color: {{row.entity.colour}};" data-toggle="tooltip" data-placement="top" title="{{row.entity.perc}}">
+					<span class="sr-only"></span>
+					<span class="progress-type">{{row.entity.perc}} % </span>
+				</div>
+			</div>
+  </div>
+  

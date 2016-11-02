@@ -1,0 +1,9 @@
+<div class="jumbotron text-center">
+  <button class="btn btn-primary"  ui-sref="serviceproject.add">Add Project</button>
+        
+        <br />
+        <br />
+        <div  ui-view="modal"></div>
+<div ui-if="vm.gridOptions.data.length>0" class="serpro-grid" ui-grid="vm.gridOptions"  ui-grid-auto-resize ng-style="getTableHeight()" ></div>
+
+</div>

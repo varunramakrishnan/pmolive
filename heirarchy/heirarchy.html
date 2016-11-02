@@ -1,0 +1,20 @@
+<!-- <div ng-include="'pages/navigation.html'"></div> -->
+<div class="jumbotron text-center">
+  <button class="btn btn-primary"  ui-sref="roles.add">Add Role</button>
+        <!-- <button class="btn btn-primary" ng-show = "!IsVisible" ng-click="ShowHide()" ui-sref="roles.add">+</button>
+        <button class="btn btn-primary" ng-show = "IsVisible" ng-click="!ShowHide()">-</button> -->
+        <br />
+        <br />
+  <div class="hid" ng-show = "IsVisible">
+    <div class="">
+    
+    
+	</div>
+	</div>
+    <!--<div class="gridStyle" ng-grid="gridOptions"></div>-->
+    <div  ui-view="modal"></div>
+    <div class="heirarchy-grid" ui-grid="vm.gridOptions"  ui-grid-edit><div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div></div>
+
+    
+      
+    </div>

@@ -1,0 +1,42 @@
+<div>
+
+  <div class="modal-header">
+
+      <h3 class="modal-title">Edit Row</h3>
+
+  </div>
+
+  <div class="modal-body">
+
+    <!--<form sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.entity"></form>-->
+
+  <input type="text" name="accountName" id="accountName" ng-model="vm.entity.accountName" required />
+  <input type="text" name="noOfResources" id="noOfResources" ng-model="vm.entity.noOfResources" required />
+  <label for="username">Organisational Unit</label>
+    <select name="organisationalUnit" id="organisationalUnit"  ng-model="vm.entity.organisationalUnit">
+            <option ng-repeat="item in vm.items" ng-selected="item.name=='{{vm.entity.organisationalUnit}}'" value="{{item.id}}">{{item.name}}</option>
+          </select>
+
+          <label for="username">Manager</label>
+    <select name="manager" id="manager"  ng-model="vm.entity.manager">
+            <option ng-repeat="item in vm.manitems" ng-selected="item.name=='{{vm.entity.manager}}'" value="{{item.id}}">{{item.name}}</option>
+          </select>
+
+          <label for="username">Status</label>
+    <select name="status" id="status"  ng-model="vm.entity.status">
+            <option ng-repeat="item in vm.statusitems" ng-selected="item.name=='{{vm.entity.status}}'" value="{{item.id}}">{{item.name}}</option>
+          </select>
+
+  </div>
+
+  <div class="modal-footer">
+
+      <button class="btn btn-success" ng-click="vm.save()">Save</button>
+
+      <button class="btn btn-warning" ng-click="$close()">Cancel</button>
+
+  </div>
+
+</div>
+
+                

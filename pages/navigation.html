@@ -1,0 +1,37 @@
+<nav class="navbar navbar-default" >
+            <div class="padding-header">
+                <h2 class="nav header-pad navbar-nav navbar-left">
+                <div class="text-left">
+                            <a href="http://www.listertechnologies.com">  
+                                           <img src="img/logo.png" alt="Lister Technologies" title="Lister Technologies">             
+                            </a> 
+                </div>
+                 OMC | PMO
+                </h2>
+                <ul id="top" class="nav navbar-nav navbar-right">
+                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/home')" href="#home"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/reports')" href="#reports"><i class="fa fa-tachometer"></i> Reports</a></li>
+                    <li ><a ng-class="getClass('/timesheet')" href="#timesheet"><i class="fa fa-clock-o"></i> Timesheet</a></li>
+                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/mapping')" href="#mapping"><i class="fa fa-tag"></i>Mapping</a></li>
+                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/project')" href="#project"><i class="fa fa-sitemap"></i> Project</a></li>
+                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/account')" href="#account"><i class="fa fa-folder-open"></i> Account</a></li>
+                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/resources')" href="#resources"><i class="fa fa-user"></i> People</a></li>
+                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/roles')" href="#roles"><i class="fa fa-shield"></i>Roles</a></li>
+                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/skill')" href="#skill"><i class="fa fa-paperclip"></i>Skills</a></li>
+                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/services')" href="#services"><i class="fa fa-thumb-tack"></i> Services</a></li>
+                    
+                    <li ng-show="rootAccess"><a ng-class="getClass('/units')" href="#units"><i class="fa fa-underline"></i> OU</a></li>
+                    <!-- <li><a href="#/login"><i class="fa fa-power-off"></i>Logout</a></li> -->
+                    <li class="dropdown"><a class="overflowname"><i class="fa fa-user"></i>{{globals.currentUser.employee_id}}<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                    
+                    <div class="dropdown-content">
+                        <a href="#/login"><i class="fa fa-power-off"></i>Logout</a>
+                      </div>
+                      </li>
+
+                    
+                    </div>
+                    
+                </ul>
+            </div>
+            </nav>

@@ -1,0 +1,145 @@
+<div class="" >
+<!-- <form name="Demo" method="get" action="/" ng-submit="submit()"> -->
+<div> 
+<!-- {{month_full}} -->
+<!-- {{projects}} -->
+<div class="row">
+  <div class="widclock col-md-2 col-md-offset-1">
+  <div class="col-md-12"><ds-widget-clock  theme="light" show-digital show-analog></ds-widget-clock>
+  </div></div>
+  <div class="widclock col-md-2">
+  <div class="col-md-12"><ds-widget-clock  gmt-offset="'-7.0'" show-digital theme="light" show-analog></ds-widget-clock>
+  </div>
+  </div>
+  <div class="widclock col-md-2">
+  <div class="col-md-12"><ds-widget-clock  gmt-offset="'-4.0'" show-digital theme="light" show-analog></ds-widget-clock></div>
+  </div>
+  <div class="widclock col-md-2">
+  <div class="col-md-12"><ds-widget-clock  gmt-offset="'-6.0'" show-digital theme="light" show-analog></ds-widget-clock></div>
+  </div>
+  <div class="widclock col-md-2">
+  <div class="col-md-12"><ds-widget-clock  gmt-offset="'11.0'" show-digital theme="light" show-analog></ds-widget-clock></div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-md-2 col-md-offset-1"><span >IST</span>
+  </div>
+  <div class="col-md-2 "><span >PST</span>
+  </div>
+  <div class="col-md-2 "><span >EST</span>
+  </div>
+  <div class="col-md-2 "><span >CST</span>
+  </div>
+  <div class="col-md-2 "><span >ACT</span>
+  </div>
+  </div>
+
+
+    <!-- <div >
+      <%=Name%>
+    </div> -->
+      <!-- <div style="display:none;">
+
+      	<input id="Name" type="text" value="<%=Name%>" disabled />
+      	<input id="ID" type="text" value="<%=ID%>" disabled />
+      </div> -->
+ 
+      <div class="row mar-cust-top" >
+      <div class="col-md-8">
+        <div class="row firstRow" >
+            <div class="col-md-3 cusPro text-left">
+              <button class="btn btn-success btn-sm btn-customcolor new-right" ng-click="buttonEvent('prev')"><</button>
+            </div>
+           <!--  <div class="col-md-3">
+                StartDate  -  EndDate
+            </div> -->
+
+            <div class="col-md-7 dateContainer" >
+              
+              <!-- <div class="col-sm-1" style="color:black;width=5.3% !important">
+                {{month}}
+                   <button type="button" class="btn btn-default btn-sm" ng-click="prevWeek()">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                  </button>
+              </div> -->
+              <div class="row" >
+                  <!-- <div class="col-sm-4 wrapper1" >
+                       <ul class="nav nav-tabs list" id="myTab">
+                         <li ng-repeat="dates in today" style="width=53px;">
+                          {{dates}}
+                        </li>
+                      </ul>                     
+                  </div> -->
+                  <div id="timecalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="calendar"></div>
+
+                  
+                    </div>
+                      <!-- <div class="col-sm-1" style="margin-left:0px;">
+                        Status 
+                      </div> -->
+                      
+           </div>
+           
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-8">
+              <button class="btn btn-success btn-sm btn-customcolor" ng-click="buttonEvent('today')">Today</button></div>
+              </div>
+           <div class=""><button class="btn btn-success btn-sm btn-customcolor new-left" ng-click="buttonEvent('next')">></button></div>
+              <div class="row cusPro">
+                        Project Totals
+              </div>
+            </div>
+         </div>
+         <div class="row padTop customBack" ng-repeat="project in projects">
+
+      <div class="col-md-3 text-left cushead">
+                 {{project.name}} 
+      </div>
+      <div ng-repeat="i in project.bool track by $index" class="col-md-1" id="myTab">
+                        <input type="number" min="0" max="24" class="textField" ng-model="project.temp[$index]" step="any"/>
+      </div>
+      <div class="col-md-1 col-md-offset-1" id="myTab" >
+                        <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="any"/>
+    </div>
+    </div>
+    <div class="row padDtop customBack cusDPro">
+      <div class="col-md-3">
+                 Daily Totals
+      </div>
+      <div ng-repeat="i in days track by $index" class="col-md-1" id="myTab">
+                       <!--  <input type="" min="0" max="24" class="textField customText" disabled readonly ng-value="projects[0].temp[$index]+projects[1].temp[$index]+projects[2].temp[$index]+projects[3].temp[$index]+projects[4].temp[$index]" step="any"/> -->
+                        <input type="" min="0" max="24" class="textField customText" disabled readonly ng-value="getTotal($index)" step="any"/>
+      </div>
+      <div class="col-md-1" >
+                        <button class="btn btn-primary"  ng-click="vm.savetimesheet('save')">Save</button>
+    </div>
+    </div>
+
+
+
+     <!--  -->
+      </div>
+    <div class="col-md-4">
+    <div class="btn-toolbar custpiebutton">
+                    <div id='btn-pie-group' class="btn-group">
+                        <button id='btn-today' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.getpiedata('today')">Today</button>
+                        <button id='btn-week' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.getpiedata('week')">This Week</button>
+                        <button id='btn-month' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.getpiedata('month')">This Month</button>
+                    </div>
+           </div>
+           <div class="pieinsdata">{{totalutil}} %</div>
+        <canvas id="doughnut" class="chart chart-doughnut mar-top"
+          chart-data="doughdata" chart-colors="colors" chart-labels="labels">
+        </canvas> 
+    </div>
+      </div>
+
+
+
+      
+        
+    </div>
+
+   </div>
+    <!-- <button class="show-button"></button> -->

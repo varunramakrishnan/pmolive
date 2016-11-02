@@ -1,0 +1,40 @@
+<div>
+
+  <div class="modal-header">
+
+      <h3 class="modal-title">Edit Row</h3>
+
+  </div>
+
+  <div class="modal-body">
+
+    <!--<form sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.entity"></form>-->
+    <label for="username">Employee Name</label>
+  <input type="text" name="employee_name" id="employee_name" ng-model="vm.entity.employee_name" required />
+  <br>
+  <label for="username">Employee ID</label>
+  <input type="text" name="employee_id" id="employee_id" ng-model="vm.entity.employee_id" required />
+  <br>
+  <label for="username">Role</label>
+  <input type="text" name="role" id="role" ng-model="vm.entity.role" required />
+  <br>
+  <label for="username">Heirarchy</label>
+    <select name="heirarchy_id" id="heirarchy_id"  ng-model="vm.entity.heirarchy_id">
+            <option ng-repeat="item in vm.items" ng-selected="item.id=='{{vm.entity.heirarchy_id}}'" value="{{item.id}}">{{item.heirarchy_name}}</option>
+          </select>
+<label for="username">Skills</label>
+         <div ng-dropdown-multiselect="" events="vm.entity.resEvents" options="vm.entity.resdata" selected-model="vm.entity.skill_id" extra-settings="vm.entity.ressettings"></div>
+  </div>
+  <div>{{vm.entity}}</div>
+
+  <div class="modal-footer">
+
+      <button class="btn btn-success" ng-click="vm.save()">Save</button>
+
+      <button class="btn btn-warning" ng-click="$close()">Cancel</button>
+
+  </div>
+
+</div>
+
+                

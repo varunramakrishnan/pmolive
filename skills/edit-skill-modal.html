@@ -1,0 +1,37 @@
+<div>
+
+  <div class="modal-header">
+
+      <h3 class="modal-title">Edit Row</h3>
+
+  </div>
+
+  <div class="modal-body">
+
+    <!--<form sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.entity"></form>-->
+    <label for="username">Employee Name</label>
+  <input type="text" name="employeeName" id="employeeName" ng-model="vm.entity.employeeName" required />
+  <br>
+  <label for="username">Employee ID</label>
+  <input type="text" name="employeeId" id="employeeId" ng-model="vm.entity.employeeId" required />
+  <br>
+  <label for="username">Role</label>
+  <input type="text" name="role" id="role" ng-model="vm.entity.role" required />
+  <br>
+  <label for="username">Heirarchy</label>
+    <select name="heirarchy" id="heirarchy"  ng-model="vm.entity.heirarchy">
+            <option ng-repeat="item in vm.items" ng-selected="item.name=='{{vm.entity.heirarchy}}'" value="{{item.id}}">{{item.name}}</option>
+          </select>
+  </div>
+
+  <div class="modal-footer">
+
+      <button class="btn btn-success" ng-click="vm.save()">Save</button>
+
+      <button class="btn btn-warning" ng-click="$close()">Cancel</button>
+
+  </div>
+
+</div>
+
+                

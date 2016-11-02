@@ -1,0 +1,27 @@
+<!-- <div ng-include="'pages/navigation.html'"></div> -->
+<div class="jumbotron text-center">
+        
+        <button class="btn btn-primary"  ui-sref="skill.add">Add Skill</button>
+        <br />
+        <br />
+        <div  ui-view="modal"></div>
+<div class="skill-grid" ui-grid="vm.gridOptions" ui-grid-edit></div>
+
+</div>
+
+<!--<div class="dropdown dropdown-scroll">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">Select <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          <li role="presentation">
+              <div class="input-group input-group-sm search-control"> 
+              	<span class="input-group-addon">
+                      <span class="glyphicon glyphicon-search"></span>
+  				</span>
+                <input type="text" class="form-control" placeholder="Query" ng-model="query"></input>
+              </div>
+          </li>
+          <li role="presentation" ng-repeat='item in items | filter:query' ng-click="eventDetails(item.name)"> <a > {{item.name}} </a>
+          </li>
+      </ul>
+  </div>-->

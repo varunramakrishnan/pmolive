@@ -1,0 +1,27 @@
+<div>
+
+  <div class="modal-header">
+
+      <h3 class="modal-title">Edit Row</h3>
+
+  </div>
+
+  <div class="modal-body">
+
+    <!--<form sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.entity"></form>-->
+    <label for="username">Organisational Unit Name</label>
+  <input type="text" name="unitName" id="employeeName" ng-model="vm.entity.unit_name" required />
+  <br>
+  </div>
+
+  <div class="modal-footer">
+
+      <button class="btn btn-success" ng-click="vm.save()">Save</button>
+
+      <button class="btn btn-warning" ng-click="$close()">Cancel</button>
+
+  </div>
+
+</div>
+
+                

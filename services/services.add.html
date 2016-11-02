@@ -1,0 +1,48 @@
+
+<div class="Modal-backdrop"></div>
+<div class="Modal-holder"  autoscroll="false">
+  <h2 class="labelcustom">Services</h2>
+  <br>
+  <br>
+  <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+  <div class="form-account">
+    <form name="form" ng-submit="vm.saveservice()" role="form" class="form-horizontal">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">Service name</label>  
+        <div class="col-md-4">
+        <input id="skill_name" name="skill_name" placeholder="placeholder" class="form-control" ng-model="vm.service.service_name" required="" type="text">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">Service Code</label>  
+        <div class="col-md-4">
+        <input id="service_code" name="service_code" placeholder="placeholder" class="form-control" ng-model="vm.service.service_code" required="" type="text">
+        </div>
+      </div>
+      <div class="form-group">
+          <label class="col-md-4 control-label labelcustom" for="skill_type">Organisational Unit</label>
+          <div class="col-md-4 text-left">
+            <div ng-dropdown-multiselect="" events="serEvents" options="serdata" selected-model="sermodel" extra-settings="sersettings" required></div>
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="col-md-4 control-label labelcustom" for="skill_type">Mapping Format</label>
+          <div class="col-md-4 text-left">
+            <select name="mappingFormat" id="mappingFormat" class="form-control" ng-model="vm.service.mapping_format" required>
+              <option value="">Please select</option>
+              <option ng-repeat="option in value.availableOptions"  value="{{option.id}}">{{option.map_code}}</option>
+    </select>
+          </div>
+      </div>
+        <div class="form-group">
+          <div class="">
+            <button id="submit" type="submit" ng-disabled="vm.dataLoading" name="submit" class="btn btn-success">Submit</button>
+            <button id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
+          </div>
+        </div>
+            </fieldset>
+    </form>
+     </div>
+     </div>

@@ -1,0 +1,137 @@
+﻿ <!-- <div>
+                  <button class='btn btn-primary margin-5' ng-model='type' btn-radio='"account"'>Account</button>
+
+                  <button class='btn btn-primary margin-5' ng-model='type' btn-radio='"resource"'>People</button>
+
+                  <button class='btn btn-primary margin-5' ng-model='type' btn-radio='"skill"'>Skill</button>
+
+</div>
+
+<div class="margin-5">
+        <div ng-show='type=="account"' ng-dropdown-multiselect="" events="accountEvents" options="accountdata" date-selected='dselect(date)' selected-model="accountmodel" extra-settings="accountsettings"></div>
+        <div ng-show='type=="resource"' ng-dropdown-multiselect="" events="resourceEvents" options="resourcedata" selected-model="resourcemodel" extra-settings="resourcesettings"></div>
+        <br>
+        <button ng-show='type=="resource"' type="button" class="btn btn-primary" ng-click="getRes()">Get Results
+                          </button>
+        <div ng-show='type=="skill"' ng-dropdown-multiselect="" events="skillEvents" options="skilldata" selected-model="skillmodel" extra-settings="skillsettings"></div><br>
+        <button ng-show='type=="skill"' type="button" class="btn btn-primary" ng-click="getSki()">Get Results
+                          </button>
+
+      </div>
+
+      <div id="mycalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="calendar"></div>
+      
+<p>&nbsp;</p>  -->
+<div class="row">
+  <div class="col-md-3 bg-account">
+    <div class="col-md-6">
+      <span class='amp'>Account</span>
+    </div>
+    <div class="col-md-6">
+      <div  ng-dropdown-multiselect="" events="accountEvents" options="accountdata" date-selected='dselect(date)' selected-model="accountmodel" extra-settings="accountsettings"></div>
+    </div>
+    <br>
+    <br>
+    <div class="newwrapper col-md-12"  ng-disabled="accountmodel.length">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in accountmodel">
+              <button class='btn btn-default' disabled >{{field.account_name}}</button>
+          </li>
+          </ul>
+          </div>
+          <br><br><br><br><br>
+    <div class="col-md-6">
+      <span class='amp'>Services</span>
+    </div>
+    <div class="col-md-6" ng-disabled= "(accountmodel.length > 1) ?  true : false">
+      <div  ng-dropdown-multiselect=""  events="serEvents" options="serdata" date-selected='dselect(date)' selected-model="sermodel" extra-settings="sersettings"></div>
+    </div>
+    <br>
+    <br>
+    <div class="newwrapper col-md-12"  ng-disabled="sermodel.length">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in sermodel">
+              <button class='btn btn-default' disabled >{{field.service_code}}</button>
+          </li>
+          </ul>
+          </div>
+  </div>
+  <div class="col-md-1">
+    <span class="amp">&amp;</span>
+  </div>
+  <div class="col-md-3">
+    <div class="col-md-6">
+       <span class='amp' >People</span>
+    </div>
+    <div class="col-md-6">
+        <div  ng-dropdown-multiselect="" events="resourceEvents" options="resourcedata" selected-model="resourcemodel" extra-settings="resourcesettings"></div>
+
+    </div>
+    <br>
+    <br>
+    <div class="newwrapper col-md-12" ng-disabled="resourcemodel.length">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in resourcemodel">
+              <button class='btn btn-default'   disabled >{{field.employee_name}}</button>
+          </li>
+          </ul>
+          </div>
+  </div>
+  <div class="col-md-1">
+    <span class="amp">&amp;</span>
+  </div>
+  <div class="col-md-3">
+    <div class="col-md-6">
+       <span class='amp' >Skill</span>
+    </div>
+    <div class="col-md-6">
+      <div  ng-dropdown-multiselect="" events="skillEvents" options="skilldata" selected-model="skillmodel" extra-settings="skillsettings"></div>
+    </div>
+    <br>
+    <br>
+    <div class="newwrapper col-md-12"  ng-disabled="resourcemodel.length">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in skillmodel">
+              <button class='btn btn-default' disabled >{{field.skill_name}}</button>
+          </li>
+          </ul>
+          </div>
+  </div>
+      </div>
+        <br>
+       <!--  <div class="row">
+        <div class="newwrapper col-md-4"  ng-disabled="accountmodel.length">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in accountmodel">
+              <button class='btn btn-default' disabled >{{field.account_name}}</button>
+          </li>
+          </ul>
+          </div>
+          <div class="newwrapper col-md-4" ng-disabled="resourcemodel.length">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in resourcemodel">
+              <button class='btn btn-default'   disabled >{{field.employee_name}}</button>
+          </li>
+          </ul>
+          </div>
+          <div class="newwrapper col-md-4"  ng-disabled="resourcemodel.length">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in skillmodel">
+              <button class='btn btn-default' disabled >{{field.skill_name}}</button>
+          </li>
+          </ul>
+          </div>
+          </div> -->
+          <br>
+          <!-- <div class="row">
+        <div class="newwrapper col-md-4"  ng-disabled="sermodel.length">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in sermodel">
+              <button class='btn btn-default' disabled >{{field.service_code}}</button>
+          </li>
+          </ul>
+          </div>
+          </div> -->
+      <div id="mycalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="calendar"></div>
+      
+<p>&nbsp;</p>

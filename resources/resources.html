@@ -1,0 +1,16 @@
+<!-- <div ng-include="'pages/navigation.html'"></div> -->
+<div class="jumbotron text-center">
+        <button class="btn btn-primary" ui-sref="resources.add">Add People</button>
+       <!--  <button class="btn btn-primary" ng-show = "!IsVisible" ng-click="ShowHide()" ui-sref="resources.add">+</button>
+        <button class="btn btn-primary" ng-show = "IsVisible" ng-click="!ShowHide()">-</button> -->
+        <br />
+        <br />
+        <div ng-show = "IsVisible">
+
+    </div>
+    <div  ui-view="modal"></div>
+<div class="grid" ui-grid="vm.gridOptions" external-scopes="$scope"  ui-grid-edit ui-grid-resize-columns>
+  <div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div>
+</div>
+</div>
+

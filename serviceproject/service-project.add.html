@@ -1,0 +1,88 @@
+
+<div class="Modal-backdrop"></div>
+<div class="Modal-holder"  autoscroll="false">
+  <h2 class="labelcustom">Project</h2>
+  <br>
+  <br>
+  <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+  <div class="form-account">
+    <form name="form" ng-submit="vm.saveserviceproject()" role="form" class="form-horizontal">
+    <fieldset>
+    <div class="form-group">
+          <label class="col-md-4 control-label labelcustom" for="skill_type">Account</label>
+          <div class="col-md-1 text-left">
+            <div ng-dropdown-multiselect="" events="accountEvents" options="accountdata" date-selected='dselect(date)' selected-model="accountmodel" extra-settings="accountsettings"></div>
+          </div>
+          <div class="col-md-7 proheader" ng-show="accountprojects.length">
+            <div class="col-md-4 labelcustom">Existing Projects</div>
+            <div class="col-md-8">
+                <div class="single pro">
+                   <ul class="nav navbar-nav custom-nav">
+                    <li ng-repeat="field in accountprojects">
+                        <button class='btn btn-default'   >{{field.project_name}} -- {{field.owner}}</button>
+                    </li>
+                    </ul>
+                    </div>
+                    </div>
+      </div>
+      </div>
+      <div class="form-group">
+          <label class="col-md-4 control-label labelcustom" for="skill_type">Service</label>
+          <div class="col-md-4 text-left">
+            <div ng-dropdown-multiselect="" events="serEvents" options="serdata"  selected-model="sermodel" extra-settings="sersettings"></div>
+          </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">Project name</label>  
+        <div class="col-md-4">
+        <input id="skill_name" name="skill_name" placeholder="placeholder" class="form-control" ng-model="vm.serpro.project_name" required="" type="text">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">Project Code</label>  
+        <div class="col-md-4">
+        <input id="service_code" name="service_code" placeholder="placeholder" class="form-control" ng-model="vm.serpro.project_code" required="" type="text">
+        </div>
+      </div>
+      
+      <div class="form-group">
+          <label class="col-md-4 control-label labelcustom" for="start_date">Start Date</label>
+          <div class="col-md-4 text-left">
+            <p class="input-group">
+          <input type="text" size="10" class="form-control" uib-datepicker-popup ng-model="vm.serpro.start_date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="col-md-4 control-label labelcustom" for="skill_type">End Date</label>
+          <div class="col-md-4 text-left">
+            <p class="input-group">
+          <input type="text" size="10" class="form-control" uib-datepicker-popup ng-model="vm.serpro.end_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+          </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">Effort Estimate</label>  
+        <div class="col-md-4">
+        <input id="estimated_efforts" name="estimated_efforts" placeholder="placeholder" class="form-control" ng-model="vm.serpro.estimated_efforts" required="" type="text">
+        </div>
+      </div>
+      <!-- {{sermodel}} -->
+        <div class="form-group">
+          <div class="">
+            <button id="submit" type="submit" ng-disabled="vm.dataLoading" name="submit" class="btn btn-success">Submit</button>
+            <button id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
+          </div>
+        </div>
+            </fieldset>
+    </form>
+     </div>
+     </div>

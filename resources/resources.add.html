@@ -1,0 +1,47 @@
+
+<div class="Modal-backdrop"></div>
+<div class="Modal-holder"  autoscroll="false">
+  <h2 class="labelcustom">People</h2>
+  <br>
+  <br>
+  <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+  <div class="form-account">
+    <form name="form" ng-submit="vm.saveresource()" role="form" class="form-horizontal">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">Employee name</label>  
+        <div class="col-md-4">
+        <input id="employee_name" name="employee_name" placeholder="placeholder" class="form-control" ng-model="vm.resource.employee_name" required="" type="text">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">Employee ID</label>  
+        <div class="col-md-4">
+        <input id="employee_id" name="employee_id" placeholder="placeholder" class="form-control" ng-model="vm.resource.employee_id" required="" type="text">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="skills">Skills</label>{{resmodel}}
+        <div class="col-md-4 text-left">
+        <div ng-dropdown-multiselect="" events="resEvents" options="resdata" selected-model="resmodel" extra-settings="ressettings"></div>
+    
+        </div>
+      </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label labelcustom" for="heirarchy_id">Role</label>
+          <div class="col-md-4">
+            <select name="heirarchy_id" id="availableHeirarchyOptions" ng-model="vm.resource.heirarchy_id" class="form-control" required>
+                      <option ng-repeat="option in data.availableHeirarchyOptions" value="{{option.id}}">{{option.role_name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="">
+            <button id="submit" type="submit" ng-disabled="vm.dataLoading" name="submit" class="btn btn-success">Submit</button>
+            <button id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
+          </div>
+        </div>
+            </fieldset>
+    </form>
+     </div>
+     </div>

@@ -1,0 +1,482 @@
+<style>
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+body {
+  background-color: #3e94ec;
+  font-family: "Roboto", helvetica, arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+.firstfill.container,.secondfill.container {
+    border: 5px solid #d9d9d9;
+    border-radius: 5px;
+    padding: 10px;
+}
+.firstfill.container button.btn-primary,.secondfill.container button.btn-primary {
+    margin-top: 10px;
+}
+
+div.table-title {
+   display: block;
+  margin: auto;
+  max-width: 600px;
+  padding:5px;
+  width: 100%;
+}
+
+.table-title h3 {
+   color: #fafafa;
+   font-size: 30px;
+   font-weight: 400;
+   font-style:normal;
+   font-family: "Roboto", helvetica, arial, sans-serif;
+   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+   text-transform:uppercase;
+}
+
+
+/*** Table Styles **/
+
+.table-fill {
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  height: 320px;
+  margin: auto 1px auto auto;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  float: left;
+  animation: float 5s infinite;
+}
+.table-right-fill {
+  float: left;
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  height: 320px;
+  margin: auto;
+  max-width: 600px;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+ 
+.table-fill th {
+  color:#D5DDE5;;
+  background:#1b1e24;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-size:23px;
+  font-weight: 100;
+  padding:24px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+.table-fill th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+.table-fill th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+  
+.table-fill tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:#666B85;
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+ 
+.table-fill tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+  border-bottom: 1px solid #22262e;
+}
+ 
+.table-fill tr:first-child {
+  border-top:none;
+}
+
+.table-fill tr:last-child {
+  border-bottom:none;
+}
+ 
+.table-fill tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+ 
+.table-fill tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+.table-fill tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+.table-fill tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+ 
+.table-fill td {
+  background:#FFFFFF;
+  padding:1px 12px 0px 37px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #C1C3D1;
+}
+
+.table-fill td:last-child {
+  border-right: 0px;
+}
+
+.table-fill th.text-left {
+  text-align: left;
+}
+
+.table-fill th.text-center {
+  text-align: center;
+}
+
+.table-fill th.text-right {
+  text-align: right;
+}
+
+.table-fill td.text-left {
+  text-align: left;
+}
+
+.table-fill td.text-center {
+  text-align: center;
+}
+
+.table-fill td.text-right {
+  text-align: right;
+}
+.text-left th.text-center{
+  padding: 0px !important;
+}
+
+.text-center.ng-scope{
+  padding: 0px !important;
+}
+
+</style><html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Table Style</title>
+  <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+</head>
+
+<body ng-keyup="myFunct($event)">
+  <div class="Modal-backdrop"></div>
+ <div class="Modal-holder"  autoscroll="true">
+  <div ng-class="{ 'alert text-left': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind-html="flash.message">
+                </div>
+  <div class="row">
+<!-- <div class="table-title">
+<h3>Data Table</h3>
+</div> -->
+<form name="myForm">
+<div class="firstfill container" ng-hide="nextv">
+<div class="row">
+<div class="col-md-6">
+<table class="table-fill">
+<tbody class="table-hover" >
+<tr>
+<td class="text-left">Account</td>
+<td class="text-left">
+  <input id="Account" name="Account" placeholder="placeholder" class="form-control input-md col-md-12 " ng-model="vm.account.account_name" ng-required="true" required type="text" size="10">
+</td>
+</tr>
+<tr>
+<td class="text-left">Account Code</td>
+<td class="text-left">
+<input id="Account Code" name="Account Code" ng-required="true" placeholder="placeholder" class="form-control input-md col-md-12" ng-model="vm.account.account_code" required="" type="text" size="10">
+</td>
+</tr>
+<tr>
+<td class="text-left">Organisational Unit</td>
+<td class="text-left">
+<select name="organisationalUnit"   ng-click="vm.getServices()" id="organisationalUnit" class="form-control" ng-model="vm.account.organisational_unit_id" ng-options="option.unit_code for option in data.availableOptions track by option.id"
+       required selected>
+              <!-- <option value="">Please select</option> -->
+              <!-- <option ng-repeat="option in data.availableOptions"  value="{{option.id}}">{{option.unit_code}}</option> -->
+    </select>
+</td>
+</tr>
+<tr>
+<td class="text-left">Account Status</td>
+<td class="text-left">
+          <select name="status" id="status" ng-model="vm.account.project_status" class="form-control">
+              <option ng-repeat="option in data.availableStatusOptions" value="{{option.id}}">{{option.name}}</option>
+          </select>
+        </td>
+</tr>
+<tr>
+<td class="text-left">Manager Contact</td>
+<td class="text-left">
+<select name="manager" id="manager" ng-model="vm.account.resource_id" class="form-control">
+              <option ng-repeat="option in data.availableManagerOptions" value="{{option.id}}">{{option.employee_name}}</option>
+          </select>
+</td>
+</tr>
+<tr>
+<td class="text-left">Region</td>
+<td class="text-left">
+  <select name="region" id="region" ng-model="vm.account.region" class="form-control">
+              <option ng-repeat="option in data.availableRegionTypes" value="{{option.id}}">{{option.name}}</option>
+    </select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-md-6">
+<table class="table-fill">
+<tbody class="table-hover" >
+<tr>
+<td class="text-left">Location</td>
+<td class="text-left">
+<input id="location" name="location" placeholder="placeholder" ng-model="vm.account.location"  class="form-control input-md col-md-12"  type="text" size="10">
+</td>
+</tr>
+<tr>
+<td class="text-left">Comments</td>
+<td class="text-left">
+<textarea class="form-control" id="comments" ng-model="vm.account.comments"  name="comments">default text</textarea>
+</td>
+</tr>
+<tr>
+<td class="text-left">CSM Contact</td>
+<td class="text-left">
+<textarea  rows="1" cols="26" id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.csm_contact" class="form-control input-md col-md-12"  type="text" size="10"></textarea>
+</td>
+</tr>
+<tr>
+<td class="text-left">Sales Contact</td>
+<td class="text-left">
+<input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.sales_contact" class="form-control input-md col-md-12"  type="text" size="10">
+</td>
+</tr>
+<tr>
+<td class="text-left">Account Contact</td>
+<td class="text-left">
+<input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.account_contact" class="form-control input-md col-md-12"  type="text" size="10">
+</td>
+</tr>
+<!-- <tr>
+<td class="text-left">Overall Health</td>
+<td class="text-left">
+  <input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.overall_health" class="form-control input-md col-md-12"  type="text" size="10"></td>
+</tr> -->
+<tr>
+<td class="text-left">Account LoB</td>
+<td class="text-left">
+<input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.account_lob" class="form-control input-md col-md-12"  type="text" size="10">
+</td>
+</tr>
+<tr>
+<td class="text-left">Services</td>
+<td class="text-left">
+<div ng-dropdown-multiselect="" events="serEvents" options="serdata" selected-model="sermodel" extra-settings="sersettings"></div>
+</td>
+</tr>
+<!-- <tr>
+<td class="text-left">Mapped Services</td>
+<td class="text-left">
+   {{vm.ser}} 
+<div class="single">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in vm.ser">
+              <button class='btn btn-default' id='{{field.service_code + field.id}}'  >{{field.service_code}}</button>
+          </li>
+          </ul>
+          </div>
+</td>
+</tr> -->
+ 
+</tbody>
+</table>
+</div>
+<button class="btn btn-primary" ng-click="next()" ng-disabled="!sermodel.length">Go to Services</button>
+</div>
+</div>
+<div class="secondfill container" ng-show="nextv">
+<div class="row">
+<div class="col-md-6">
+<table class="table-fill">
+<tbody class="table-hover">
+<tr>
+<td class="text-left">Select a service</td>
+<td class="text-left">
+  <div class="col-md-8">
+  <div ng-dropdown-multiselect="" events="serIndEvents" options="sermodel" selected-model="serIndModel" extra-settings="serIndsettings"></div>
+  </div>
+  <div class="col-md-4">
+  <button type="button" class="btn btn-default" ng-show="keylength(vm.ser) && serIndModel.id" ng-click="fill(vm.ser)"><i class="fa fa-check" aria-hidden="true"></i></button>
+  </div>
+</td>
+</tr>
+<tr>
+<td class="text-left">No Of Resources Needed</td>
+<td class="text-left">
+<input id="noOfResources" name="noOfResources" placeholder="placeholder" class="form-control input-md col-md-12" type="text" size="10" ng-model="vm.service.no_of_people_needed">
+</td>
+</tr>
+<tr>
+<td class="text-left">No Of Resources Allocated</td>
+<td class="text-left">
+<input id="noOfResources" name="noOfResources" placeholder="placeholder" class="form-control input-md col-md-12" type="text" size="10" ng-model="vm.service.no_of_people_allocated">
+</td>
+</tr>
+<tr>
+<td class="text-left">Request Date</td>
+<td class="text-left">
+  <p class="input-group">
+          <input type="text" size="10" class="form-control" uib-datepicker-popup ng-model="vm.service.request_date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p></td>
+</tr>
+<tr>
+<td class="text-left">SOW Signed Date</td>
+<td class="text-left">
+<p class="input-group">
+          <input type="text" size="10" class="form-control" uib-datepicker-popup ng-model="vm.service.sow_signed_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+</td>
+</tr>
+<tr>
+<td class="text-left">Contract Type</td>
+<td class="text-left">
+<select name="contactType" id="contactType" ng-model="vm.service.contract_type" class="form-control">
+              <option ng-repeat="option in data.availableContactType" value="{{option.id}}">{{option.name}}</option>
+    </select>
+</td>
+</tr>
+<tr>
+<td class="text-left">SOW Status</td>
+<td class="text-left">
+<select name="sowStatus" id="sowStatus" ng-model="vm.service.sow_status" class="form-control">
+              <option ng-repeat="option in data.availableSowStatus" value="{{option.id}}">{{option.name}}</option>
+    </select>
+</td>
+</tr>
+<tr>
+<td class="text-left">Service Status</td>
+<td class="text-left">
+<select name="status" id="status" ng-model="vm.service.project_status" class="form-control">
+              <option ng-repeat="option in data.availableStatusOptions" value="{{option.id}}">{{option.name}}</option>
+          </select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="col-md-6">
+<table class="table-fill">
+<tbody class="table-hover" >
+<tr>
+<td class="text-left">Currency</td>
+<td class="text-left">
+<select name="anticipatedValueCurrency" id="anticipatedValueCurrency" ng-model="vm.service.anticipated_value_currency" ng-click="currencycheck()" class="form-control">
+              <option ng-repeat="option in data.availableAnticipatedValueCurrency" value="{{option.id}}" selected="{{option.selected}}">{{option.name}}</option>
+    </select>
+</td>
+</tr>
+
+<tr>
+<td class="text-left">Start Date</td>
+<td class="text-left">
+  <p class="input-group">
+          <input type="text" size="10"  uib-datepicker-popup ng-model="vm.service.start_date" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+</td>
+</tr>
+<tr>
+<td class="text-left">End Date</td>
+<td class="text-left">
+  <p class="input-group">
+          <input type="text" size="10"  uib-datepicker-popup ng-model="vm.service.end_date" is-open="popup4.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+</td>
+</tr>
+<tr>
+<td class="text-left">Comments</td>
+<td class="text-left">
+  <input id="anticipatedValue" name="anticipatedValue" placeholder="placeholder" ng-model="vm.service.comments" class="form-control input-md col-md-12"  type="text" size="10">
+</td>
+</tr>
+<tr>
+  
+<td class="text-left">Anticipated INR Value</td>
+<td class="text-left">
+<input id="anticipatedValue" name="anticipatedValue" placeholder="placeholder" ng-keyup="callCurrencyAPI()" ng-readonly="!USDcur" ng-model="vm.service.anticipated_value" class="form-control input-md col-md-12"  type="text" size="10">
+</td>
+</tr>
+<tr>
+<td class="text-left">Actual INR Value</td>
+<td class="text-left">
+  <input id="actualValue" name="actualValue" placeholder="placeholder" ng-keyup="callCurrencyAPI()" ng-readonly="!USDcur" ng-model="vm.service.actual_value" class="form-control input-md col-md-12"  type="text" size="10">
+</td>
+</tr>
+<tr>
+<td class="text-left">Anticipated  USD Value</td>
+<td class="text-left">
+<input id="anticipatedValue" name="anticipatedValue" ng-readonly="USDcur" ng-keyup="callCurrencyAPI()"  placeholder="placeholder" ng-model="vm.service.anticipated_usd_value" class="form-control input-md col-md-12"  type="text" size="10"></td>
+</tr>
+<tr>
+<td class="text-left">Actual USD Value</td>
+<td class="text-left">
+<input id="anticipatedValue" name="anticipatedValue" ng-readonly="USDcur" ng-keyup="callCurrencyAPI()" placeholder="placeholder" ng-model="vm.service.actual_usd_value" class="form-control input-md col-md-12"  type="text" size="10">
+</td>
+</tr>
+<!-- <tr>
+<td class="text-left"></td>
+<td class="text-left">
+  <button class="btn btn-primary"  ng-click="add(vm.service,serIndModel)">Add</button>
+</td>
+</tr> -->
+
+</tbody>
+</table>
+</div>
+</div>
+
+
+<div class="row">
+<button class="btn btn-primary" ng-click="back()">Back To Account</button>
+  
+</div>
+</div>
+</div>
+<br>
+<div class="row">
+<button class="btn btn-primary" type="submit" ng-click="vm.saveaccount()">Save</button>
+  <button id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
+</div>
+</form>
+</div>
+  </body>
