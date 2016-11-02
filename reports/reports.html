@@ -1,36 +1,60 @@
+<div class="Modal-backdrop" ng-show="popoverIsVisible" ></div>
+<div ng-show="popoverIsVisible" class="Modal-report-holder"  autoscroll="false">
+<div  >
+					<div class="modal-container" >
+					<span class="popuptext">{{name}} -- {{emp_id}} -- Utilization for {{filter}}</span>
+					<div class="pierepdata">{{perc}} %</div>
+					  <canvas id="doughnut" class="chart chart-doughnut mar-top"
+					          chart-data="ydata" chart-colors="colors" chart-labels="labels">
+					        </canvas>
+					<button class="btn btn-danger" ng-click="mousedleave()">Close</button>
+
+					</div>
+
+					</div>
+</div>
+
 <div class="text-center">
-        <br />
-        <br />
-        <!-- <ng-knob value="knobvalue" options="knoboptions"></ng-knob> -->
-        <div  ui-view="modal"></div>
         <div class="row">
-        	<div class="col-md-8">
-        	<div class="row">
-    <div class="btn-toolbar custpiebutton">
-                    <div id='btn-pie-group' class="btn-group">
+        <div class="col-md-4">
+        <div >
+      		<button ui-sref="calendar" class="btn btn-primary">View Calendar</button>
+      	</div>
+        </div>
+        <div class="col-md-offset-4 col-md-4">
+    		<div class="btn-toolbar custpiebutton">
+                    <div id='btn-pie-group' class="btn-group report-grp">
                         <button id='btn-today' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.getnewreport('today')">Today</button>
                         <button id='btn-week' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.getnewreport('week')">This Week</button>
                         <button id='btn-month' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.getnewreport('month')">This Month</button>
                     </div>
            </div>
+           </div>
            <!-- <div class="pieinsdata">{{totalutil}} %</div> -->
     </div>
-    <div class="row mainknob">
-        <ui-knob value="knobvalue" options="knoboptions"></ui-knob>
+    <hr class="horline">
+    <div class="row">
+	    <div class=" col-md-3 col-md-offset-1 reportfont">
+	    	<div class=" col-md-12">Total hours</div>
+	    	<div class=" col-md-12 innerfont">{{total_hrs}}</div>
+	    </div>
+	    <div class="col-md-3 col-md-offset-1 reportfont">
+	       <div class=" col-md-12">Utilized hours</div>
+	    	<div class=" col-md-12 innerfont">{{util_hrs}}</div>
+	    </div>
+		<div class=" col-md-4">
+		    <div class="mainknob">
+		        <ui-knob value="knobvalue" options="knoboptions"></ui-knob>
+		    </div>
+	    </div>
     </div>
+    <hr class="horline">
+        <div  ui-view="modal"></div>
+        <div class="row">
+        	<div class="">
         		<div  ui-grid="gridOptions" class="report-grid" ui-grid-edit></div>
         	</div>
-        	<div class="col-md-4">
-        		<div  ng-show="popoverIsVisible">
-					<div class="" >
-					<!-- <button class="btn btn-danger" ng-click="mousedleave()">Close</button> -->
-					  <canvas id="doughnut" class="chart chart-doughnut mar-top"
-					          chart-data="ydata" chart-colors="colors" chart-labels="labels">
-					        </canvas>
-					</div>
-
-					</div>
-        	</div>
+        		
         </div>
 
 

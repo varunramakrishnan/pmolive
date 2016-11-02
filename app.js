@@ -78,12 +78,32 @@
             controllerAs: 'vm'
 
             })
-            .state('home', {
-                    url: "/home",
+            // .state('home', {
+            //         url: "/home",
+            //         controller: 'HomeController',
+            //         templateUrl: 'home/home.view.html',
+            //         controllerAs: 'vm'
+            //     })
+            .state('calendar', {
+                    url: "/calendar",
                     controller: 'HomeController',
                     templateUrl: 'home/home.view.html',
                     controllerAs: 'vm'
                 })
+
+            .state('home', {
+                url: "/home",
+                templateUrl : 'reports/reports.html',
+                controller  : 'ReportsController',
+                controllerAs: 'vm',
+                onEnter: ["$state", function($state) {
+                  $(document).on("click", ".btn-danger", function() {
+                    $state.go("reports");
+                  });
+
+                  
+                }],
+            })
 
             .state('register', {
                 url: "/register",

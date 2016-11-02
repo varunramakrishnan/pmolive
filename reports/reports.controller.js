@@ -4,34 +4,6 @@
     angular
         .module('app')
         .controller('ReportsController', ReportsController);
-//   angular
-//   .module('app')
-//   .component('modalComponent', {
-//   templateUrl: 'myModalContent.html',
-//   bindings: {
-//     resolve: '<',
-//     close: '&',
-//     dismiss: '&'
-//   },
-//   controller: function () {
-//     var $ctrl = this;
-
-//     $ctrl.$onInit = function () {
-//       $ctrl.items = $ctrl.resolve.items;
-//       $ctrl.selected = {
-//         item: $ctrl.items[0]
-//       };
-//     };
-
-//     $ctrl.ok = function () {
-//       $ctrl.close({$value: $ctrl.selected.item});
-//     };
-
-//     $ctrl.cancel = function () {
-//       $ctrl.dismiss({$value: 'cancel'});
-//     };
-//   }
-// });
 	ReportsController.$inject = ['$rootScope','$q','$timeout','$cookieStore','$scope','$state','$log','$http','UserService', '$location', 'FlashService','RowEditor','$uibModal','$document'];
 	function ReportsController($rootScope,$q,$timeout,$cookieStore,$scope,$state,$log,$http,UserService, $location,FlashService,RowEditor,$uibModal, $document) {
 
@@ -49,40 +21,36 @@
     { field:'emp_id', width:100 },
     { field:'name' , width:100 },
     { field:'hours', width:80 },
-    { field: 'bullet', name:"Click the chart for detailed info", cellTemplate: 'reports/bullet-cell.html',width:350},
-    // { field: 'spark', cellTemplate: 'reports/donut-cell.html'}
-
-    
-    // { name:'Column Name', cellTemplate: '<spark-line-chart values="grid.appScope.valuesStacked"></spark-line-chart>'}
+    { field: 'bullet', name:"Click the meter for detailed info", cellTemplate: 'reports/bullet-cell.html',width:350},
   ];
-  // $scope.gridOptions.rowHeight = 400;
-    
+  
   $scope.knoboptions = {
-    unit: "%",
+  displayPrevious: true,
+  unit: "%",
+  size: 100,
   readOnly: true,
   subText: {
     enabled: true,
     text: 'loaded',
     color: 'gray',
-    font: 'auto'
+    font: '2px'
   },
-  trackWidth: 40,
-  barWidth: 25,
+  // barCap: 10,
+  trackWidth: 15,
+  barWidth: 13,
   trackColor: '#656D7F',
-  barColor: '#2CC185'
-    //other options
-  };
+  barColor: '#378006',
+  textColor: '#378006'
+};
   $scope.moused = function(id)
   {
     $scope.repdata.forEach(function (d) {
       if (d.id == id){
-        // $scope.piedata = d.spark.data.;
-        // $scope.pieoptions = d.spark.options;
         $scope.labels = d.spark.label;
         $scope.ydata = d.spark.ydata;
-        console.log($scope.labels);
-        console.log($scope.ydata);
-        // $scope.totalutil = d.spark.data.totalutil;
+        $scope.name = d.name;
+        $scope.emp_id = d.emp_id;
+        $scope.perc = d.perc;
         $scope.popoverIsVisible = true;
       }
     });
@@ -91,13 +59,15 @@
    function getnewreport(filter) {
     getreportdata(filter).then(function(response){
   $scope.knobvalue = response.util;
+  $scope.total_hrs = response.total_hrs;
+  $scope.util_hrs = response.util_hrs;
  var data = $scope.repdata = response.donut;
       $scope.gridOptions.data = data;
       });
    }
-//   $scope.mousedleave = function() {
-//   $scope.popoverIsVisible = false; 
-// };
+  $scope.mousedleave = function() {
+  $scope.popoverIsVisible = false; 
+};
 var fullWeekFormat='YYYY-MM-DD';
 var weekFullStart = moment().clone().startOf('week');
 $scope.week_full=[weekFullStart.day(0).format(fullWeekFormat),weekFullStart.day(1).format(fullWeekFormat),weekFullStart.day(2).format(fullWeekFormat),weekFullStart.day(3).format(fullWeekFormat),weekFullStart.day(4).format(fullWeekFormat),weekFullStart.day(5).format(fullWeekFormat),weekFullStart.day(6).format(fullWeekFormat)];
@@ -115,17 +85,20 @@ var getreportdata = function (filter) {
         myEl.removeClass('custactive');
       var date = moment().format(fullWeekFormat);
       if(filter=="today"){
+        $scope.filter = "today";
         var newtext= '#btn-today' ;
         var mynewEl = angular.element( document.querySelector( newtext ) );
         mynewEl.addClass('custactive');
         var piepostData = {"dates":[date]};
         
       }else if(filter=="week"){
+        $scope.filter = "this week";
         var newtext= '#btn-week' ;
         var mynewEl = angular.element( document.querySelector( newtext ) );
         mynewEl.addClass('custactive');
         var piepostData = {"dates":$scope.week_full};
       }else{
+        $scope.filter = "this month";
         var newtext= '#btn-month' ;
         var mynewEl = angular.element( document.querySelector( newtext ) );
         mynewEl.addClass('custactive');
@@ -179,7 +152,8 @@ $scope.hidePopover = function () {
 // ];
  getreportdata("today").then(function(response){
   $scope.knobvalue = response.util;
-  
+  $scope.total_hrs = response.total_hrs;
+  $scope.util_hrs = response.util_hrs;
  var data = $scope.repdata = response.donut;
 
       // data.forEach(function (d) {

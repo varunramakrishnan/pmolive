@@ -156,7 +156,6 @@ body {
 
 }
 
-
 .grid {
 
   height: 450px;
@@ -173,7 +172,7 @@ body {
   height: 450px;
   /*margin-top:200px;*/
   width:600px;
-  /*margin: 0 auto;*/
+  margin: 0 auto;
 }
 .serpro-grid{
   height: 450px;
@@ -489,15 +488,14 @@ height: 49px;
   padding: 30px 15px;
 }
 .Modal-report-holder {
-    background: white;
-    opacity: 0.9;
-    border-radius: 20px;
-    height: 100%;
-    left: 29%;
-    position: absolute;
-    top: 47%;
-    /*width: 100%;*/
-    z-index: 100;
+   position: fixed;
+  top: 0px;
+  left: 0px;
+  height:100%;
+  width:100%;
+  background: transparent;
+  z-index: 3;
+  padding: 30px 15px;
 }
 .Modal-holder-project div#mycalendar{
   width: 50%
@@ -1471,5 +1469,46 @@ display:none;
 .row.mainknob {
     padding: 3%;
     width: 74%;
+}
+hr.horline {
+  height: 10px;
+  border: 0;
+  box-shadow: 0px 8px 10px -10px #939ca6 inset;
+  margin: 10px auto;
+}
+.report-grp{
+  padding:0% 0% 9%
+}
+.modal-container{
+  /*background: white none repeat scroll 0 0;*/
+    width: 40%;
+    z-index: 7 !important;
+    margin: 20% auto;
+}
+.reportfont {
+    /*background-color: #333333;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: white;*/
+    font-size: 18px;
+    /*margin: 0 auto;*/
+    /*padding: 20px;*/
+}
+.innerfont {
+    font-size: 30px;
+}
+.popuptext {
+    color: white;
+    font-size: 22px;
+}
+.pierepdata {
+    color: white;
+    font-size: 28px;
+    left: 48%;
+    position: absolute;
+    top: 64%;
+}
+#doughnut {
+    margin-bottom: 50px;
 }
 /*----*/
