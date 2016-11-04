@@ -5,9 +5,9 @@
         .module('app')
         .controller('SkillController', SkillController)
         .controller('SkillEditController', SkillEditController)
-        .controller('SkillDeleteController', SkillDeleteController)
-        .controller('RowEditCtrl', RowEditCtrl)
-        .service('RowEditor', RowEditor);
+        .controller('SkillDeleteController', SkillDeleteController);
+        // .controller('RowEditCtrl', RowEditCtrl)
+        // .service('RowEditor', RowEditor);
 	SkillController.$inject = ['$rootScope','$timeout','$cookieStore','$scope','$state','$log','$http','UserService', '$location', 'FlashService','RowEditor'];
 	function SkillController($rootScope,$timeout,$cookieStore,$scope,$state,$log,$http,UserService, $location,FlashService,RowEditor) {
 
@@ -118,57 +118,7 @@ vm.gridOptions = {
     }
 
 
-RowEditor.$inject = ['$rootScope', '$modal','UserService'];
 
-function RowEditor($rootScope, $modal,UserService) {
-
-  var service = {};
-
-  service.editRow = editRow;
-
-  
-
-  function editRow(grid, row) {
-    $modal.open({
-
-      templateUrl: 'skills/edit-skill-modal.html',
-
-      controller: ['$modalInstance', '$rootScope', 'grid', 'row','UserService', RowEditCtrl],
-
-      controllerAs: 'vm',
-
-      resolve: {
-
-        grid: function () { return grid; },
-
-        row: function () { return row; }
-
-      }
-
-    });
-
-  }
-
-  
-
-  return service;
-
-}
-function RowEditCtrl($modalInstance, $rootScope, grid, row ,UserService) {
-
-  var vm = this;
-  vm.entity = angular.copy(row.entity);
-  vm.items = $rootScope.availableHeirarchyOptions;
-  vm.save = save;
-  function save() {
-    // Copy row values over
-    row.entity = angular.extend(row.entity, vm.entity);
-    $modalInstance.close(row.entity);
-    UserService.editAccount(row.entity);
-
-  }
-
-}
 
 SkillEditController.$inject = ['$scope','$log','$state','$http','UserService', '$location', 'FlashService','$timeout','$routeParams'];
 function SkillEditController($scope,$log,$state,$http,UserService, $location,FlashService,$timeout,$routeParams) {
@@ -189,9 +139,10 @@ function SkillEditController($scope,$log,$state,$http,UserService, $location,Fla
 
                   function saveskill() {
             vm.dataLoading = true;
-            UserService.saveSkill(vm.skill)
+            vm.skill.id = splits[splits.length - 1];
+            UserService.editSkill(vm.skill)
                 .then(function (response) {
-                    if (response.data.success) {
+                    if (response.data.id) {
                         FlashService.Success('Save successful', true);
                         vm.dataLoading = false;
                         UserService.getSkills()

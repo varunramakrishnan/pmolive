@@ -77,6 +77,7 @@
         service.getResourceTimeCard = getResourceTimeCard;
         service.getResourcePieData = getResourcePieData;
         service.getReportData=getReportData;
+        service.editSkill=editSkill;
         return service;
 
         function getResourceTimeCard(data) {
@@ -289,6 +290,17 @@
                 headers : { 'Content-Type': 'application/json',
                 "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
                 data:  ser
+                //{"id":unit.id,"unit_name":unit.unit_name}
+            }
+            return $http(req).then(function(response){return response;},function(response){return response;});
+        }
+        function editSkill(skill) {
+            var req = {
+                method: 'PUT',
+                url: 'http://'+hostName+':'+port+'/skills/' + skill.id + '.json',
+                headers : { 'Content-Type': 'application/json',
+                "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
+                data:  skill
                 //{"id":unit.id,"unit_name":unit.unit_name}
             }
             return $http(req).then(function(response){return response;},function(response){return response;});

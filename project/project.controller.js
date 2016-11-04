@@ -19,6 +19,7 @@
               newEl.removeClass("hidden"); 
             }
             var rTEvents = [];
+
             $rootScope.shownav=true;
             $rootScope.rootAccess =  $cookieStore.get("rootAccess");
             $rootScope.pmAccess =  $cookieStore.get("pmAccess");
@@ -299,6 +300,27 @@
          $scope.accountrangeDates = [];
          $scope.accountrange;
          $scope.user = [];
+         // $scope.dalhrs = 0;
+         $scope.calresult = function() {
+                return $scope.weekDates.length * $scope.resmodel.length * 8;
+        };
+        
+        $scope.calfunc = function() {
+                $scope.singleserSelect  = $scope.weekDates.length * $scope.resmodel.length * $scope.perResHrs;
+        };
+        
+        $scope.calenderresult = function() {
+          var myCalDate = [];
+                angular.forEach($scope.selectedDates, function(value) {
+                var d = new Date(value);
+                var day=d.getDay();
+                if(!(day==0 || day==6)){
+                 myCalDate.push(value+19800000);
+               }
+              });
+                $scope.weekDates = angular.copy(myCalDate);
+                return myCalDate.length;
+        };
          var ary=[]
          var mydata = 
          {resource_id: '', name: '', Dates : '' }
