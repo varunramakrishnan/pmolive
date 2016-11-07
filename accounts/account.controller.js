@@ -387,12 +387,12 @@ $scope.datepickerConfig = {
               vm.account.organisational_unit_id=vm.account.organisational_unit_id.id;
               UserService.saveAccount(vm.account)
                   .then(function (response) {
-                      if (response.data) {
+                      if (response.data.success.id) {
                           FlashService.Success('Save successful', true);
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});
                       } else {
-                          FlashService.Error(response.message);
+                          FlashService.Error(response.data.errors);
                           vm.dataLoading = false;
                       }
                   });
@@ -510,12 +510,12 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
               vm.account.organisational_unit_id=vm.account.organisational_unit_id.id;
               UserService.saveAccount(vm.account)
                   .then(function (response) {
-                      if (response.data) {
+                      if (response.data.success) {
                           FlashService.Success('Save successful', true);
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});
                       } else {
-                          FlashService.Error(response.message);
+                          FlashService.Error("Error in saving");
                           vm.dataLoading = false;
                       }
                   });
