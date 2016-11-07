@@ -97,7 +97,7 @@
                  {{project.name}} 
       </div>
       <div ng-repeat="i in project.bool track by $index" class="col-md-1" id="myTab">
-                        <input type="number" min="0" max="24" class="textField" ng-model="project.temp[$index]" step="any"/>
+                        <input type="number" min="0" max="24" class="textField" ng-model="project.temp[$index]" step="any" ng-readonly="project.bool[$index]"/>
       </div>
       <div class="col-md-1 col-md-offset-1" id="myTab" >
                         <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="any"/>
@@ -112,7 +112,7 @@
                         <input type="" min="0" max="24" class="textField customText" disabled readonly ng-value="getTotal($index)" step="any"/>
       </div>
       <div class="col-md-1" >
-                        <button class="btn btn-primary"  ng-click="vm.savetimesheet('save')">Save</button>
+                        <button class="btn btn-primary"  ng-click="vm.savetimesheet('save');vm.getpiedata('today')">Save</button>
     </div>
     </div>
 
