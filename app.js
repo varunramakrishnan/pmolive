@@ -524,6 +524,8 @@
 
     run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
     function run($rootScope, $location, $cookieStore, $http) {
+        $rootScope.rootAccess =  $cookieStore.get("rootAccess");
+        $rootScope.pmAccess =  $cookieStore.get("pmAccess");
         $rootScope.getClass = function (path) {
               return ($location.path().substr(0, path.length) === path) ? 'active' : '';
             }
@@ -540,6 +542,16 @@
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
+            if (loggedIn) {
+                var resPage = $.inArray($location.path(), ['/login', '/register','/timesheet']) === -1;
+                if(!($rootScope.rootAccess || $rootScope.pmAccess)){
+                    if(resPage ){
+                        // if(resPage && (!$rootScope.rootAccess || !$rootScope.pmAccess)){
+                    $location.path('/timesheet');
+                    }
+                }                
+            }
+                
         });
     }
 
