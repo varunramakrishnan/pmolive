@@ -21,10 +21,10 @@
   <div class="col-md-12"><ds-widget-clock  gmt-offset="'11.0'" show-digital theme="light" show-analog></ds-widget-clock></div>
   </div>
   </div>
-  <div class="row">
-  <div class="col-md-2 col-md-offset-1"><span >IST</span>
+  <div class="row" style="padding-right:22px;">
+  <div class="col-md-2 col-md-offset-1" style="padding-right:35px;"><span >IST</span>
   </div>
-  <div class="col-md-2 "><span >PST</span>
+  <div class="col-md-2 " style="padding-right:25px;"><span >PST</span>
   </div>
   <div class="col-md-2 "><span >EST</span>
   </div>
@@ -97,7 +97,7 @@
                  {{project.name}} 
       </div>
       <div ng-repeat="i in project.bool track by $index" class="col-md-1" id="myTab">
-                        <input type="number" min="0" max="24" class="textField" ng-model="project.temp[$index]" step="any" ng-readonly="project.bool[$index]"/>
+                        <input type="number" min="0" max="24" class="textField" ng-model="project.temp[$index]" step="0.5" ng-readonly="project.bool[$index]"/>
       </div>
       <div class="col-md-1 col-md-offset-1" id="myTab" >
                         <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="any"/>
