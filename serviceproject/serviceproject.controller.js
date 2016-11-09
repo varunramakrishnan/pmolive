@@ -11,6 +11,8 @@
 
         var vm = this;
         $rootScope.shownav=true;
+        $scope.showservice= 0;
+        $scope.showmetadata= 0;
         $rootScope.rootAccess =  $cookieStore.get("rootAccess");
         $rootScope.pmAccess =  $cookieStore.get("pmAccess");
         var jsonstring="";
@@ -37,7 +39,7 @@
           enableSearch: true,
           displayProp:'account_name',
           idProp:'id',
-          externalIdProp:'id',
+          externalIdProp:'',
           selectionLimit: 1,
           showUncheckAll :false,
           closeOnSelect:true
@@ -66,9 +68,9 @@
         };
         $scope.accountEvents = {
                              onItemSelect: function(item) {
-                              
                                   FlashService.clearMessage();
                                   $scope.sermodel= [];
+                                  $scope.showservice= 1;
                                   UserService.getAccountServices(item.id).then(function (response){
                                     $scope.serdata = response.data.service_id ;
 
@@ -97,6 +99,7 @@
         $scope.serEvents = {
                              onItemSelect: function(item) {
                               $scope.accountprojects=[];
+                              $scope.showmetadata= 1;
                                   UserService.getAllAccountProjects($scope.accountmodel.id,item.id).then(function (response){
                                     if(response.data.length){
                                       $scope.accountprojects = response.data;                                      
@@ -177,6 +180,8 @@ vm.gridOptions = {
 ServiceProjectEditController.$inject = ['$scope','$rootScope','$log','$cookieStore','$state','$http','UserService', '$location', 'FlashService','$timeout','$routeParams'];
 function ServiceProjectEditController($scope,$rootScope,$log,$cookieStore,$state,$http,UserService, $location,FlashService,$timeout,$routeParams) {
   var vm=this;
+  $scope.showservice= 1;
+  $scope.showmetadata= 1;
    vm.saveserviceproject = saveserviceproject;
   var splits=$location.url().toString().split("/");
   UserService.getProject(splits[splits.length - 1])
@@ -224,20 +229,9 @@ function ServiceProjectEditController($scope,$rootScope,$log,$cookieStore,$state
                                   });
                                   },
                                 };
-                  // vm.gridOptions = {
-
-                  //     columnDefs: [
-                  //     { field: 'id',  cellTemplate:'<div class="ui-grid-cell-contents"><a href="#/project/edit/{{row.entity.id}}"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-edit"></i></button></a>&nbsp<a href="#/services/delete/{{row.entity.id}}"  ><button type="button" class="btn btn-xs danger-class"  ><i  class="fa fa-trash"></i></button></a></div>', width: 70 },
-                  //     { name: 'project_name' },
-                  //     { name: 'project_code' },
-                  //     { name: 'start_date' },
-                  //     { name: 'end_date' },
-                  //     ],
-                  //     enableCellEdit: false,
-
-                  //   };
 
                   function saveserviceproject() {
+                    vm.gridOptions = {};
             vm.dataLoading = true;
             vm.serpro.account_id=$scope.accountmodel.id;
             vm.serpro.service_id=$scope.sermodel.id;

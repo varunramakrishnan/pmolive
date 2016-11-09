@@ -1514,4 +1514,13 @@ hr.horline {
 #doughnut {
     margin-bottom: 50px;
 }
+.pcode:nth-child(1) {
+    /*float:left;*/
+    width:10%;
+}
+.pcode:nth-child(2) {
+    float:left;
+    width:30%;
+}
+
 /*----*/

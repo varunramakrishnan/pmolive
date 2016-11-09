@@ -206,9 +206,12 @@
           if((event.perc === "100.0") || (event.perc === "100")){
             var s="background-color:#378006;border-color:#378006";
             }else{
-              var s="background-color:#e26a26;border-color:#e26a26";
+              // var s="background-color:#e26a26;border-color:#e26a26";
+              // var s="background-color:#8B4513;border-color:#8B4513";
+              var s="background-color:#378006;border-color:#378006";
             }
           } else{
+              // var s="background-color:#e26a26;border-color:#e26a26";
               var s="background-color:#8B4513;border-color:#8B4513";
           };
         }

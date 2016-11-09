@@ -166,26 +166,11 @@ if(splits[3]){
           });
         }else{
           getreportdata("today").then(function(response){
+
   $scope.knobvalue = response.util;
   $scope.total_hrs = response.total_hrs;
   $scope.util_hrs = response.util_hrs;
  var data = $scope.repdata = response.donut;
-
-      // data.forEach(function (d) {
-        // d.spark.options = {};
-      //   d.spark.options.chart =  {
-      //         type: 'pieChart',
-      //         donut:true,
-      //         height: 600,
-      //         width: 600,
-      //         showLabels: true,
-      //         duration: 500,
-      //         x: function(d) { return d.key; },
-      //         y: function(d) { return d.y; }
-      //       };
-      // });
-
-      
       $scope.gridOptions.data = data;
       });
 

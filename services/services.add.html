@@ -32,7 +32,7 @@
           <div class="col-md-4 text-left">
             <select name="mappingFormat" id="mappingFormat" class="form-control" ng-model="vm.service.mapping_format" required>
               <option value="">Please select</option>
-              <option ng-repeat="option in value.availableOptions | orderBy:'map_code'"  value="{{option.id}}">{{option.map_code}}</option>
+              <option ng-repeat="option in value.availableOptions"  value="{{option.id}}">{{option.map_code}}</option>
     </select>
           </div>
       </div>
