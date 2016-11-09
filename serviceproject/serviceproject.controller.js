@@ -20,6 +20,15 @@
         $scope.sermodel = [];
         UserService.getAccounts().then(function (response) {
         $scope.accountdata = response.data;
+
+        var filtered = [];
+                  angular.forEach($scope.accountdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.account_name > b.account_name? 1 : -1);
+                  });
+            $scope.accountdata=filtered;
         });
         $scope.accountsettings = {
           smartButtonMaxItems: 1,
@@ -62,6 +71,17 @@
                                   $scope.sermodel= [];
                                   UserService.getAccountServices(item.id).then(function (response){
                                     $scope.serdata = response.data.service_id ;
+
+                                      var filtered = [];
+                                      angular.forEach($scope.serdata, function(item) {
+                                        filtered.push(item);
+                                      });
+                                      filtered.sort(function (a, b) {
+                                        return (a.service_code > b.service_code? 1 : -1);
+                                      });
+                                      $scope.serdata=filtered;
+
+
                                   });
                                   UserService.getAllAccountProjects(item.id,$scope.sermodel.id).then(function (response){
                                     console.log(response.data.length);

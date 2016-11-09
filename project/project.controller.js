@@ -135,11 +135,31 @@
               $scope.IsVisible=$scope.calmodel=$scope.showprodate=$scope.calrangemodel=item.id;
                 UserService.getAccountServices(item.id).then(function (response){
                   $scope.serdata = response.data.service_id ;
+                  var filtered = [];
+                  angular.forEach($scope.serdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.service_code > b.service_code? 1 : -1);
+                  });
+                  $scope.serdata=filtered;
+
                 });
                 UserService.getallFilteredResources(item.id).then(function (response){
                   $scope.example13data = response.data ;
+
+                  var filtered = [];
+                  angular.forEach($scope.example13data, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.employee_name > b.employee_name? 1 : -1);
+                  });
+                  $scope.example13data=filtered;
+
                   UserService.getModeledResource(item.id).then(function (response){
-                    $scope.example13model = response.data;
+                    $scope.example13model = response.data;    
+            
                     if($scope.example13model){
                       $scope.addresmodel=$scope.showreshere=1;
                       $scope.calrangemodel=0;
@@ -216,6 +236,16 @@
               });
               UserService.getFilteredProjects(data).then(function (response){
                 $scope.prodata = response.data ;
+
+                var filtered = [];
+                  angular.forEach($scope.prodata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.project_name > b.project_name? 1 : -1);
+                  });
+                $scope.prodata=filtered;
+
                 $scope.showprodate=1;
                 if(!$scope.prodata.length){
                  $scope.promodel.id=0;
@@ -244,12 +274,25 @@
               $scope.resmodel.length=0;
             },
           };
+          var temp_accountdate=[];
           $scope.accountmodel = [];
           $scope.promodel = [];
           $scope.sermodel = [];
           UserService.getAccounts().then(function (response) {
             $scope.accountdata = response.data;
+            var filtered = [];
+                  angular.forEach($scope.accountdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.account_name > b.account_name? 1 : -1);
+                  });
+            $scope.accountdata=filtered;
           });
+
+
+           
+
           $scope.accountsettings = {
             smartButtonMaxItems: 1,
             scrollableHeight: '200px',

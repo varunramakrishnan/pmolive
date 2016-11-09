@@ -22,6 +22,14 @@
       {id: 'Technical', skill_type: 'Technical'},
       {id: 'Soft Skill', skill_type: 'Soft Skill'}
     ];
+    var filtered = [];
+                  angular.forEach($rootScope.availableSkillOptions, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.skill_type > b.skill_type? 1 : -1);
+                  });
+            $rootScope.availableSkillOptions=filtered;
 
         /*$scope.data = {
                           repeatSelect: null,

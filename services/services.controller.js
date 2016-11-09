@@ -40,6 +40,15 @@
              };
         UserService.getUnits().then(function (response) {
           $scope.serdata = response.data;
+
+          var filtered = [];
+                  angular.forEach($scope.serdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.unit_name > b.unit_name? 1 : -1);
+                  });
+                  $scope.serdata=filtered;
         });
         
     $scope.ShowHide = function () {
