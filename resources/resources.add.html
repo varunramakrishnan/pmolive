@@ -31,7 +31,7 @@
           <label class="col-md-4 control-label labelcustom" for="heirarchy_id">Role</label>
           <div class="col-md-4">
             <select name="heirarchy_id" id="availableHeirarchyOptions" ng-model="vm.resource.heirarchy_id" class="form-control" required>
-                      <option ng-repeat="option in data.availableHeirarchyOptions" value="{{option.id}}">{{option.role_name}}</option>
+                      <option ng-repeat="option in data.availableHeirarchyOptions " value="{{option.id}}">{{option.role_name}}</option>
             </select>
           </div>
         </div>

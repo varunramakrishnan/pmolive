@@ -209,7 +209,7 @@ div.table-title {
 <tr>
 <td class="text-left">Organisational Unit</td>
 <td class="text-left">
-<select name="organisationalUnit"   ng-click="vm.getServices()" id="organisationalUnit" class="form-control" ng-model="vm.account.organisational_unit_id" ng-options="option.unit_code for option in data.availableOptions track by option.id"
+<select name="organisationalUnit"   ng-click="vm.getServices()" id="organisationalUnit" class="form-control" ng-model="vm.account.organisational_unit_id" ng-options="option.unit_code for option in data.availableOptions | orderBy:'unit_name'"
        required selected>
               <!-- <option value="">Please select</option> -->
               <!-- <option ng-repeat="option in data.availableOptions"  value="{{option.id}}">{{option.unit_code}}</option> -->
@@ -220,7 +220,7 @@ div.table-title {
 <td class="text-left">Account Status</td>
 <td class="text-left">
           <select name="status" id="status" ng-model="vm.account.project_status" class="form-control">
-              <option ng-repeat="option in data.availableStatusOptions" value="{{option.id}}">{{option.name}}</option>
+              <option ng-repeat="option in data.availableStatusOptions | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
           </select>
         </td>
 </tr>
@@ -228,7 +228,7 @@ div.table-title {
 <td class="text-left">Manager Contact</td>
 <td class="text-left">
 <select name="manager" id="manager" ng-model="vm.account.resource_id" class="form-control">
-              <option ng-repeat="option in data.availableManagerOptions" value="{{option.id}}">{{option.employee_name}}</option>
+              <option ng-repeat="option in data.availableManagerOptions | orderBy:'employee_name'" value="{{option.id}}">{{option.employee_name}}</option>
           </select>
 </td>
 </tr>
@@ -236,7 +236,7 @@ div.table-title {
 <td class="text-left">Region</td>
 <td class="text-left">
   <select name="region" id="region" ng-model="vm.account.region" class="form-control">
-              <option ng-repeat="option in data.availableRegionTypes" value="{{option.id}}">{{option.name}}</option>
+              <option ng-repeat="option in data.availableRegionTypes | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
     </select>
 </td>
 </tr>
@@ -382,7 +382,7 @@ div.table-title {
 <td class="text-left">Service Status</td>
 <td class="text-left">
 <select name="status" id="status" ng-model="vm.service.project_status" class="form-control">
-              <option ng-repeat="option in data.availableStatusOptions" value="{{option.id}}">{{option.name}}</option>
+              <option ng-repeat="option in data.availableStatusOptions | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
           </select>
 </td>
 </tr>
@@ -396,7 +396,7 @@ div.table-title {
 <td class="text-left">Currency</td>
 <td class="text-left">
 <select name="anticipatedValueCurrency" id="anticipatedValueCurrency" ng-model="vm.service.anticipated_value_currency" ng-click="currencycheck()" class="form-control">
-              <option ng-repeat="option in data.availableAnticipatedValueCurrency" value="{{option.id}}" selected="{{option.selected}}">{{option.name}}</option>
+              <option ng-repeat="option in data.availableAnticipatedValueCurrency | orderBy:'name'" value="{{option.id}}" selected="{{option.selected}}">{{option.name}}</option>
     </select>
 </td>
 </tr>

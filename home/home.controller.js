@@ -265,6 +265,17 @@
          onItemSelect: function(item) {
           UserService.getAccountServices(item.id).then(function (response) {
             $scope.serdata = response.data.service_id ;
+
+            var filtered = [];
+                  angular.forEach($scope.serdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.service_code > b.service_code? 1 : -1);
+                  });
+                  $scope.serdata=filtered;
+
+
           });
           $scope.type="filter";
           $scope.eventSources=[fetchEvents];
@@ -344,12 +355,41 @@
           
           UserService.getAccounts().then(function (response) {
             $scope.accountdata = response.data;
+            var filtered = [];
+                  angular.forEach($scope.accountdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.account_name > b.account_name? 1 : -1);
+                  });
+            $scope.accountdata=filtered;
+
           });
           UserService.getResources().then(function (response) {
             $scope.resourcedata = response.data;
+
+            var filtered = [];
+                  angular.forEach($scope.resourcedata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.employee_name > b.employee_name? 1 : -1);
+                  });
+            $scope.resourcedata=filtered;
+
           });
           UserService.getSkills().then(function (response) {
             $scope.skilldata = response.data;
+
+             var filtered = [];
+                  angular.forEach($scope.skilldata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.skill_name > b.skill_name? 1 : -1);
+                  });
+            $scope.skilldata=filtered;
+
           });
           $scope.accountsettings = {
             // smartButtonMaxItems: 1,

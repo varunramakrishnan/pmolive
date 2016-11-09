@@ -39,7 +39,19 @@ $scope.data = {
         UserService.getHeirarchies()
                          .then(function (response) {
                           $rootScope.availableHeirarchyOptions = response.data;
+
+
                          $scope.data.availableHeirarchyOptions= $rootScope.availableHeirarchyOptions;
+
+                          var filtered = [];
+                              angular.forEach($scope.data.availableHeirarchyOptions, function(item) {
+                                filtered.push(item);
+                              });
+                              filtered.sort(function (a, b) {
+                                return (a.role_name > b.role_name? 1 : -1);
+                              });
+                        $scope.data.availableHeirarchyOptions=filtered;
+                        console.log('here..'+$scope.data.availableHeirarchyOptions);
                          });
                        // },3000);
         // $timeout(function () {
@@ -53,6 +65,16 @@ $scope.data = {
                           skillArray[obj.id] = obj.skill_name;
                           }
                           $scope.resdata = response.data;
+                          var filtered = [];
+                            angular.forEach($scope.resdata, function(item) {
+                              filtered.push(item);
+                            });
+                            filtered.sort(function (a, b) {
+                              return (a.skill_name > b.skill_name? 1 : -1);
+                            });
+                      $scope.resdata=filtered;
+
+
                          });
                        // },3000);
     //$scope.clickResourceHandler = RowResourceEditor.editRow;

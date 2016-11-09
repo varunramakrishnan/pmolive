@@ -201,6 +201,16 @@ $scope.datepickerConfig = {
         {id: 'IBM', name: 'IBM'},
         {id: 'Agency', name: 'Agency'},
       ];
+
+      var filtered = [];
+                  angular.forEach($rootScope.availableContactType, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.name > b.name? 1 : -1);
+                  });
+            $rootScope.availableContactType=filtered;
+
       $rootScope.availableSowStatus =  [
         {id: 'Lead', name: 'Lead'},
         {id: 'SOW Signed', name: 'SOW Signed'},
@@ -208,6 +218,16 @@ $scope.datepickerConfig = {
         {id: 'Closed', name: 'Closed'},
         {id: 'Execution', name: 'Execution'},
       ];
+
+      var filtered = [];
+                  angular.forEach($rootScope.availableSowStatus, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.name > b.name? 1 : -1);
+                  });
+            $rootScope.availableSowStatus=filtered;
+            
       $rootScope.availableAnticipatedValueCurrency =  [
         {id: 'INR', name: 'INR',selected:0},
         {id: 'USD', name: 'USD',selected:1},
@@ -283,6 +303,16 @@ $scope.datepickerConfig = {
                            .then(function (response) {
                             $rootScope.availOrgan = response.data;
                            $scope.data.availableOptions= $rootScope.availOrgan;
+
+                           var filtered = [];
+                              angular.forEach($scope.data.availableOptions, function(item) {
+                                filtered.push(item);
+                              });
+                              filtered.sort(function (a, b) {
+                                return (a.unit_name > b.unit_name? 1 : -1);
+                              });
+                        $scope.data.availableOptions=filtered;
+
                             //$scope.data.selectedOption: {id: '1'} 
                              vm.account={};
                              // var strid=String($rootScope.availOrgan[0].id);
@@ -358,6 +388,14 @@ $scope.datepickerConfig = {
                   .then(function (response) {
                       if (response.data.success) {
                         $scope.serdata = response.data.success;
+                        var filtered = [];
+                  angular.forEach($scope.serdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.service_code > b.service_code? 1 : -1);
+                  });
+                  $scope.serdata=filtered;
                       } 
                   });
         }
