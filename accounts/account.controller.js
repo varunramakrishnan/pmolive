@@ -425,12 +425,12 @@ $scope.datepickerConfig = {
               vm.account.organisational_unit_id=vm.account.organisational_unit_id.id;
               UserService.saveAccount(vm.account)
                   .then(function (response) {
-                      if (response.data) {
+                      if (response.data.success.id) {
                           FlashService.Success('Save successful', true);
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});
                       } else {
-                          FlashService.Error(response.message);
+                          FlashService.Error(response.data.errors);
                           vm.dataLoading = false;
                       }
                   });
@@ -486,6 +486,7 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
                         vm.account = response.data;
                         var oid=vm.account.organisational_unit_id;
                         vm.account.organisational_unit_id = {id : oid};
+                        
                         if(vm.account.anticipated_value){
                         var sp=vm.account.anticipated_value.split(" ");
                         vm.account.anticipated_value=sp[0];
@@ -507,13 +508,17 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
                                     });
                               } 
                           });
-                      } 
-                  });
-                   UserService.getManagers()
+                          UserService.getManagers()
                            .then(function (response) {
                             $rootScope.availableManagers = response.data.success;
                             $scope.data.availableManagerOptions = $rootScope.availableManagers;
+                             var rid=vm.account.resource_id;
+                              vm.account.resource_id = String(rid);
+                            // vm.account.resource_id = {id : rid};
                            });
+                      } 
+                  });
+                   
                            var oldItem="";
                            $scope.serIndEvents = {
                              onItemSelect: function(item) {
@@ -548,12 +553,12 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
               vm.account.organisational_unit_id=vm.account.organisational_unit_id.id;
               UserService.saveAccount(vm.account)
                   .then(function (response) {
-                      if (response.data) {
+                      if (response.data.success) {
                           FlashService.Success('Save successful', true);
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});
                       } else {
-                          FlashService.Error(response.message);
+                          FlashService.Error("Error in saving");
                           vm.dataLoading = false;
                       }
                   });
