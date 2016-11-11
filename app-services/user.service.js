@@ -78,6 +78,7 @@
         service.getResourcePieData = getResourcePieData;
         service.getReportData=getReportData;
         service.editSkill=editSkill;
+        service.resourcesUnderManager=resourcesUnderManager;
         return service;
 
         function getResourceTimeCard(data) {
@@ -90,6 +91,19 @@
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
+
+        function resourcesUnderManager(managerID){
+            
+             var req = {
+                method: 'GET',
+                url: 'http://'+hostName+':'+port+'/resource-managers/'+managerID+'.json',
+                headers : { 'Content-Type': 'application/json;',
+                "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
+            }
+            return $http(req).then(function(response){return response;},function(response){return response;});
+            
+        }
+
         function getResourcePieData(data){
             var req = {
                 method: 'POST',
