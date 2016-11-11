@@ -99,9 +99,20 @@
       <div ng-repeat="i in project.bool track by $index" class="col-md-1" id="myTab">
                         <input type="number" min="0" max="24" class="textField" ng-model="project.temp[$index]" step="0.5" ng-readonly="project.bool[$index]"/>
       </div>
+      <!-- <div>
+      <textarea style="overflow:auto;resize:none;align:left;" rows="2" cols="20"></textarea> -->
       <div class="col-md-1 col-md-offset-1" id="myTab" >
-                        <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="any"/>
+        
+          
+              <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="any"/>
+          
+              <!-- <textarea style="overflow:auto;resize:none;align:left;" rows="2" cols="1"></textarea> -->
+          
     </div>
+
+     <!--  </div> -->
+      
+
     </div>
     <div class="row padDtop customBack cusDPro">
       <div class="col-md-3">
@@ -111,8 +122,11 @@
                        <!--  <input type="" min="0" max="24" class="textField customText" disabled readonly ng-value="projects[0].temp[$index]+projects[1].temp[$index]+projects[2].temp[$index]+projects[3].temp[$index]+projects[4].temp[$index]" step="any"/> -->
                         <input type="" min="0" max="24" class="textField customText" disabled readonly ng-value="getTotal($index)" step="any"/>
       </div>
-      <div class="col-md-1" >
+      <div class="col-md-0" >
                         <button class="btn btn-primary"  ng-click="vm.savetimesheet('save');vm.getpiedata('today')">Save</button>
+    </div>
+    <div class="col-md-0" style="padding-bottom:10px;" >
+                        <button class="btn btn-primary"  ng-click="vm.savetimesheet('save');vm.getpiedata('today')">commit</button>
     </div>
     </div>
 

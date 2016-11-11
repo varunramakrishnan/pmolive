@@ -46,13 +46,25 @@ $scope.data = {
                           var filtered = [];
                               angular.forEach($scope.data.availableHeirarchyOptions, function(item) {
                                 filtered.push(item);
+                                
                               });
                               filtered.sort(function (a, b) {
                                 return (a.role_name > b.role_name? 1 : -1);
                               });
                         $scope.data.availableHeirarchyOptions=filtered;
-                        console.log('here..'+$scope.data.availableHeirarchyOptions);
+                        
                          });
+
+                         UserService.getManagers()
+                           .then(function (response) {
+                            $rootScope.availableManagers = response.data.success;
+                            $scope.data.availableManagerOptions = $rootScope.availableManagers;
+                             /*var rid=vm.resource.resource_name;
+                             console.log('resource id'+rid);
+                              vm.resource.resource_id = String(rid);
+                              console.log('here..resource..'+JSON.stringify($rootScope.availableManagers));*/
+                            // vm.account.resource_id = {id : rid};
+                           });
                        // },3000);
         // $timeout(function () {
         UserService.getSkills()
@@ -138,7 +150,7 @@ vm.gridOptions = {
       { name: 'role' , width: 180},
       // { name: 'heirarchy_id' , width: 140},
       { name: 'skill', enableColumnResizing: true },
-      //{ name: 'skill_id' },
+      {name: 'manager_name',width: 180},
     ]
 
   };
@@ -148,6 +160,7 @@ vm.gridOptions = {
   UserService.getResources()
      .then(function (response) {
       vm.gridOptions.data = response.data;
+
      });
     }
 
@@ -161,6 +174,7 @@ function ResourcesEditController($scope,$state,$rootScope,$log,$http,UserService
                   .then(function (response) {
                       if (response.data) {
                         vm.resource = response.data;
+                        
                         $scope.resmodel=vm.resource.skill_id;
                         // $scope.resmodel=vm.resource.resmodel;
                         //$scope.sermodel=vm.account.sermodel=
@@ -182,6 +196,14 @@ for(var i = 0; i < $rootScope.availableHeirarchyOptions.length; i++)
     vm.resource.role= $rootScope.availableHeirarchyOptions[i].role_name;
   }
 }
+for(var i = 0; i < $rootScope.availableManagerOptions.length; i++)
+{
+  if($rootScope.availableManagerOptions[i].id == vm.resource.employee_id)
+  {
+    vm.resource.resource_name= $rootScope.availableManagerOptions[i].employee_name;
+  }
+}
+
 
 
             vm.resource.id=splits[splits.length - 1];
