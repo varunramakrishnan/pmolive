@@ -13,6 +13,21 @@
 
 					</div>
 </div> -->
+    <div class="row">
+        <div class="col-md-2">
+      <div class="col-md-12 text-left">
+        <div ng-dropdown-multiselect="" events="managerEvents"  translation-texts="managercustomTexts" options="managerdata"  selected-model="managermodel" extra-settings="managersettings"></div>
+       
+      </div>
+      </div>
+       <div class="col-md-2" ng-show='people'>
+        <div class="col-md-12 text-left">
+          <div ng-dropdown-multiselect="" events="peopleEvents" options="peopledata" translation-texts="peoplecustomTexts" selected-model="peoplemodel" extra-settings="peoplesettings"></div>
+         
+        </div>
+      </div>
+    </div>
+
 <div  ui-view="modal"></div>
 <div class="text-center">
         <div class="row">
