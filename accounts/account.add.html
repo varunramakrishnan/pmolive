@@ -234,6 +234,7 @@ div.table-title {
 </tr>
 <tr>
 <td class="text-left">Region</td>
+<button class="btn btn-primary" ng-click="">Account logo</button>
 <td class="text-left">
   <select name="region" id="region" ng-model="vm.account.region" class="form-control">
               <option ng-repeat="option in data.availableRegionTypes | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
@@ -310,7 +311,8 @@ div.table-title {
 </tbody>
 </table>
 </div>
-<button class="btn btn-primary" ng-click="next()" ng-disabled="!sermodel.length">Go to Services</button>
+
+<button class="btn btn-primary" ng-click="next()" ng-disabled="!sermodel.length">...Go to Services</button>
 </div>
 </div>
 <div class="secondfill container" ng-show="nextv">
@@ -319,7 +321,7 @@ div.table-title {
 <table class="table-fill">
 <tbody class="table-hover">
 <tr>
-<td class="text-left">Select a service</td>
+<td class="text-left">Select vfa service</td>
 <td class="text-left">
   <div class="col-md-8">
   <div ng-dropdown-multiselect="" events="serIndEvents" options="sermodel" selected-model="serIndModel" extra-settings="serIndsettings"></div>

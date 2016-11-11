@@ -362,7 +362,8 @@
 
     
 
-       function savetimesheet(val) {
+       function savetimesheet(val) {  
+        console.log('value...'+val);
          $scope.master=angular.copy($scope.projects);
          for(var j=0;j<$scope.projects.length;j++){
           for(var i=0;i<$scope.projects[j].temp.length;i++){
