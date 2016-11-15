@@ -248,13 +248,13 @@ for(var i = 0; i < $rootScope.availableHeirarchyOptions.length; i++)
     vm.resource.role= $rootScope.availableHeirarchyOptions[i].role_name;
   }
 }
-for(var i = 0; i < $rootScope.availableManagerOptions.length; i++)
-{
-  if($rootScope.availableManagerOptions[i].id == vm.resource.employee_id)
-  {
-    vm.resource.resource_name= $rootScope.availableManagerOptions[i].employee_name;
-  }
-}
+// for(var i = 0; i < $rootScope.availableManagerOptions.length; i++)
+// {
+//   if($rootScope.availableManagerOptions[i].id == vm.resource.employee_id)
+//   {
+//     vm.resource.resource_name= $rootScope.availableManagerOptions[i].employee_name;
+//   }
+// }
 
 
 
