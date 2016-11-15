@@ -365,6 +365,7 @@ $scope.datepickerConfig = {
       }
       
       function saveaccount() {
+        
         if($scope.serIndModel){
           if($scope.serIndModel.id){
               vm.ser[$scope.serIndModel.id]=angular.copy(vm.service);            
@@ -388,6 +389,12 @@ $scope.datepickerConfig = {
               UserService.saveAccount(vm.account)
                   .then(function (response) {
                       if (response.data.success.id) {
+                         var file = vm.account.accountFile;
+                         if(file){
+                            UserService.saveimage(vm.account.account_code,"A",file)
+                              .then(function (response) {
+                              });
+                         }
                           FlashService.Success('Save successful', true);
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});
@@ -475,7 +482,10 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
                             $rootScope.availableManagers = response.data.success;
                             $scope.data.availableManagerOptions = $rootScope.availableManagers;
                              var rid=vm.account.resource_id;
+                             if(rid !== null){
                               vm.account.resource_id = String(rid);
+                             }
+                              
                             // vm.account.resource_id = {id : rid};
                            });
                       } 
@@ -516,6 +526,12 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
               UserService.saveAccount(vm.account)
                   .then(function (response) {
                       if (response.data.success) {
+                        var file = vm.account.accountFile;
+                         if(file){
+                            UserService.saveimage(vm.account.account_code,"A",file)
+                              .then(function (response) {
+                              });
+                         }
                           FlashService.Success('Save successful', true);
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});

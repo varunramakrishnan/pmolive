@@ -78,7 +78,23 @@
         service.getResourcePieData = getResourcePieData;
         service.getReportData=getReportData;
         service.editSkill=editSkill;
+        service.saveimage=saveimage;
         return service;
+
+        function saveimage(id,type,file) {
+            var fd = new FormData();
+            fd.append('file', file);
+            var req = { 
+                method: 'POST',
+                url: 'http://'+hostName+':'+port+'/save-image/'+type+'/'+id+'.json',
+                headers : { 'Content-Type': undefined ,
+                "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
+                transformRequest: angular.identity,
+                data : fd,
+                // file : file,
+            }
+            return $http(req).then(function(response){return response;},function(response){return response;});
+        }
 
         function getResourceTimeCard(data) {
             var req = {
@@ -90,6 +106,7 @@
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
+
         function getResourcePieData(data){
             var req = {
                 method: 'POST',

@@ -1522,5 +1522,72 @@ hr.horline {
     float:left;
     width:30%;
 }
+.thumb {
+    border: 1px solid white;
+    border-radius: 2px;
+    float: left;
+    height: 120px;
+    padding: 2px;
+    width: 90px;
+}
+.athumb {
+    border: 1px solid white;
+    border-radius: 2px;
+    float: left;
+    height: 62px;
+    padding: 2px;
+    width: 84% !important;
+}
 
+.thumbnailremove {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: red none repeat scroll 0 0;
+    border-bottom: 1px solid red;
+    border-image: none;
+    border-left: 1px solid red;
+    border-radius: 4px;
+    border-top: 1px solid red;
+    color: white;
+    float: left;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+.athumbnailremove {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: red none repeat scroll 0 0;
+    border-bottom: 1px solid red;
+    border-image: none;
+    border-left: 1px solid red;
+    border-radius: 4px;
+    border-top: 1px solid red;
+    color: white;
+    float: right;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+.gridthumb {
+    height: 88%;
+    margin: 3px;
+    width: 36%;
+}
+.dpthumb {
+    height: 40px;
+    /*margin: 3px;*/
+    width: 30px;
+}
+.overflowname.ng-binding{
+ padding: 4px;
+}
+.imginput{
+  width: 20% !important;
+}
+.aimginput{
+  width: 102% !important;
+}
 /*----*/

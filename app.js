@@ -10,7 +10,7 @@
 
     angular
         .module('app', ['ngRoute', 'ngCookies','ngGrid','ngSanitize', 'ngTouch', 'ui.grid', 'ui.grid.autoResize', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit','ui.grid.resizeColumns','ui.bootstrap', 'schemaForm','angularjs-dropdown-multiselect','gm.datepickerMultiSelect','demo-calendar','ui.router','ui.calendar','ui.select2','ds.clock','chart.js','nvd3','ui.grid.autoResize',
-    'ui.grid.resizeColumns','ui.knob'])
+    'ui.grid.resizeColumns','ui.knob','ngFileUpload'])
         .config(config)
         .run(run)
         .directive('loading', loading)
