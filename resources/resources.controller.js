@@ -59,9 +59,7 @@ $scope.data = {
                            .then(function (response) {
                             $rootScope.availableManagers = response.data.success;
                             $scope.data.availableManagerOptions = $rootScope.availableManagers;
-                             var rid=vm.resource.manager_id;
-                             console.log('resource id'+rid);
-                              vm.resource.manager_id = String(rid);
+                             
                               //console.log('here..resource..'+JSON.stringify($rootScope.availableManagers));
                             // vm.account.resource_id = {id : rid};
                            });
@@ -228,6 +226,11 @@ function ResourcesEditController($scope,$state,$rootScope,$log,$http,UserService
                         if(hid !== null){
                               vm.resource.heirarchy_id = String(hid);
                             }
+                            var rid=vm.resource.manager_id;
+                            if(rid !== null){
+                              vm.resource.manager_id = String(rid);
+                            }
+                              
                         // $scope.resmodel=vm.resource.resmodel;
                         //$scope.sermodel=vm.account.sermodel=
                        // vm.account.start_date=$scope.minEndDate;
