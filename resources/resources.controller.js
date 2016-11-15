@@ -8,8 +8,8 @@
         .controller('ResourcesDeleteController', ResourcesDeleteController);
         //.controller('RowEditCtrl', RowEditCtrl)
         //.service('RowResourceEditor', RowResourceEditor)
-	ResourcesController.$inject = ['$rootScope','$state','$cookieStore','$timeout','$scope','$log','$http','UserService', '$location', 'FlashService','$routeParams'];
-	function ResourcesController($rootScope,$state,$cookieStore,$timeout,$scope,$log,$http,UserService, $location,FlashService,$routeParams) {
+	ResourcesController.$inject = ['$rootScope','Upload','$state','$cookieStore','$timeout','$scope','$log','$http','UserService', '$location', 'FlashService','$routeParams'];
+	function ResourcesController($rootScope,Upload,$state,$cookieStore,$timeout,$scope,$log,$http,UserService, $location,FlashService,$routeParams) {
 
         var vm = this;
         $rootScope.shownav=true;
@@ -104,10 +104,38 @@ $scope.data = {
 
      function saveresource() {
             vm.dataLoading = true;
+             var file = $scope.picFile;
+             
+             // file.upload = Upload.upload({
+             //    url: 'img',
+             //    data: {file: file},
+             //  });
+             
+                  // console.log(response);
+
+              // file.upload.then(function (response) {
+              //   console.log(response);
+              //   $timeout(function () {
+              //     file.result = response.data;
+              //   });
+              // }, function (response) {
+              //   if (response.status > 0)
+              //     $scope.errorMsg = response.status + ': ' + response.data;
+              // }, function (evt) {
+              //   // Math.min is to fix IE which reports 200% sometimes
+              //   file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+              // });
             vm.resource.resmodel=$scope.resmodel;
+
+
             UserService.saveResource(vm.resource)
                 .then(function (response) {
                     if (response.data.success) {
+                      if($scope.picFile){
+                        UserService.saveimage(vm.resource.employee_id,"R",$scope.picFile)
+                          .then(function (response) {
+                          });
+                        }
                         FlashService.Success('Save successful', true);
                         vm.dataLoading = false;
                         // UserService.getResources()
@@ -124,6 +152,7 @@ $scope.data = {
                         vm.dataLoading = false;
                     }
                 });
+
         }
 
     function eventDetails(event){
@@ -145,6 +174,8 @@ vm.gridOptions = {
    enableCellEdit: false,
     columnDefs: [
     { field: 'id',name: 'E/D',  cellTemplate:'<div class="ui-grid-cell-contents"><a href="#/resources/edit/{{row.entity.id}}"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-edit"></i></button></a>&nbsp<a href="#/resources/delete/{{row.entity.id}}"  ><button type="button" class="btn btn-xs danger-class"  ><i  class="fa fa-trash"></i></button></a></div>', width: 70 },
+    { field: 'DP',name: 'Profile',  cellTemplate:'<img class="gridthumb" src="img/{{row.entity.employee_id}}.png" onerror="this.src=\'img/admin.png\'">', width: 70 },
+    // { field: 'DP',name: 'Profile',  cellTemplate:'<img class="gridthumb" src="img/{{grid.appScope.imgexists(row.entity.employee_id)}}.png">', width: 70 },
     { name: 'employee_name', width: 260 },
       { name: 'employee_id' , width: 130},
       { name: 'role' , width: 180},
@@ -154,8 +185,24 @@ vm.gridOptions = {
     ]
 
   };
-  $scope.removeaccount = function(id) {
+  $scope.imgexists = function(id) {
+    if(id !== undefined){
+        // return "default";
+        var http = new XMLHttpRequest();
+    var image_url  = "img/"+id+".png";
+    http.open('HEAD', image_url, false);
+    http.send();
+    if(http.status != 404){
+      return true;
+    }else{
+      return false;
+    }
+  }else{
+      return false;
+  }
       }; 
+      
+
   //vm.gridOptions.columnDefs[6].visible = false;
   UserService.getResources()
      .then(function (response) {
@@ -170,12 +217,17 @@ function ResourcesEditController($scope,$state,$rootScope,$log,$http,UserService
    vm.saveresource = saveresource;
   var splits=$location.url().toString().split("/");
   console.log(splits);
+  $scope.edit = 1;
   UserService.getResource(splits[splits.length - 1])
                   .then(function (response) {
                       if (response.data) {
                         vm.resource = response.data;
                         
                         $scope.resmodel=vm.resource.skill_id;
+                        var hid=vm.resource.heirarchy_id;
+                        if(hid !== null){
+                              vm.resource.heirarchy_id = String(hid);
+                            }
                         // $scope.resmodel=vm.resource.resmodel;
                         //$scope.sermodel=vm.account.sermodel=
                        // vm.account.start_date=$scope.minEndDate;
@@ -207,9 +259,16 @@ for(var i = 0; i < $rootScope.availableManagerOptions.length; i++)
 
 
             vm.resource.id=splits[splits.length - 1];
+            var file = $scope.picFile;
+             
             UserService.editResource(vm.resource)
                 .then(function (response) {
                     if (response.data.success) {
+                      if($scope.picFile){
+                        UserService.saveimage(vm.resource.employee_id,"R",$scope.picFile)
+                          .then(function (response) {
+                          });
+                        }
                         FlashService.Success('Save successful', true);
                         vm.dataLoading = false;
                         // UserService.getResources()

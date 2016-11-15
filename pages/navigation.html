@@ -22,7 +22,7 @@
                     
                     <li ng-show="rootAccess"><a ng-class="getClass('/units')" href="#units"><i class="fa fa-underline"></i> OU</a></li>
                     <!-- <li><a href="#/login"><i class="fa fa-power-off"></i>Logout</a></li> -->
-                    <li class="dropdown"><a class="overflowname"><i class="fa fa-user"></i>{{globals.currentUser.employee_id}}<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                    <li class="dropdown"><a class="overflowname "><img class="dpthumb" src="img/{{globals.currentUser.employee_id}}.png"></img>{{globals.currentUser.employee_id}}<i class="fa fa-caret-down" aria-hidden="true"></i></a>
                     
                     <div class="dropdown-content">
                         <a href="#/login"><i class="fa fa-power-off"></i>Logout</a>
