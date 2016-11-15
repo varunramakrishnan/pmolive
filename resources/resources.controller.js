@@ -59,10 +59,10 @@ $scope.data = {
                            .then(function (response) {
                             $rootScope.availableManagers = response.data.success;
                             $scope.data.availableManagerOptions = $rootScope.availableManagers;
-                             /*var rid=vm.resource.resource_name;
+                             var rid=vm.resource.manager_id;
                              console.log('resource id'+rid);
-                              vm.resource.resource_id = String(rid);
-                              console.log('here..resource..'+JSON.stringify($rootScope.availableManagers));*/
+                              vm.resource.manager_id = String(rid);
+                              //console.log('here..resource..'+JSON.stringify($rootScope.availableManagers));
                             // vm.account.resource_id = {id : rid};
                            });
                        // },3000);
