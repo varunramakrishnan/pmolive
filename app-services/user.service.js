@@ -741,34 +741,45 @@
         
         
 
-        function editAccount(account) {
-            var deferred = $q.defer();
-            // simulate api call with $timeout
-            $timeout(function () {
-                GetByAccountname(account.accountName)
-                    .then(function (duplicateUser) {
-                        var accounts = getAccounts();
-                        if (duplicateUser !== null) {
-                            deferred.resolve({ success: false, message: 'Accountname "' + account.accountName + '" is already present' });
+        // function editAccount(account) {
+        //     var deferred = $q.defer();
+        //     // simulate api call with $timeout
+        //     $timeout(function () {
+        //         GetByAccountname(account.accountName)
+        //             .then(function (duplicateUser) {
+        //                 var accounts = getAccounts();
+        //                 if (duplicateUser !== null) {
+        //                     deferred.resolve({ success: false, message: 'Accountname "' + account.accountName + '" is already present' });
 
 
-                        } else {
+        //                 } else {
                             
 
-                            // assign id
-                            var lastUser = accounts[accounts.length - 1] || { id: 0 };
-                            account.id = lastUser.id + 1;
+        //                     // assign id
+        //                     var lastUser = accounts[accounts.length - 1] || { id: 0 };
+        //                     account.id = lastUser.id + 1;
 
-                            // save to local storage
-                            accounts.push(account);
-                            setAccounts(accounts);
+        //                     // save to local storage
+        //                     accounts.push(account);
+        //                     setAccounts(accounts);
 
-                            deferred.resolve({ success: true });
-                        }
-                    });
-            }, 1000);
+        //                     deferred.resolve({ success: true });
+        //                 }
+        //             });
+        //     }, 1000);
 
-            return deferred.promise;
+        //     return deferred.promise;
+        // }
+        function editAccount(id,account) {
+            var req = {
+                method: 'PUT',
+                url: 'http://'+hostName+':'+port+'/accounts/'+id+'.json',
+                headers : { 'Content-Type': 'application/json',
+                "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
+                data:  account
+                //{"id":unit.id,"unit_name":unit.unit_name}
+            }
+            return $http(req).then(function(response){return response;},function(response){return response;});
         }
 
 
