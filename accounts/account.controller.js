@@ -384,6 +384,7 @@ $scope.datepickerConfig = {
   };
       function getServices(){
         if(vm.account){
+          if (vm.account.organisational_unit_id.id){
           UserService.getServices(vm.account.organisational_unit_id.id)
                   .then(function (response) {
                       if (response.data.success) {
@@ -399,6 +400,7 @@ $scope.datepickerConfig = {
                       } 
                   });
         }
+      }
         
       }
       
@@ -426,7 +428,9 @@ $scope.datepickerConfig = {
               vm.account.organisational_unit_id=vm.account.organisational_unit_id.id;
               UserService.saveAccount(vm.account)
                   .then(function (response) {
-                      if (response.data.success.id) {
+                    console.log(response.data.errors);
+                    var len = Object.keys(response.data.errors).length;
+                      if (!len) {
                          var file = vm.account.accountFile;
                          if(file){
                             UserService.saveimage(vm.account.account_code,"A",file)
@@ -437,8 +441,12 @@ $scope.datepickerConfig = {
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});
                       } else {
-                          FlashService.Error(response.data.errors);
+                          var key = Object.keys(response.data.errors)
+                          var str = key[0].split("_").join(" ");
+                          FlashService.Error(str + " " + response.data.errors[key],true);
                           vm.dataLoading = false;
+                          // FlashService.Error(response.data.errors);
+                          // vm.dataLoading = false;
                       }
                   });
                 }else{
@@ -561,7 +569,8 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
             if(count==$scope.sermodel.length){
               vm.account.services=newserv;
               vm.account.organisational_unit_id=vm.account.organisational_unit_id.id;
-              UserService.saveAccount(vm.account)
+              // UserService.saveAccount(vm.account)
+              UserService.editAccount(splits[splits.length - 1],vm.account)
                   .then(function (response) {
                       if (response.data.success) {
                         var file = vm.account.accountFile;
@@ -574,7 +583,15 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});
                       } else {
-                          FlashService.Error("Error in saving");
+                        if (response.data.errors) {
+                          console.log(response.data.errors[0])
+                          // var key = Object.keys(response.data.errors)
+                          // var str = key[0].split("_").join(" ");
+                          FlashService.Error(response.data.errors,true);
+                        } else {
+                          // FlashService.Error("Error in saving",true);
+                          FlashService.Error("Account Code has already been taken",true);
+                        }
                           vm.dataLoading = false;
                       }
                   });
@@ -642,13 +659,34 @@ UserService.callCurrencyAPI(base,symbol)
   }
   
 
-          function getServices(){
-        UserService.getServices(vm.account.organisational_unit_id.id)
+      //     function getServices(){
+      //   UserService.getServices(vm.account.organisational_unit_id.id)
+      //             .then(function (response) {
+      //                 if (response.data.success) {
+      //                   $scope.serdata = response.data.success;
+      //                 } 
+      //             });
+      // }
+      function getServices(){
+        if(vm.account){
+          if (vm.account.organisational_unit_id.id){
+          UserService.getServices(vm.account.organisational_unit_id.id)
                   .then(function (response) {
                       if (response.data.success) {
                         $scope.serdata = response.data.success;
+                        var filtered = [];
+                  angular.forEach($scope.serdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.service_code > b.service_code? 1 : -1);
+                  });
+                  $scope.serdata=filtered;
                       } 
                   });
+        }
+      }
+        
       }
       
 
