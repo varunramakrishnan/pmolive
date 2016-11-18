@@ -172,7 +172,7 @@ vm.gridOptions = {
    enableCellEdit: false,
     columnDefs: [
     { field: 'id',name: 'E/D',  cellTemplate:'<div class="ui-grid-cell-contents"><a href="#/resources/edit/{{row.entity.id}}"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-edit"></i></button></a>&nbsp<a href="#/resources/delete/{{row.entity.id}}"  ><button type="button" class="btn btn-xs danger-class"  ><i  class="fa fa-trash"></i></button></a></div>', width: 70 },
-    { field: 'DP',name: 'Profile',  cellTemplate:'<img class="gridthumb" src="img/{{row.entity.employee_id}}.png" onerror="this.src=\'img/admin.png\'">', width: 70 },
+    { field: 'DP',name: 'Profile',  cellTemplate:'<img class="gridthumb" ng-src="img/{{row.entity.employee_id}}.png" onerror="this.src=\'img/admin.png\'" lazy-src />', width: 70 },
     // { field: 'DP',name: 'Profile',  cellTemplate:'<img class="gridthumb" src="img/{{grid.appScope.imgexists(row.entity.employee_id)}}.png">', width: 70 },
     { name: 'employee_name', width: 260 },
       { name: 'employee_id' , width: 130},
@@ -180,7 +180,9 @@ vm.gridOptions = {
       // { name: 'heirarchy_id' , width: 140},
       { name: 'skill', enableColumnResizing: true },
       {name: 'manager_name',width: 180},
-    ]
+    ],
+        enableColumnHeavyVirt: true,
+        virtualizationThreshold: 10,
 
   };
   $scope.imgexists = function(id) {
