@@ -108,13 +108,14 @@
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
 
-        function resourcesUnderManager(managerID){
+        function resourcesUnderManager(data){
             
              var req = {
-                method: 'GET',
-                url: 'http://'+hostName+':'+port+'/resource-managers/'+managerID+'.json',
+                method: 'POST',
+                url: 'http://'+hostName+':'+port+'/resource-managers.json',
                 headers : { 'Content-Type': 'application/json;',
                 "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
+                data : {"data" : data},
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
             

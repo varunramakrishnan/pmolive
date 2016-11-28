@@ -8,8 +8,11 @@
 	function ReportsController($rootScope,$q,$timeout,$cookieStore,$scope,$state,$log,$http,UserService, $location,FlashService,RowEditor,$uibModal, $document) {
 
         var vm = this;
+        $scope.managermodel= [];
+           $scope.peoplemodel= [];
         vm.getreportdata = getreportdata;
         vm.getnewreport = getnewreport;
+        vm.resetdata = resetdata ; 
         var splits=$location.url().toString().split("/");
          $scope.managercustomTexts = {buttonDefaultText: 'Select Manager'};
           $scope.peoplecustomTexts = {buttonDefaultText: 'People'};
@@ -61,67 +64,164 @@
     });
    
    }
+    
      $scope.managersettings = {
-            smartButtonMaxItems: 1,
             scrollableHeight: '200px',
             scrollable: true,
             enableSearch: true,
             displayProp:'employee_name',
             idProp:'id',
-            externalIdProp:'id',
-            selectionLimit: 1,
-            showUncheckAll :false,
-            closeOnSelect:true
+            externalIdProp:'',
+            buttonClasses:"smbutton btn btn-default",
 
           };
            $scope.peoplesettings = {
-            smartButtonMaxItems: 1,
             scrollableHeight: '200px',
             scrollable: true,
             enableSearch: true,
             displayProp:'employee_name',
             idProp:'id',
-            externalIdProp:'id',
-            selectionLimit: 1,
-            showUncheckAll :false,
-            closeOnSelect:true
+            externalIdProp:'',
+            buttonClasses:"smbutton btn btn-default"
 
           };
+
+          function resetdata() {
+            $scope.peopledata = angular.copy($scope.originalpeopledata);
+            $scope.peoplemodel.length = 0;
+            $scope.managermodel.length = 0;
+            
+
+    getreportdata("today").then(function(response){
+        $scope.knobvalue = response.util;
+        $scope.total_hrs = response.total_hrs;
+        $scope.util_hrs = response.util_hrs;
+       var data = $scope.repdata = response.donut;
+            $scope.gridOptions.data = data;
+            });
+   }
+          
           
               
-           $scope.managermodel= [];
-           $scope.peoplemodel= [];
+           
            UserService.getManagers()
                            .then(function (response) {
 
                   $scope.managerdata = response.data.success;
 
-                  console.log('response'+$scope.managerdata.employee_name);
-                  var filtered = [];
-                  angular.forEach($scope.managerdata, function(item) {
+                  // console.log('response'+$scope.managerdata.employee_name);
+                  // var filtered = [];
+                  // angular.forEach($scope.managerdata, function(item) {
+                  //   filtered.push(item);
+                  // });
+                  // filtered.sort(function (a, b) {
+                  //   return (a.employee_name> b.employee_name? 1 : -1);
+                  // });
+                  // console.log('filtered...'+JSON.stringify(filtered));
+                  // $scope.managerdata=filtered;
+
+                });
+           UserService.getResources().then(function (response) {
+            $scope.peopledata = response.data;
+            $scope.originalpeopledata = angular.copy($scope.peopledata);
+
+            var filtered = [];
+                  angular.forEach($scope.peopledata, function(item) {
                     filtered.push(item);
                   });
                   filtered.sort(function (a, b) {
-                    return (a.employee_name> b.employee_name? 1 : -1);
+                    return (a.employee_name > b.employee_name? 1 : -1);
                   });
-                  console.log('filtered...'+JSON.stringify(filtered));
-                  $scope.managerdata=filtered;
+            $scope.peopledata=filtered;
 
-                });
+          });
 
             $scope.managerEvents = {
              onItemSelect: function(item) {
               $scope.people=item;
-              UserService.resourcesUnderManager(item.id)
+              $scope.peoplemodel.length = 0;
+              UserService.resourcesUnderManager($scope.managermodel)
                            .then( function (response) {
-                            console.log('passed..'+item.id);
                   $scope.peopledata=response.data.success;
-                  console.log('response.data...'+response.data);
+                  getreportdata("today").then(function(response){
+                      $scope.knobvalue = response.util;
+                      $scope.total_hrs = response.total_hrs;
+                      $scope.util_hrs = response.util_hrs;
+                     var data = $scope.repdata = response.donut;
+                          $scope.gridOptions.data = data;
+                          });
                             });
 
 
 
-             }
+             },
+             onItemDeselect: function(item) {
+              $scope.peoplemodel.length = 0;
+                UserService.resourcesUnderManager($scope.managermodel)
+                           .then( function (response) {
+                  $scope.peopledata=response.data.success;
+                  getreportdata("today").then(function(response){
+                      $scope.knobvalue = response.util;
+                      $scope.total_hrs = response.total_hrs;
+                      $scope.util_hrs = response.util_hrs;
+                     var data = $scope.repdata = response.donut;
+                          $scope.gridOptions.data = data;
+                          });
+                            });
+            },
+             onDeselectAll: function() {
+          $scope.peoplemodel.length = 0;
+                UserService.resourcesUnderManager($scope.managermodel)
+                           .then( function (response) {
+                  $scope.peopledata=response.data.success;
+                  getreportdata("today").then(function(response){
+                      $scope.knobvalue = response.util;
+                      $scope.total_hrs = response.total_hrs;
+                      $scope.util_hrs = response.util_hrs;
+                     var data = $scope.repdata = response.donut;
+                          $scope.gridOptions.data = data;
+                          });
+                            });
+          },
+           }
+           $scope.peopleEvents = {
+             onItemSelect: function(item) {
+              // $scope.people=item;
+              getreportdata("today").then(function(response){
+                $scope.knobvalue = response.util;
+                $scope.total_hrs = response.total_hrs;
+                $scope.util_hrs = response.util_hrs;
+                var data = $scope.repdata = response.donut;
+                    $scope.gridOptions.data = data;
+                    });
+              // UserService.resourcesUnderManager(item.id)
+              //              .then( function (response) {
+              //               console.log('passed..'+item.id);
+              //     $scope.peopledata=response.data.success;
+              //     console.log('response.data...'+response.data);
+              //               });
+
+
+
+             },
+             onItemDeselect: function(item) {
+                getreportdata("today").then(function(response){
+                $scope.knobvalue = response.util;
+                $scope.total_hrs = response.total_hrs;
+                $scope.util_hrs = response.util_hrs;
+                var data = $scope.repdata = response.donut;
+                    $scope.gridOptions.data = data;
+                    });
+            },
+            onDeselectAll: function() {
+                getreportdata("today").then(function(response){
+                $scope.knobvalue = response.util;
+                $scope.total_hrs = response.total_hrs;
+                $scope.util_hrs = response.util_hrs;
+                var data = $scope.repdata = response.donut;
+                    $scope.gridOptions.data = data;
+                    });
+          },
            }
                          
 
@@ -247,6 +347,11 @@ var monthday = moment().startOf('month');
         }
 var getreportdata = function (filter) {
   var deferred = $q.defer();
+  if($scope.peoplemodel.length){
+    var pdata = $scope.peoplemodel;
+  }else{
+    var pdata = $scope.peopledata;
+    }
       var text= '#btn-pie-group button' ;
         var myEl = angular.element( document.querySelectorAll( text ) ); 
         myEl.removeClass('custactive');
@@ -256,20 +361,20 @@ var getreportdata = function (filter) {
         var newtext= '#btn-today' ;
         var mynewEl = angular.element( document.querySelector( newtext ) );
         mynewEl.addClass('custactive');
-        var piepostData = {"dates":[date]};
+        var piepostData = {"dates":[date],"resource":pdata};
         
       }else if(filter=="week"){
         $scope.filter = "this week";
         var newtext= '#btn-week' ;
         var mynewEl = angular.element( document.querySelector( newtext ) );
         mynewEl.addClass('custactive');
-        var piepostData = {"dates":$scope.week_full};
+        var piepostData = {"dates":$scope.week_full,"resource":pdata};
       }else{
         $scope.filter = "this month";
         var newtext= '#btn-month' ;
         var mynewEl = angular.element( document.querySelector( newtext ) );
         mynewEl.addClass('custactive');
-        var piepostData = {"dates":$scope.month_full};
+        var piepostData = {"dates":$scope.month_full,"resource":pdata};
       }
       
       UserService.getReportData(piepostData)
