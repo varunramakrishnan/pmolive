@@ -501,6 +501,13 @@
 
                       }
                     },
+                })
+            .state('profile', {
+                url: '/profile',
+                templateUrl: "profile/profile.view.html",
+                controller  : 'ProfileController',
+                controllerAs: 'vm'
+
                 });
             // .state('reports', {
             //     url: "/reports",
@@ -522,12 +529,18 @@
     }
 	
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
-    function run($rootScope, $location, $cookieStore, $http) {
+    run.$inject = ['$filter','$rootScope', '$location', '$cookieStore', '$http'];
+    function run($filter,$rootScope, $location, $cookieStore, $http) {
         $rootScope.rootAccess =  $cookieStore.get("rootAccess");
         $rootScope.pmAccess =  $cookieStore.get("pmAccess");
         $rootScope.getClass = function (path) {
               return ($location.path().substr(0, path.length) === path) ? 'active' : '';
+            }
+            $rootScope.getDate = function () {
+              return $filter('date')(new Date(), 'yyyy-MM-dd-hh-mm-ss');
+            }
+            $rootScope.imagereload = function (eid) {
+              return 'img/'+eid+'.png?'+ new Date().getTime();
             }
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
