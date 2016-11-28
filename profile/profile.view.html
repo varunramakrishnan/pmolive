@@ -1,0 +1,29 @@
+<div class="Modal-backdrop"></div>
+<div class="Modal-holder"  autoscroll="false">
+<form name="form" ng-submit="vm.savepic()" role="form" class="form-horizontal">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">Upload Picture</label>  
+        <div class="col-md-4">
+              <input class="imginput" type="file" ngf-select ng-model="picFile" name="file"    
+             accept="image/*" ngf-max-size="2MB" 
+             ngf-model-invalid="errorFile">
+              <i ng-show="form.file.$error.maxSize">File too large 
+                  {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+              <!-- <img   ngf-thumbnail="picFile  || 'img/default.png'" src="img/default.png"  class="thumb"> <span class="thumbnailremove" ng-click="picFile = null" ng-show="picFile">x</span> -->
+
+             <!--  <img   ngf-thumbnail="picFile  || 'img/{{emp_id}}.png'" ng-src="img/{{emp_id}}.png"  class="thumb"> <span class="thumbnailremove" ng-click="picFile = null" ng-show="picFile">x</span> -->
+             <img   ngf-thumbnail="picFile  || '{{imageUrl}}'" ng-src="{{imageUrl}}"  class="thumb"> <span class="thumbnailremove" ng-click="picFile = null" ng-show="picFile">x</span>
+              
+        </div>
+      </div> 
+
+      <div class="form-group">
+            <button id="submit" type="submit" ng-disabled="vm.dataLoading" name="submit" class="btn btn-success">Submit</button>
+            <a href="#/home"><button id="cancel" name="cancel" class="btn btn-danger">Cancel</button></a>
+          </div>
+          </fieldset>
+          </form>
+
+
+</div>
