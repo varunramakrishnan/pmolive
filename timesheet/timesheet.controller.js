@@ -17,6 +17,21 @@
         vm.getpiedata = getpiedata;
         var text_disable='true';
         $scope.userData=[];
+        $scope.hov=[];
+$scope.hovering =  function(p){
+  if($scope.hov[p.account_id] == undefined)
+    $scope.hov[p.account_id] = [];
+  if($scope.hov[p.account_id][p.service_id] == undefined)
+    $scope.hov[p.account_id][p.service_id] = [];
+  if($scope.hov[p.account_id][p.service_id][p.project_id] == undefined)
+    $scope.hov[p.account_id][p.service_id][p.project_id] = 0;
+
+    $scope.hov[p.account_id][p.service_id][p.project_id] = 1;
+}
+$scope.remhovering =  function(p){
+ 
+    $scope.hov[p.account_id][p.service_id][p.project_id] = 0;
+}
         $scope.colors = [ '#fdb45c', '#00ADF9', '#f7464a', '#46BFBD', '#32cd32', '#28022f', '#feca9a'];
         $scope.weeknames = [ ".fc-sun",".fc-mon",".fc-tue", ".fc-wed", ".fc-thu", ".fc-fri", ".fc-sat"];
         var currentDate,
@@ -129,7 +144,7 @@
                        $scope.temp_arr[i]='';
                      }
                 }
-               
+               // $scope.projects[j].comments="";
               }
               
               setCurrentDate(currentDate,0,currentDate.format(weekYear),"");
@@ -275,9 +290,12 @@
                   var resData = response.data;
                     for(var i=0;i<resData.length;i++){
                       if(resData[i].userid==uid){
+                        console.log(resData[i])
                          $scope.exists=1;
                          $scope.userinDB=1;
                          $scope.fromDB=resData[i].timecard;
+
+                         $scope.comments=resData[i].comments[0];
                             if(resData[i].timecard.length>1){
                                 $scope.exists=2;
                             }
@@ -346,6 +364,8 @@
                               }
                                $scope.projects[j].temp.length = 0
                                $scope.projects[j].temp = angular.copy(arr);
+                               $scope.projects[j].comments = $scope.comments[key][k][l];
+                               console.log($scope.comments[key][k][l]);
                             }
                           }
                       }
@@ -354,6 +374,8 @@
               arr.length=0;
             }
           }
+        }else{
+          $scope.projects[j].comments = "";
         }
                
      }
