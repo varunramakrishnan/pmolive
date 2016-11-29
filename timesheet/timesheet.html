@@ -89,6 +89,7 @@
               <div class="row cusPro">
                         Project Totals
               </div>
+              <div class="row comFont"> Comments </div>
             </div>
          </div>
          <div class="row padTop customBack" ng-repeat="project in projects">
@@ -101,7 +102,17 @@
       </div>
       <!-- <div>
       <textarea style="overflow:auto;resize:none;align:left;" rows="2" cols="20"></textarea> -->
-      <div class="col-md-1 col-md-offset-1" id="myTab" >
+      <div class="col-md-1" id="myTab" >
+        
+          
+              <!-- <textarea class="nortext" ng-class="{'hoverclass':hovering[{{project.project_id}}]}"
+    ng-mouseenter="hovering[{{project.project_id}}]=true"
+    ng-mouseleave="hovering[{{project.project_id}}]=false" rows="1" cols="1"></textarea>  -->
+    <textarea class="nortext" ng-model="project.comments" ng-class="{'hoverclass':hov[project.account_id][project.service_id][project.project_id]}"  ng-mouseenter="hovering(project)" ng-mouseleave="remhovering(project)"
+     rows="1" cols="1"></textarea> 
+          
+    </div>
+      <div class="col-md-1 " id="myTab" >
         
           
               <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="any"/>
