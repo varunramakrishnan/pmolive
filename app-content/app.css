@@ -1131,7 +1131,7 @@ padding-top: 0px !important;
 .customBack {
     background-color: #797979;
     color: #ffffff;
-    opacity: 0.97;
+    /*opacity: 0.97;*/
     /*padding: 25px;*/
     border: 1px solid white;
      border-radius: 7px;
@@ -1590,4 +1590,26 @@ hr.horline {
 .aimginput{
   width: 102% !important;
 }
+textarea.hoverclass {
+    border: 1px solid grey;
+    border-radius: 4px;
+    height: 200px;
+    position: absolute;
+    width: 200px !important;
+    z-index: 1;
+    left:13px;
+}
+.nortext{
+  width: 144%;
+  resize: none;
+}
+.row.comFont {
+     font-size: 10px;
+     margin-left: -65%;
+}
+
+.row.cusPro {
+    margin-left: 52%;
+}
+
 /*----*/
