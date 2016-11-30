@@ -78,7 +78,24 @@
         service.getResourcePieData = getResourcePieData;
         service.getReportData=getReportData;
         service.editSkill=editSkill;
+        service.resourcesUnderManager=resourcesUnderManager;
+        service.saveimage=saveimage;
         return service;
+
+        function saveimage(id,type,file) {
+            var fd = new FormData();
+            fd.append('file', file);
+            var req = { 
+                method: 'POST',
+                url: 'http://'+hostName+':'+port+'/save-image/'+type+'/'+id+'.json',
+                headers : { 'Content-Type': undefined ,
+                "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
+                transformRequest: angular.identity,
+                data : fd,
+                // file : file,
+            }
+            return $http(req).then(function(response){return response;},function(response){return response;});
+        }
 
         function getResourceTimeCard(data) {
             var req = {
@@ -90,6 +107,19 @@
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
+
+        function resourcesUnderManager(managerID){
+            
+             var req = {
+                method: 'GET',
+                url: 'http://'+hostName+':'+port+'/resource-managers/'+managerID+'.json',
+                headers : { 'Content-Type': 'application/json;',
+                "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
+            }
+            return $http(req).then(function(response){return response;},function(response){return response;});
+            
+        }
+
         function getResourcePieData(data){
             var req = {
                 method: 'POST',
@@ -711,34 +741,45 @@
         
         
 
-        function editAccount(account) {
-            var deferred = $q.defer();
-            // simulate api call with $timeout
-            $timeout(function () {
-                GetByAccountname(account.accountName)
-                    .then(function (duplicateUser) {
-                        var accounts = getAccounts();
-                        if (duplicateUser !== null) {
-                            deferred.resolve({ success: false, message: 'Accountname "' + account.accountName + '" is already present' });
+        // function editAccount(account) {
+        //     var deferred = $q.defer();
+        //     // simulate api call with $timeout
+        //     $timeout(function () {
+        //         GetByAccountname(account.accountName)
+        //             .then(function (duplicateUser) {
+        //                 var accounts = getAccounts();
+        //                 if (duplicateUser !== null) {
+        //                     deferred.resolve({ success: false, message: 'Accountname "' + account.accountName + '" is already present' });
 
 
-                        } else {
+        //                 } else {
                             
 
-                            // assign id
-                            var lastUser = accounts[accounts.length - 1] || { id: 0 };
-                            account.id = lastUser.id + 1;
+        //                     // assign id
+        //                     var lastUser = accounts[accounts.length - 1] || { id: 0 };
+        //                     account.id = lastUser.id + 1;
 
-                            // save to local storage
-                            accounts.push(account);
-                            setAccounts(accounts);
+        //                     // save to local storage
+        //                     accounts.push(account);
+        //                     setAccounts(accounts);
 
-                            deferred.resolve({ success: true });
-                        }
-                    });
-            }, 1000);
+        //                     deferred.resolve({ success: true });
+        //                 }
+        //             });
+        //     }, 1000);
 
-            return deferred.promise;
+        //     return deferred.promise;
+        // }
+        function editAccount(id,account) {
+            var req = {
+                method: 'PUT',
+                url: 'http://'+hostName+':'+port+'/accounts/'+id+'.json',
+                headers : { 'Content-Type': 'application/json',
+                "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
+                data:  account
+                //{"id":unit.id,"unit_name":unit.unit_name}
+            }
+            return $http(req).then(function(response){return response;},function(response){return response;});
         }
 
 

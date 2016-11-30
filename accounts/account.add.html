@@ -175,7 +175,7 @@ div.table-title {
 </style><html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Table Style</title>
+  <title>Accounts</title>
   <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
 </head>
 
@@ -209,7 +209,7 @@ div.table-title {
 <tr>
 <td class="text-left">Organisational Unit</td>
 <td class="text-left">
-<select name="organisationalUnit"   ng-click="vm.getServices()" id="organisationalUnit" class="form-control" ng-model="vm.account.organisational_unit_id" ng-options="option.unit_code for option in data.availableOptions track by option.id"
+<select name="organisationalUnit"   ng-click="vm.getServices()" id="organisationalUnit" class="form-control" ng-model="vm.account.organisational_unit_id" ng-options="option.unit_code for option in data.availableOptions | orderBy:'unit_name'"
        required selected>
               <!-- <option value="">Please select</option> -->
               <!-- <option ng-repeat="option in data.availableOptions"  value="{{option.id}}">{{option.unit_code}}</option> -->
@@ -220,7 +220,7 @@ div.table-title {
 <td class="text-left">Account Status</td>
 <td class="text-left">
           <select name="status" id="status" ng-model="vm.account.project_status" class="form-control">
-              <option ng-repeat="option in data.availableStatusOptions" value="{{option.id}}">{{option.name}}</option>
+              <option ng-repeat="option in data.availableStatusOptions | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
           </select>
         </td>
 </tr>
@@ -228,15 +228,16 @@ div.table-title {
 <td class="text-left">Manager Contact</td>
 <td class="text-left">
 <select name="manager" id="manager" ng-model="vm.account.resource_id" class="form-control">
-              <option ng-repeat="option in data.availableManagerOptions" value="{{option.id}}">{{option.employee_name}}</option>
+              <option ng-repeat="option in data.availableManagerOptions | orderBy:'employee_name'" value="{{option.id}}">{{option.employee_name}}</option>
           </select>
 </td>
 </tr>
 <tr>
 <td class="text-left">Region</td>
+<!-- <button class="btn btn-primary" ng-click="">Account logo</button> -->
 <td class="text-left">
   <select name="region" id="region" ng-model="vm.account.region" class="form-control">
-              <option ng-repeat="option in data.availableRegionTypes" value="{{option.id}}">{{option.name}}</option>
+              <option ng-repeat="option in data.availableRegionTypes | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
     </select>
 </td>
 </tr>
@@ -247,11 +248,30 @@ div.table-title {
 <table class="table-fill">
 <tbody class="table-hover" >
 <tr>
+<td class="text-left">Account Image</td>
+<td class="text-left">
+<div class="row">
+<!-- <div class="col-md-4"> -->
+  <input class="aimginput" type="file" ngf-select ng-model="vm.account.accountFile" name="file"    
+             accept="image/*" ngf-max-size="2MB" 
+             ngf-model-invalid="errorFile">  
+<!-- </div> -->
+<!-- <div class="col-md-7"> -->
+  <i ng-show="form.file.$error.maxSize">File too large 
+                  {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+              <img   ngf-thumbnail="vm.account.accountFile  || 'img/A-{{vm.account.account_code}}.png'" src="img/A-{{vm.account.account_code}}.png"  class="athumb"> <span class="athumbnailremove" ng-click="vm.account.accountFile = null" ng-show="vm.account.accountFile">x</span>
+<!-- </div> -->
+</div>
+
+              
+</td>
+</tr>
+<!-- <tr>
 <td class="text-left">Location</td>
 <td class="text-left">
 <input id="location" name="location" placeholder="placeholder" ng-model="vm.account.location"  class="form-control input-md col-md-12"  type="text" size="10">
 </td>
-</tr>
+</tr> -->
 <tr>
 <td class="text-left">Comments</td>
 <td class="text-left">
@@ -281,12 +301,12 @@ div.table-title {
 <td class="text-left">
   <input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.overall_health" class="form-control input-md col-md-12"  type="text" size="10"></td>
 </tr> -->
-<tr>
+<!-- <tr>
 <td class="text-left">Account LoB</td>
 <td class="text-left">
 <input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.account_lob" class="form-control input-md col-md-12"  type="text" size="10">
 </td>
-</tr>
+</tr> -->
 <tr>
 <td class="text-left">Services</td>
 <td class="text-left">
@@ -310,6 +330,7 @@ div.table-title {
 </tbody>
 </table>
 </div>
+
 <button class="btn btn-primary" ng-click="next()" ng-disabled="!sermodel.length">Go to Services</button>
 </div>
 </div>
@@ -382,7 +403,7 @@ div.table-title {
 <td class="text-left">Service Status</td>
 <td class="text-left">
 <select name="status" id="status" ng-model="vm.service.project_status" class="form-control">
-              <option ng-repeat="option in data.availableStatusOptions" value="{{option.id}}">{{option.name}}</option>
+              <option ng-repeat="option in data.availableStatusOptions | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
           </select>
 </td>
 </tr>
@@ -396,7 +417,7 @@ div.table-title {
 <td class="text-left">Currency</td>
 <td class="text-left">
 <select name="anticipatedValueCurrency" id="anticipatedValueCurrency" ng-model="vm.service.anticipated_value_currency" ng-click="currencycheck()" class="form-control">
-              <option ng-repeat="option in data.availableAnticipatedValueCurrency" value="{{option.id}}" selected="{{option.selected}}">{{option.name}}</option>
+              <option ng-repeat="option in data.availableAnticipatedValueCurrency | orderBy:'name'" value="{{option.id}}" selected="{{option.selected}}">{{option.name}}</option>
     </select>
 </td>
 </tr>

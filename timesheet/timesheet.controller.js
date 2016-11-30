@@ -8,10 +8,14 @@
     TimeSheetController.$inject = ['$filter','$rootScope','$cookieStore','$scope','$state','$http','UserService','$location'];
     function TimeSheetController($filter,$rootScope,$cookieStore,$scope,$state,$http,UserService,$location) {
         var vm = this;
+        var w_start;
+        var w_end;
+        var w_today=moment();
         var initital = 0;
         var apiflag=0;
         vm.savetimesheet = savetimesheet;
         vm.getpiedata = getpiedata;
+        var text_disable='true';
         $scope.userData=[];
         $scope.colors = [ '#fdb45c', '#00ADF9', '#f7464a', '#46BFBD', '#32cd32', '#28022f', '#feca9a'];
         $scope.weeknames = [ ".fc-sun",".fc-mon",".fc-tue", ".fc-wed", ".fc-thu", ".fc-fri", ".fc-sat"];
@@ -61,7 +65,35 @@
         $compile(element)($scope);
       };
       $scope.buttonEvent = function( event) {
+        
         $('#timecalendar').fullCalendar(event);
+
+            if(event=="next"){
+              weekDates(w_today.add(7,'days'));
+            }
+            else if(event=="prev"){
+               weekDates(w_today.subtract(7,'days'));
+            }
+            else{
+            }
+       
+       
+        for(var j=0;j<$scope.projects.length;j++){
+                for(var i=0;i<$scope.days.length;i++){
+                  console.log('start if'+w_start.day(i).format('ddd D'));
+                      $scope.temp_arr=[];
+                     /*if(weekStart.day(i).format('ddd')=='Sun' || weekStart.day(i).format('ddd')=='Sat')*/
+                     if(moment(w_start.day(i).format('YYYY-MM-DD')).isAfter(moment().format('YYYY-MM-DD'))){
+                       $scope.projects[j].bool[i]=true;
+                       $scope.temp_arr[i]='';
+                     }
+                     else{
+                       $scope.projects[j].bool[i]=false;
+                       $scope.temp_arr[i]='';
+                     }
+                }
+                
+              }
          savetimesheet('event');
          getpiedata("today");
       };
@@ -87,7 +119,8 @@
                 for(var j=0;j<$scope.projects.length;j++){
                 for(var i=0;i<$scope.days.length;i++){
                       $scope.temp_arr=[];
-                     if(weekStart.day(i).format('ddd')=='Sun' || weekStart.day(i).format('ddd')=='Sat'){
+                     /*if(weekStart.day(i).format('ddd')=='Sun' || weekStart.day(i).format('ddd')=='Sat')*/
+                     if(moment(weekStart.day(i).format('YYYY-MM-DD')).isAfter(currentDate.format('YYYY-MM-DD'))){
                        $scope.projects[j].bool[i]=true;
                        $scope.temp_arr[i]='';
                      }
@@ -96,6 +129,7 @@
                        $scope.temp_arr[i]='';
                      }
                 }
+               
               }
               
               setCurrentDate(currentDate,0,currentDate.format(weekYear),"");
@@ -137,6 +171,14 @@
              });
       }
    $scope.eventSources = [fetchEvents];
+
+   function weekDates(aMoment,c_moment){
+
+        w_today=aMoment;
+        w_start = w_today.clone().startOf('week');
+        w_start = w_today.clone().endOf('week');  
+      
+   }
 
     function fetchEvents(start, end, timezone, callback) {
       
@@ -320,7 +362,8 @@
 
     
 
-       function savetimesheet(val) {
+       function savetimesheet(val) {  
+        console.log('value...'+val);
          $scope.master=angular.copy($scope.projects);
          for(var j=0;j<$scope.projects.length;j++){
           for(var i=0;i<$scope.projects[j].temp.length;i++){

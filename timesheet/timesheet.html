@@ -8,23 +8,23 @@
   <div class="col-md-12"><ds-widget-clock  theme="light" show-digital show-analog></ds-widget-clock>
   </div></div>
   <div class="widclock col-md-2">
-  <div class="col-md-12"><ds-widget-clock  gmt-offset="'-7.0'" show-digital theme="light" show-analog></ds-widget-clock>
+  <div class="col-md-12"><ds-widget-clock  gmt-offset="'16.0'" show-digital theme="light" show-analog></ds-widget-clock>
   </div>
   </div>
   <div class="widclock col-md-2">
-  <div class="col-md-12"><ds-widget-clock  gmt-offset="'-4.0'" show-digital theme="light" show-analog></ds-widget-clock></div>
+  <div class="col-md-12"><ds-widget-clock  gmt-offset="'19.0'" show-digital theme="light" show-analog></ds-widget-clock></div>
   </div>
   <div class="widclock col-md-2">
-  <div class="col-md-12"><ds-widget-clock  gmt-offset="'-6.0'" show-digital theme="light" show-analog></ds-widget-clock></div>
+  <div class="col-md-12"><ds-widget-clock  gmt-offset="'18.0'" show-digital theme="light" show-analog></ds-widget-clock></div>
   </div>
   <div class="widclock col-md-2">
   <div class="col-md-12"><ds-widget-clock  gmt-offset="'11.0'" show-digital theme="light" show-analog></ds-widget-clock></div>
   </div>
   </div>
-  <div class="row">
-  <div class="col-md-2 col-md-offset-1"><span >IST</span>
+  <div class="row" style="padding-right:22px;">
+  <div class="col-md-2 col-md-offset-1" style="padding-right:35px;"><span >IST</span>
   </div>
-  <div class="col-md-2 "><span >PST</span>
+  <div class="col-md-2 " style="padding-right:25px;"><span >PST</span>
   </div>
   <div class="col-md-2 "><span >EST</span>
   </div>
@@ -97,11 +97,22 @@
                  {{project.name}} 
       </div>
       <div ng-repeat="i in project.bool track by $index" class="col-md-1" id="myTab">
-                        <input type="number" min="0" max="24" class="textField" ng-model="project.temp[$index]" step="any"/>
+                        <input type="number" min="0" max="24" class="textField" ng-model="project.temp[$index]" step="0.5" ng-readonly="project.bool[$index]"/>
       </div>
+      <!-- <div>
+      <textarea style="overflow:auto;resize:none;align:left;" rows="2" cols="20"></textarea> -->
       <div class="col-md-1 col-md-offset-1" id="myTab" >
-                        <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="any"/>
+        
+          
+              <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="any"/>
+          
+              <!-- <textarea style="overflow:auto;resize:none;align:left;" rows="2" cols="1"></textarea> -->
+          
     </div>
+
+     <!--  </div> -->
+      
+
     </div>
     <div class="row padDtop customBack cusDPro">
       <div class="col-md-3">
@@ -111,9 +122,12 @@
                        <!--  <input type="" min="0" max="24" class="textField customText" disabled readonly ng-value="projects[0].temp[$index]+projects[1].temp[$index]+projects[2].temp[$index]+projects[3].temp[$index]+projects[4].temp[$index]" step="any"/> -->
                         <input type="" min="0" max="24" class="textField customText" disabled readonly ng-value="getTotal($index)" step="any"/>
       </div>
-      <div class="col-md-1" >
-                        <button class="btn btn-primary"  ng-click="vm.savetimesheet('save')">Save</button>
+      <div class="col-md-0" >
+                        <button class="btn btn-primary"  ng-click="vm.savetimesheet('save');vm.getpiedata('today')">Save</button>
     </div>
+    <!-- <div class="col-md-0" style="padding-bottom:10px;" >
+                        <button class="btn btn-primary"  ng-click="vm.savetimesheet('save');vm.getpiedata('today')">commit</button>
+    </div> -->
     </div>
 
 
@@ -129,9 +143,9 @@
                     </div>
            </div>
            <div class="pieinsdata">{{totalutil}} %</div>
-        <canvas id="doughnut" class="chart chart-doughnut mar-top"
+       <canvas id="doughnut" class="chart chart-doughnut mar-top"
           chart-data="doughdata" chart-colors="colors" chart-labels="labels">
-        </canvas> 
+        </canvas>
     </div>
       </div>
 

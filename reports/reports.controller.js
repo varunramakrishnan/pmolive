@@ -11,6 +11,8 @@
         vm.getreportdata = getreportdata;
         vm.getnewreport = getnewreport;
         var splits=$location.url().toString().split("/");
+         $scope.managercustomTexts = {buttonDefaultText: 'Select Manager'};
+          $scope.peoplecustomTexts = {buttonDefaultText: 'People'};
         console.log(splits);
         
         $scope.colors = [ '#fdb45c', '#00ADF9', '#f7464a', '#46BFBD', '#32cd32', '#28022f', '#feca9a'];
@@ -42,8 +44,9 @@
   trackWidth: 15,
   barWidth: 13,
   trackColor: '#cfcfcf',
-  barColor: 'limegreen',
-  textColor: 'black'
+  barColor: 'red',
+  textColor: 'black',
+  dynamicOptions: true
 };
   $scope.moused = function(id)
   {
@@ -59,9 +62,182 @@
     });
    
    }
+     $scope.managersettings = {
+            smartButtonMaxItems: 1,
+            scrollableHeight: '200px',
+            scrollable: true,
+            enableSearch: true,
+            displayProp:'employee_name',
+            idProp:'id',
+            externalIdProp:'id',
+            selectionLimit: 1,
+            showUncheckAll :false,
+            closeOnSelect:true
+
+          };
+           $scope.peoplesettings = {
+            smartButtonMaxItems: 1,
+            scrollableHeight: '200px',
+            scrollable: true,
+            enableSearch: true,
+            displayProp:'employee_name',
+            idProp:'id',
+            externalIdProp:'id',
+            selectionLimit: 1,
+            showUncheckAll :false,
+            closeOnSelect:true
+
+          };
+          
+              
+           $scope.managermodel= [];
+           $scope.peoplemodel= [];
+           UserService.getManagers()
+                           .then(function (response) {
+
+                  $scope.managerdata = response.data.success;
+
+                  console.log('response'+$scope.managerdata.employee_name);
+                  var filtered = [];
+                  angular.forEach($scope.managerdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.employee_name> b.employee_name? 1 : -1);
+                  });
+                  console.log('filtered...'+JSON.stringify(filtered));
+                  $scope.managerdata=filtered;
+
+                });
+
+            $scope.managerEvents = {
+             onItemSelect: function(item) {
+              $scope.people=item;
+              UserService.resourcesUnderManager(item.id)
+                           .then( function (response) {
+                            console.log('passed..'+item.id);
+                  $scope.peopledata=response.data.success;
+                  console.log('response.data...'+response.data);
+                            });
+
+
+
+             }
+           }
+                         
+
+
+/*$scope.managerEvents = {
+             onItemSelect: function(item) {
+            console.log('entered..');
+              FlashService.clearMessage();
+              $scope.per = "P";
+              $scope.managermodel= [];
+              $scope.showsave = 1;
+              $scope.items.length=0;
+              $scope.resmodel.length=0;
+              $scope.resource=0;
+              $scope.IsVisible=$scope.calmodel=$scope.showprodate=$scope.people=item.id;
+                UserService.getManagers()
+                           .then(function (response) {
+                  $scope.managerdata = response.data.employee_name ;
+                  var filtered = [];
+                  angular.forEach($scope.managerdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.employee_name > b.employee_name? 1 : -1);
+                  });
+                  $scope.managerdata=filtered;
+
+                });
+                UserService.getallFilteredResources(item.id).then(function (response){
+                  $scope.example13data = response.data ;
+
+                  var filtered = [];
+                  angular.forEach($scope.example13data, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.employee_name > b.employee_name? 1 : -1);
+                  });
+                  $scope.example13data=filtered;
+
+                  UserService.getModeledResource(item.id).then(function (response){
+                    $scope.example13model = response.data;    
+            
+                    if($scope.example13model){
+                      $scope.addresmodel=$scope.showreshere=1;
+                      $scope.calrangemodel=0;
+                    }
+                  });
+                 /* UserService.getMappedResource(item.id).then(function (response){
+                  $scope.items = response.data ;
+                  if($scope.items.length){
+                    $scope.hidesave=0;
+                  }else{
+                    $scope.hidesave=1;
+                  }
+                  $scope.existingItems = angular.copy(response.data);
+                  });
+                });*/
+                /*UserService.getAccount(item.id).then(function (response){
+                  $scope.account = response.data ;
+                  $scope.newMax = $scope.account.end_date;
+                  $scope.newMin = $scope.account.start_date;
+
+                  $rootScope.$broadcast('refreshDatepickers');
+                  $scope.IsVisible = 0; 
+                });*/
+
+                /*$scope.eventSources = [fetchEvents];
+                function fetchEvents(start, end, timezone, callback) {
+                  var aid = "";
+                  aid=$scope.accountmodel.id;
+                  var newEvents = [];
+                  UserService.getAccountResource(aid).then(function(response) {
+                    angular.forEach(response.data, function (obj) {
+                     newEvents.push({
+                      title: obj.title,
+                      start: new Date(Number(obj.start)+19800),
+                      allDay: true,
+                    });
+                   });
+                    angular.copy(newEvents, $scope.events);
+                    callback($scope.events);
+                  });  
+                }
+                $('#mycalendar').fullCalendar('refetchEvents') ;
+              },
+            };*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function getnewreport(filter) {
     getreportdata(filter).then(function(response){
-  $scope.knobvalue = response.util;
+  $scope.knobvalue =  response.util;
+  console.log($scope.knobvalue);
+
+  if($scope.knobvalue <= 50){
+     $scope.knoboptions.barColor =  'red';
+  }else if($scope.knobvalue<=70){
+       $scope.knoboptions.barColor =  'brown';
+  }else if($scope.knobvalue<=85){
+       $scope.knoboptions.barColor =  'green';
+  }else{
+       $scope.knoboptions.barColor =  'blue';
+  }
   $scope.total_hrs = response.total_hrs;
   $scope.util_hrs = response.util_hrs;
  var data = $scope.repdata = response.donut;
@@ -167,7 +343,17 @@ if(splits[3]){
         }else{
           getreportdata("today").then(function(response){
 
-  $scope.knobvalue = response.util;
+  $scope.knobvalue =  response.util;
+  if($scope.knobvalue <= 50){
+     $scope.knoboptions.barColor =  'red';
+   }else if($scope.knobvalue<=70){
+       $scope.knoboptions.barColor =  'brown';
+  }else if($scope.knobvalue<=85){
+       $scope.knoboptions.barColor =  'green';
+  }else{
+$scope.knoboptions.barColor =  'red';
+  }
+  console.log($scope.knobvalue);
   $scope.total_hrs = response.total_hrs;
   $scope.util_hrs = response.util_hrs;
  var data = $scope.repdata = response.donut;

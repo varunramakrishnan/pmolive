@@ -4,6 +4,8 @@
   <h2 class="labelcustom">People</h2>
   <br>
   <br>
+
+  {{vm.resource}}
   <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
   <div class="form-account">
     <form name="form" ng-submit="vm.saveresource()" role="form" class="form-horizontal">
@@ -20,6 +22,21 @@
         <input id="employee_id" name="employee_id" placeholder="placeholder" class="form-control" ng-model="vm.resource.employee_id" required="" type="text">
         </div>
       </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">Upload Picture</label>  
+        <div class="col-md-4">
+              <input class="imginput" type="file" ngf-select ng-model="picFile" name="file"    
+             accept="image/*" ngf-max-size="2MB" 
+             ngf-model-invalid="errorFile">
+              <i ng-show="form.file.$error.maxSize">File too large 
+                  {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+              <img   ngf-thumbnail="picFile  || 'img/{{vm.resource.employee_id}}.png'" src="img/{{vm.resource.employee_id}}.png"  class="thumb"> <span class="thumbnailremove" ng-click="picFile = null" ng-show="picFile">x</span>
+        </div>
+      </div>      
+      
+
+
       <div class="form-group">
         <label class="col-md-4 control-label labelcustom" for="skills">Skills</label>{{resmodel}}
         <div class="col-md-4 text-left">
@@ -31,8 +48,16 @@
           <label class="col-md-4 control-label labelcustom" for="heirarchy_id">Role</label>
           <div class="col-md-4">
             <select name="heirarchy_id" id="availableHeirarchyOptions" ng-model="vm.resource.heirarchy_id" class="form-control" required>
-                      <option ng-repeat="option in data.availableHeirarchyOptions" value="{{option.id}}">{{option.role_name}}</option>
+                      <option ng-repeat="option in data.availableHeirarchyOptions " value="{{option.id}}">{{option.role_name}}</option>
             </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label labelcustom" for="heirarchy_id">Reporting Manager</label>
+          <div class="col-md-4">
+           <select name="manager" id="manager" ng-model="vm.resource.manager_id" class="form-control">
+              <option ng-repeat="option in data.availableManagerOptions | orderBy:'employee_name'" value="{{option.id}}">{{option.employee_name}}</option>
+          </select>
           </div>
         </div>
         <div class="form-group">

@@ -10,7 +10,7 @@
 
     angular
         .module('app', ['ngRoute', 'ngCookies','ngGrid','ngSanitize', 'ngTouch', 'ui.grid', 'ui.grid.autoResize', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit','ui.grid.resizeColumns','ui.bootstrap', 'schemaForm','angularjs-dropdown-multiselect','gm.datepickerMultiSelect','demo-calendar','ui.router','ui.calendar','ui.select2','ds.clock','chart.js','nvd3','ui.grid.autoResize',
-    'ui.grid.resizeColumns','ui.knob'])
+    'ui.grid.resizeColumns','ui.knob','ngFileUpload'])
         .config(config)
         .run(run)
         .directive('loading', loading)
@@ -524,6 +524,8 @@
 
     run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
     function run($rootScope, $location, $cookieStore, $http) {
+        $rootScope.rootAccess =  $cookieStore.get("rootAccess");
+        $rootScope.pmAccess =  $cookieStore.get("pmAccess");
         $rootScope.getClass = function (path) {
               return ($location.path().substr(0, path.length) === path) ? 'active' : '';
             }
@@ -540,6 +542,16 @@
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
+            if (loggedIn) {
+                var resPage = $.inArray($location.path(), ['/login', '/register','/timesheet']) === -1;
+                if(!($rootScope.rootAccess || $rootScope.pmAccess)){
+                    if(resPage ){
+                        // if(resPage && (!$rootScope.rootAccess || !$rootScope.pmAccess)){
+                    $location.path('/timesheet');
+                    }
+                }                
+            }
+                
         });
     }
 

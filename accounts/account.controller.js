@@ -201,6 +201,16 @@ $scope.datepickerConfig = {
         {id: 'IBM', name: 'IBM'},
         {id: 'Agency', name: 'Agency'},
       ];
+
+      var filtered = [];
+                  angular.forEach($rootScope.availableContactType, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.name > b.name? 1 : -1);
+                  });
+            $rootScope.availableContactType=filtered;
+
       $rootScope.availableSowStatus =  [
         {id: 'Lead', name: 'Lead'},
         {id: 'SOW Signed', name: 'SOW Signed'},
@@ -208,6 +218,16 @@ $scope.datepickerConfig = {
         {id: 'Closed', name: 'Closed'},
         {id: 'Execution', name: 'Execution'},
       ];
+
+      var filtered = [];
+                  angular.forEach($rootScope.availableSowStatus, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.name > b.name? 1 : -1);
+                  });
+            $rootScope.availableSowStatus=filtered;
+            
       $rootScope.availableAnticipatedValueCurrency =  [
         {id: 'INR', name: 'INR',selected:0},
         {id: 'USD', name: 'USD',selected:1},
@@ -283,6 +303,16 @@ $scope.datepickerConfig = {
                            .then(function (response) {
                             $rootScope.availOrgan = response.data;
                            $scope.data.availableOptions= $rootScope.availOrgan;
+
+                           var filtered = [];
+                              angular.forEach($scope.data.availableOptions, function(item) {
+                                filtered.push(item);
+                              });
+                              filtered.sort(function (a, b) {
+                                return (a.unit_name > b.unit_name? 1 : -1);
+                              });
+                        $scope.data.availableOptions=filtered;
+
                             //$scope.data.selectedOption: {id: '1'} 
                              vm.account={};
                              // var strid=String($rootScope.availOrgan[0].id);
@@ -354,17 +384,28 @@ $scope.datepickerConfig = {
   };
       function getServices(){
         if(vm.account){
+          if (vm.account.organisational_unit_id.id){
           UserService.getServices(vm.account.organisational_unit_id.id)
                   .then(function (response) {
                       if (response.data.success) {
                         $scope.serdata = response.data.success;
+                        var filtered = [];
+                  angular.forEach($scope.serdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.service_code > b.service_code? 1 : -1);
+                  });
+                  $scope.serdata=filtered;
                       } 
                   });
         }
+      }
         
       }
       
       function saveaccount() {
+        
         if($scope.serIndModel){
           if($scope.serIndModel.id){
               vm.ser[$scope.serIndModel.id]=angular.copy(vm.service);            
@@ -387,13 +428,25 @@ $scope.datepickerConfig = {
               vm.account.organisational_unit_id=vm.account.organisational_unit_id.id;
               UserService.saveAccount(vm.account)
                   .then(function (response) {
-                      if (response.data.success.id) {
+                    console.log(response.data.errors);
+                    var len = Object.keys(response.data.errors).length;
+                      if (!len) {
+                         var file = vm.account.accountFile;
+                         if(file){
+                            UserService.saveimage(vm.account.account_code,"A",file)
+                              .then(function (response) {
+                              });
+                         }
                           FlashService.Success('Save successful', true);
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});
                       } else {
-                          FlashService.Error(response.data.errors);
+                          var key = Object.keys(response.data.errors)
+                          var str = key[0].split("_").join(" ");
+                          FlashService.Error(str + " " + response.data.errors[key],true);
                           vm.dataLoading = false;
+                          // FlashService.Error(response.data.errors);
+                          // vm.dataLoading = false;
                       }
                   });
                 }else{
@@ -448,6 +501,7 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
                         vm.account = response.data;
                         var oid=vm.account.organisational_unit_id;
                         vm.account.organisational_unit_id = {id : oid};
+                        
                         if(vm.account.anticipated_value){
                         var sp=vm.account.anticipated_value.split(" ");
                         vm.account.anticipated_value=sp[0];
@@ -469,13 +523,20 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
                                     });
                               } 
                           });
-                      } 
-                  });
-                   UserService.getManagers()
+                          UserService.getManagers()
                            .then(function (response) {
                             $rootScope.availableManagers = response.data.success;
                             $scope.data.availableManagerOptions = $rootScope.availableManagers;
+                             var rid=vm.account.resource_id;
+                             if(rid !== null){
+                              vm.account.resource_id = String(rid);
+                             }
+                              
+                            // vm.account.resource_id = {id : rid};
                            });
+                      } 
+                  });
+                   
                            var oldItem="";
                            $scope.serIndEvents = {
                              onItemSelect: function(item) {
@@ -508,14 +569,29 @@ function AccountEditController($rootScope,$scope,$state,$log,$http,UserService, 
             if(count==$scope.sermodel.length){
               vm.account.services=newserv;
               vm.account.organisational_unit_id=vm.account.organisational_unit_id.id;
-              UserService.saveAccount(vm.account)
+              // UserService.saveAccount(vm.account)
+              UserService.editAccount(splits[splits.length - 1],vm.account)
                   .then(function (response) {
                       if (response.data.success) {
+                        var file = vm.account.accountFile;
+                         if(file){
+                            UserService.saveimage(vm.account.account_code,"A",file)
+                              .then(function (response) {
+                              });
+                         }
                           FlashService.Success('Save successful', true);
                           vm.dataLoading = false;
                           $state.go("account", {}, {reload: true});
                       } else {
-                          FlashService.Error("Error in saving");
+                        if (response.data.errors) {
+                          console.log(response.data.errors[0])
+                          // var key = Object.keys(response.data.errors)
+                          // var str = key[0].split("_").join(" ");
+                          FlashService.Error(response.data.errors,true);
+                        } else {
+                          // FlashService.Error("Error in saving",true);
+                          FlashService.Error("Account Code has already been taken",true);
+                        }
                           vm.dataLoading = false;
                       }
                   });
@@ -583,13 +659,34 @@ UserService.callCurrencyAPI(base,symbol)
   }
   
 
-          function getServices(){
-        UserService.getServices(vm.account.organisational_unit_id.id)
+      //     function getServices(){
+      //   UserService.getServices(vm.account.organisational_unit_id.id)
+      //             .then(function (response) {
+      //                 if (response.data.success) {
+      //                   $scope.serdata = response.data.success;
+      //                 } 
+      //             });
+      // }
+      function getServices(){
+        if(vm.account){
+          if (vm.account.organisational_unit_id.id){
+          UserService.getServices(vm.account.organisational_unit_id.id)
                   .then(function (response) {
                       if (response.data.success) {
                         $scope.serdata = response.data.success;
+                        var filtered = [];
+                  angular.forEach($scope.serdata, function(item) {
+                    filtered.push(item);
+                  });
+                  filtered.sort(function (a, b) {
+                    return (a.service_code > b.service_code? 1 : -1);
+                  });
+                  $scope.serdata=filtered;
                       } 
                   });
+        }
+      }
+        
       }
       
 

@@ -33,7 +33,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     template += '<li ng-repeat-start="option in orderedItems | filter: searchFilter" ng-show="getPropertyForObject(option, settings.groupBy) !== getPropertyForObject(orderedItems[$index - 1], settings.groupBy)" role="presentation" class="dropdown-header">{{ getGroupTitle(getPropertyForObject(option, settings.groupBy)) }}</li>';
                     template += '<li ng-repeat-end role="presentation">';
                 } else {
-                    template += '<li role="presentation" ng-repeat="option in options | filter: searchFilter">';
+                    template += '<li role="presentation" ng-repeat="option in options | orderBy:sortBy | filter: searchFilter ">';
                 }
 
                 template += '<a role="menuitem" tabindex="-1" ng-click="setSelectedItem(getPropertyForObject(option,settings.idProp))">';
