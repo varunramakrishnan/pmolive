@@ -47,8 +47,9 @@
   trackWidth: 15,
   barWidth: 13,
   trackColor: '#cfcfcf',
-  barColor: 'limegreen',
-  textColor: 'black'
+  barColor: 'red',
+  textColor: 'black',
+  dynamicOptions: true
 };
   $scope.moused = function(id)
   {
@@ -325,7 +326,18 @@
 
    function getnewreport(filter) {
     getreportdata(filter).then(function(response){
-  $scope.knobvalue = response.util;
+  $scope.knobvalue =  response.util;
+  console.log($scope.knobvalue);
+
+  if($scope.knobvalue <= 50){
+     $scope.knoboptions.barColor =  'red';
+  }else if($scope.knobvalue<=70){
+       $scope.knoboptions.barColor =  'brown';
+  }else if($scope.knobvalue<=85){
+       $scope.knoboptions.barColor =  'green';
+  }else{
+       $scope.knoboptions.barColor =  'blue';
+  }
   $scope.total_hrs = response.total_hrs;
   $scope.util_hrs = response.util_hrs;
  var data = $scope.repdata = response.donut;
@@ -436,7 +448,17 @@ if(splits[3]){
         }else{
           getreportdata("today").then(function(response){
 
-  $scope.knobvalue = response.util;
+  $scope.knobvalue =  response.util;
+  if($scope.knobvalue <= 50){
+     $scope.knoboptions.barColor =  'red';
+   }else if($scope.knobvalue<=70){
+       $scope.knoboptions.barColor =  'brown';
+  }else if($scope.knobvalue<=85){
+       $scope.knoboptions.barColor =  'green';
+  }else{
+$scope.knoboptions.barColor =  'red';
+  }
+  console.log($scope.knobvalue);
   $scope.total_hrs = response.total_hrs;
   $scope.util_hrs = response.util_hrs;
  var data = $scope.repdata = response.donut;

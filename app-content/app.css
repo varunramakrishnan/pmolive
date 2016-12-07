@@ -1577,7 +1577,7 @@ hr.horline {
     width: 36%;
 }
 .dpthumb {
-    height: 40px;
+    height: 30px;
     /*margin: 3px;*/
     width: 30px;
 }
@@ -1612,4 +1612,7 @@ textarea.hoverclass {
     margin-left: 52%;
 }
 
+.dropdown-content > a {
+     text-decoration: none;
+}
 /*----*/
