@@ -1612,4 +1612,7 @@ textarea.hoverclass {
     margin-left: 52%;
 }
 
+.dropdown-content > a {
+     text-decoration: none;
+}
 /*----*/
