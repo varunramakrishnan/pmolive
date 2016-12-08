@@ -556,7 +556,7 @@
                 $location.path('/login');
             }
             if (loggedIn) {
-                var resPage = $.inArray($location.path(), ['/login', '/register','/timesheet']) === -1;
+                var resPage = $.inArray($location.path(), ['/login', '/register','/timesheet','/profile']) === -1;
                 if(!($rootScope.rootAccess || $rootScope.pmAccess)){
                     if(resPage ){
                         // if(resPage && (!$rootScope.rootAccess || !$rootScope.pmAccess)){
