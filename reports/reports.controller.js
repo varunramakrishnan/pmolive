@@ -11,8 +11,12 @@
         $scope.managermodel= [];
            $scope.peoplemodel= [];
         vm.getreportdata = getreportdata;
+<<<<<<< HEAD
         vm.getnewreport = getnewreport;
         vm.resetdata = resetdata ; 
+=======
+        vm.getnewreport= getnewreport;
+>>>>>>> export introduced report controller
         var splits=$location.url().toString().split("/");
          $scope.managercustomTexts = {buttonDefaultText: 'Select Manager'};
           $scope.peoplecustomTexts = {buttonDefaultText: 'People'};
@@ -323,7 +327,6 @@
 
 
 
-
    function getnewreport(filter) {
     getreportdata(filter).then(function(response){
   $scope.knobvalue =  response.util;
@@ -446,7 +449,26 @@ if(splits[3]){
             }
           });
         }else{
+          console.log("sd");
           getreportdata("today").then(function(response){
+            $scope.knoboptions = {
+              displayPrevious: true,
+              unit: "%",
+              size: 100,
+              readOnly: true,
+              subText: {
+                enabled: true,
+                // text: 'loaded',
+                color: 'black',
+                font: '2px'
+              },
+              // barCap: 10,
+              trackWidth: 15,
+              barWidth: 13,
+              trackColor: '#cfcfcf',
+              textColor: 'black',
+              dynamicOptions: true
+            };
 
   $scope.knobvalue =  response.util;
   if($scope.knobvalue <= 50){
