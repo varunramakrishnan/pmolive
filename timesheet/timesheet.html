@@ -115,7 +115,7 @@
       <div class="col-md-1 " id="myTab" >
         
           
-              <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="any"/>
+              <input type="" min="0" max="24" class="textField customText" readonly disabled ng-value="project.temp[0]+project.temp[1]+project.temp[2]+project.temp[3]+project.temp[4]+project.temp[5]+project.temp[6]" step="0.5"/>
           
               <!-- <textarea style="overflow:auto;resize:none;align:left;" rows="2" cols="1"></textarea> -->
           
@@ -134,7 +134,7 @@
                         <input type="" min="0" max="24" class="textField customText" disabled readonly ng-value="getTotal($index)" step="any"/>
       </div>
       <div class="col-md-0" >
-                        <button class="btn btn-primary"  ng-click="vm.savetimesheet('save');vm.getpiedata('today')">Save</button>
+                        <button class="btn btn-primary"  ng-click="vm.savetimesheet('save')">Save</button>
     </div>
     <!-- <div class="col-md-0" style="padding-bottom:10px;" >
                         <button class="btn btn-primary"  ng-click="vm.savetimesheet('save');vm.getpiedata('today')">commit</button>
