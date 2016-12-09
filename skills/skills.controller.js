@@ -116,9 +116,9 @@ vm.gridOptions = {
     { name: 'skill_name' },
       { name: 'skill_type' },
       { name: 'skill_code' },
-    ]
-
-  };
+    ],
+    enableGridMenu: true,
+    };
   UserService.getSkills()
      .then(function (response) {
       vm.gridOptions.data = response.data;
