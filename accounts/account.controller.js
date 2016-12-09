@@ -241,6 +241,8 @@ $scope.datepickerConfig = {
       columnDefs: [
       { name: 'id',  name: 'E/D', cellTemplate:'<div class="ui-grid-cell-contents"><a href="#/account/edit/{{row.entity.id}}"><button type="button" class="btn btn-xs btn-primary"  ><i class="fa fa-edit"></i></button></a>&nbsp<a href="#/account/delete/{{row.entity.id}}"  ><button type="button" class="btn btn-xs danger-class"  ><i  class="fa fa-trash"></i></button></a></div>', width: 70 },
       { name: 'account_name',minWidth: 260, enableCellEdit: true},
+       
+
         { name: 'organisational_unit_code' ,displayName:'OU Code',minWidth: 130},
         { name: 'services' ,minWidth: 260},
         // {  name: 'resource_needed',minWidth: 180 },
