@@ -124,32 +124,52 @@ $scope.data = {
               //   file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
               // });
             vm.resource.resmodel=$scope.resmodel;
+            vm.userdetails={};
+            vm.userdetails.user={};
+            vm.userdetails.user.username = vm.resource.employee_name;
+            vm.userdetails.user.password = vm.resource.employee_name;
+            vm.userdetails.user.employee_id = vm.resource.employee_id;                    
+                    UserService.Create(JSON.stringify(vm.userdetails))
+                      .then(function (response) {
+                          console.log(response.data);
+                          if (response.data.success) {
+                              FlashService.Success('Registration successful', true);
+                              UserService.saveResource(vm.resource)
+                                  .then(function (response) {
+                                      if (response.data.success) {
+                                        if($scope.picFile){
+                                          UserService.saveimage(vm.resource.employee_id,"R",$scope.picFile)
+                                            .then(function (response) {
+                                            });
+                                          }
+                                          FlashService.Success('Save successful', true);
+                                          vm.dataLoading = false;
+                                          // UserService.getResources()
+                                            // .then(function (response) {
+                                              $state.go("resources", {}, {reload: true});
+                                             // });
+                                      } else {
+                                        if(response.data.error.employee_id){
+                                          FlashService.Error('Employee ID ' +response.data.error.employee_id[0]);
+                                        }
+                                        if(response.data.error.heirarchy_name){
+                                          FlashService.Error('Heirarchy Name ' +response.data.error.heirarchy_name[0]);
+                                        }
+                                          vm.dataLoading = false;
+                                      }
+                                      ///
 
 
-            UserService.saveResource(vm.resource)
-                .then(function (response) {
-                    if (response.data.success) {
-                      if($scope.picFile){
-                        UserService.saveimage(vm.resource.employee_id,"R",$scope.picFile)
-                          .then(function (response) {
-                          });
-                        }
-                        FlashService.Success('Save successful', true);
-                        vm.dataLoading = false;
-                        // UserService.getResources()
-                          // .then(function (response) {
-                            $state.go("resources", {}, {reload: true});
-                           // });
-                    } else {
-                      if(response.data.error.employee_id){
-                        FlashService.Error('Employee ID ' +response.data.error.employee_id[0]);
-                      }
-                      if(response.data.error.heirarchy_name){
-                        FlashService.Error('Heirarchy Name ' +response.data.error.heirarchy_name[0]);
-                      }
-                        vm.dataLoading = false;
-                    }
-                });
+                                      ////
+                                  });
+                          } else {
+                              FlashService.Error('Username '+response.data.error.username[0]);
+                              vm.dataLoading = false;
+                          }
+                      });
+
+
+            
 
         }
 
@@ -183,6 +203,7 @@ vm.gridOptions = {
     ],
         enableColumnHeavyVirt: true,
         virtualizationThreshold: 10,
+        enableGridMenu: true,
 
   };
   $scope.imgexists = function(id) {
