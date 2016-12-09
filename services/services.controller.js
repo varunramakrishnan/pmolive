@@ -100,7 +100,12 @@ vm.gridOptions = {
     { name: 'service_name' },
       { name: 'service_code' },
       { name: 'mapping_format' },
-    ]
+    ],
+    enableGridMenu: true,
+    enableCellEdit: false,
+        
+        
+        
 
   };
   UserService.getAllServices()
