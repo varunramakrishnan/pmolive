@@ -113,6 +113,7 @@ $scope.remhovering =  function(p){
          getpiedata("today");
       };
       
+  
        var name = $rootScope.globals.currentUser.username;
        var uid = $rootScope.globals.currentUser.userId;
        var resource_id = $rootScope.globals.currentUser.resource_id;
@@ -406,6 +407,10 @@ $scope.remhovering =  function(p){
            .then(function (response) {
             if(val=="save"){
               $('#timecalendar').fullCalendar("today");
+              vm.getpiedata('today');
+
+
+
             }
             // console.log(response);
               // $state.go("timesheet", {}, {reload: true});
