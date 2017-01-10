@@ -12,7 +12,7 @@
       </div>
       </div>
 
-      <div class="col-md-2" ng-show= 'accountmodel.id'>
+      <!-- <div class="col-md-2" ng-show= 'accountmodel.id'>
         <div class="col-md-12 text-left">
           <div ng-dropdown-multiselect="" events="serEvents" options="serdata" translation-texts="servicecustomTexts" selected-model="sermodel" extra-settings="sersettings"></div>
          
@@ -43,74 +43,50 @@
           
         </div>
 
-    </div>
+    </div> -->
       <div ng-show= 'accountmodel.id' class="col-md-1 text-right new-right">
       <button ui-sref="project.calendar" class="btn btn-primary">View</button>
       </div> 
     </div>
-    <h3 ng-hide="hidesave">EXISTING MAPPING</h3>
-    <div class="row reshere newresouter" ng-hide="hidesave"  > <!--ng-show="showreshere" >-->
-     <div id="wrapper" class="wrapperouter" >
-        <div id="inner-wrapper" class="inner-wrapper parent" ng-class="{'conflict': n.conflict == 1}" ng-repeat="n in existingItems |  orderBy:'resource_id' | orderBy : 'service_id' ">
-      <div class="one-col col-md-6">
-        <div class="col-md-8" title="{{n.name}} &nbsp; ({{n.project_code}} &nbsp;|| &nbsp;{{n.service_code}})">{{n.name}} &nbsp; ({{n.project_code}} &nbsp;|| &nbsp;{{n.service_code}})</div>
-        <div class="col-md-4" title="{{n.percentage_loaded}}% &nbsp; ({{n.percentage_loaded/12.5}}h)">{{n.percentage_loaded}}% &nbsp; ({{n.percentage_loaded/12.5}}h)</div>
-        </div>
-      <div class="two-col "><div class="col-md-11" title="{{n.minDate | date:'MMM d, y'}} -- {{n.maxDate | date:'MMM d, y'}}  | {{n.noOfDays}} days">{{n.minDate | date:'MMM d, y'}} -- {{n.maxDate | date:'MMM d, y'}}  | {{n.noOfDays}} days</div><i class="fa fa-times" ng-click="remresdate({{n.resource_id}},{{n.service_id}},{{n.project_id}},{{n.percentage_loaded}})" aria-hidden="true"></i>
-      </div>
-      </div>
-      
-    </div>
-    </div>
     <div class="row">
-    <div class="text-center">
-          <button class="btn btn-success"    ng-show="showsave" ng-click="saveproject()">Save</button>
-          </div>
+      <div class="col-md-4"  >
+      <h3 ng-show= 'accountmodel.id'>Service, Project & People</h3>
+      <div class="row" ng-class="{'reshere': accountmodel.id}">
+      <div class="row cuspad">
+        <div class="col-md-5" ng-show= 'accountmodel.id'>
+        <div class="col-md-12 text-left">
+          <div ng-dropdown-multiselect="" events="serEvents" options="serdata" translation-texts="servicecustomTexts" selected-model="sermodel" extra-settings="sersettings"></div>
+         
+        </div>
+      </div>
+      <div class="col-md-5" ng-show="showprodate">
+      <div class="col-md-12 text-left">
+        <div ng-dropdown-multiselect="" events="proEvents" options="prodata" translation-texts="projectcustomTexts" selected-model="promodel" extra-settings="prosettings"></div>
+       
+      </div>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col-md-12" ng-show="showprodate && calmodel">
+      
+        <div class="col-md-12">
+          <div ng-dropdown-multiselect="" events="resourceEvents" options="example13data" translation-texts="peoplecustomTexts" selected-model="example13model" extra-settings="example13settings" group-by="group"></div>
+          
+        </div>
+
     </div>
-    
-    <div class="row reshere" ng-show="showreshere">
+      </div>
+      </div>
+      <div class="row"  ng-show="example13model.length" ng-class="{'reshere': example13model.length}">
       <div class="hdr"><h4>Map People to Projects</h4> </div>
-      <div class="single">
+      <div class="single" >
          <ul class="nav navbar-nav custom-nav">
           <li ng-repeat="field in example13model">
               <button class='btn btn-default' id='{{field.employee_name + field.id}}' ng-click='respevents({{field.id}},"{{field.employee_name}}")'  >{{field.employee_name}}</button>
           </li>
           </ul>
-          </div>
-        <!-- <div>
-
-        
-         <div ng-show='per=="P"'>
-        <div class="col-md-3 text-right">
-          <label for="username">Percentage Loaded</label>
-        </div>
-        <div class="col-md-2">
-           <select name="singleSelect" ng-model="singleperSelect">
-              <option value="25">25 %</option>
-              <option value="50">50 %</option>
-              <option value="75">75 %</option>
-              <option value="100">100 %</option>
-          </select>
-         </div>
-       </div>
-       <div ng-show='per!="P"'>
-        <div class="col-md-3 text-right">
-          <label for="username">Service Loaded</label>
-        </div>
-        <div class="col-md-2">
-          <input id="singleserSelect" name="singleserSelect" placeholder="Input the hrs" class="form-control input-md col-md-12 " ng-model="singleserSelect" required type="text" size="10"><span>hrs</span>
-         </div>
-         
-       </div>
-
-         </div>  -->
-         <div class="row">
-         <div class="col-md-4"></div>
-         <div class="col-md-7"><h4>To be Mapped</h4></div>
-         </div>
-         <div class="row" >
-         <div class="col-md-4">
-            <div ng-show="resource" >
+          <br>
+          <div ng-show="resource" >
               <div style='display:inline-block; vertical-align:top'>
                 <div id='btn-group' class='btn-group hideoncalendar'>
                   <button class='btn btn-primary' ng-model='type' uib-btn-radio='"individual"'>Split</button>
@@ -137,10 +113,10 @@
             <!-- <h4 ng-show='per=="H"'>Approximate Splitup: {{calapproxresult()}} hours per person per day</h4> -->
             <div ng-show='per=="P"'>
             <div class="row">
-              <div class="col-md-8 text-right">
+              <div class="col-md-6 text-right">
                 <label for="username">Percentage Loaded</label>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                  <select name="singleSelect" ng-model="singleperSelect">
                     <option value="25">25 %</option>
                     <option value="50">50 %</option>
@@ -171,12 +147,150 @@
           <button class="btn btn-primary" ng-show='per=="P"' ng-disabled="!selectedDates.length || !resmodel.length || !sermodel.id" ng-click="add(selectedDates)">Add</button>
           <button class="btn btn-primary"  ng-show='per=="H"' ng-disabled="!selectedDates.length || !resmodel.length || !sermodel.id" ng-click="add(selectedDates)">Add</button>
           </div>
-         </div>
-         <div class="col-md-7 new-wrapper">
-         <div id="inner-wrapper" class=" parent" ng-repeat="n in items |  orderBy:'resource_id' | orderBy : 'service_id' | filter:{ saved: '!1'}" >
+          </div>
+          </div>
+      </div>
+      <div class="col-md-8">
+        <h3 ng-hide="hidesave">EXISTING MAPPING</h3>
+        <div class="row reshere " ng-hide="hidesave"  > <!--ng-show="showreshere" >-->
+         <div id="wrapper" class="wrapperouter" >
+            <div id="inner-wrapper" class="inner-wrapper parent" ng-class="{'conflict': n.conflict == 1}" ng-repeat="n in existingItems |  orderBy:'resource_id' | orderBy : 'service_id' ">
+          <div class="one-col col-md-6">
+            <div class="col-md-8"  ng-if="n.project_code != '' ">
+              <div title="{{n.name}}  ({{n.service_code}} - {{n.project_code}})">{{n.name}} ({{n.service_code}} - {{n.project_code}})</div>
+            </div>
+            <div  class="col-md-8" ng-if="n.project_code == '' ">
+              <div title="{{n.name}} ({{n.service_code}} - {{n.project_code}})">{{n.name}} ({{n.service_code}})
+              </div>
+            </div>
+            <!-- <div class="col-md-8" title="{{n.name}} &nbsp; ({{n.service_code}} &nbsp;- &nbsp;{{n.project_code}})">{{n.name}} &nbsp; ({{n.service_code}} &nbsp;- &nbsp;{{n.project_code}})</div> -->
+            <div class="col-md-4" title="{{n.percentage_loaded}}% &nbsp; ({{n.percentage_loaded/12.5}}h)">{{n.percentage_loaded}}%({{n.percentage_loaded/12.5}}h)</div>
+            </div>
+          <div class="two-col "><div class="col-md-11" title="{{n.minDate | date:'MMM d, y'}} -- {{n.maxDate | date:'MMM d, y'}}  | {{n.noOfDays}} days">{{n.minDate | date:'MMM d, y'}} -- {{n.maxDate | date:'MMM d, y'}}  | {{n.noOfDays}} d</div><i class="fa fa-times" ng-click="remresdate({{n.resource_id}},{{n.service_id}},{{n.project_id}},{{n.percentage_loaded}})" aria-hidden="true"></i>
+          </div>
+          </div>
+          
+        </div>
+        </div>
+        
+        <h3 ng-show='results.length'>To be Mapped</h3>
+        <div class="row" ng-show='results.length' ng-class="{'reshere': items.length > 1}" >
+        <div ng-show='results.length' id="wrapper" class="wrapperouter " >
+        
+         <div id="inner-wrapper" class=" parent inner-wrapper" ng-repeat="n in items |  orderBy:'resource_id' | orderBy : 'service_id' | filter:{ saved: '!1'} as results" >
           <!-- <div ng-show="showservice({{n.service_id}})">
             <div class="col-md-6">{{n.service_id}}</div>
         </div> -->
+      <div class="one-col col-md-6">
+        <div class="col-md-8"  ng-if="n.project_id != 0 ">
+              <div  title="{{n.name}} &nbsp; ({{n.service_code}} &nbsp;- &nbsp;{{n.project_code}})">{{n.name}} &nbsp; ({{n.service_code}} &nbsp;- &nbsp;{{n.project_code}})</div>
+        </div>
+        <div class="col-md-8"  ng-if="n.project_id == 0 ">
+              <div  title="{{n.name}} &nbsp; ({{n.service_code}})">{{n.name}} &nbsp; ({{n.service_code}})</div>
+        </div>
+        
+        <div class="col-md-4" title="{{n.percentage_loaded}}%({{n.percentage_loaded/12.5}}h)">{{n.percentage_loaded}}%({{n.percentage_loaded/12.5}}h)</div>
+        </div>
+      <div class="two-col " title="{{n.minDate | date:'MMM d, y'}} -- {{n.maxDate | date:'MMM d, y'}} -- {{n.noOfDays}} days"><div class="col-md-11">{{n.minDate | date:'MMM d, y'}} -- {{n.maxDate | date:'MMM d, y'}} | {{n.noOfDays}} d</div><i class="fa fa-times" ng-click="remresdate({{n.resource_id}},{{n.service_id}},{{n.project_id}},{{n.percentage_loaded}})" aria-hidden="true"></i>
+      </div>
+      </div>
+        </div>
+
+
+
+
+      </div>
+      <div class="row">
+        <div class="text-center">
+              <button class="btn btn-success"    ng-show="showsave" ng-click="saveproject()">Save</button>
+              </div>
+        </div>
+    </div>
+  </div>
+   
+    
+    <!-- <div class="row reshere" ng-show="showreshere">
+      <div class="hdr"><h4>Map People to Projects</h4> </div>
+      <div class="single">
+         <ul class="nav navbar-nav custom-nav">
+          <li ng-repeat="field in example13model">
+              <button class='btn btn-default' id='{{field.employee_name + field.id}}' ng-click='respevents({{field.id}},"{{field.employee_name}}")'  >{{field.employee_name}}</button>
+          </li>
+          </ul>
+          </div>
+         <div class="row">
+         <div class="col-md-4"></div>
+         <div class="col-md-7"><h4>To be Mapped</h4></div>
+         </div>
+         <div class="row" >
+         <div class="col-md-4">
+            <div ng-show="resource" >
+              <div style='display:inline-block; vertical-align:top'>
+                <div id='btn-group' class='btn-group hideoncalendar'>
+                  <button class='btn btn-primary' ng-model='type' uib-btn-radio='"individual"'>Split</button>
+
+                  <button class='btn btn-primary' ng-model='type' uib-btn-radio='"range"'>Range</button>
+
+                </div>
+                <br><br>
+                <my-customer></my-customer>
+                <table>
+                  <tr>
+                    <td>
+                      <uib-datepicker ng-model='activeDate' multi-select='selectedDates' select-range='{{type=="range"}}' date-disabled='disabled(date)' ></uib-datepicker>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <br>
+            <div ng-show="resource && resmodel.length && selectedDates.length">
+            <span >Total Selection: {{calenderresult()}} days * {{resmodel.length}} persons * 8hrs =  {{calresult()}}hrs</span>
+
+            <h4 > {{calenderresult()}}hrs</h4> -->
+            <!-- <h4 ng-show='per=="H"'>Approximate Splitup: {{calapproxresult()}} hours per person per day</h4> -
+            <div ng-show='per=="P"'>
+            <div class="row">
+              <div class="col-md-8 text-right">
+                <label for="username">Percentage Loaded</label>
+              </div>
+              <div class="col-md-4">
+                 <select name="singleSelect" ng-model="singleperSelect">
+                    <option value="25">25 %</option>
+                    <option value="50">50 %</option>
+                    <option value="75">75 %</option>
+                    <option value="100">100 %</option>
+                </select>
+               </div>
+               </div>
+             </div>
+            <div ng-show='per!="P"'>
+              <div class="row" ng-show='selectedDates.length && resmodel.length && per!="P"'>
+              <div class="col-md-4"><span >{{calenderresult()}} d * {{resmodel.length}} p *</span></div>
+              <div class="col-md-3"><input  tooltip="Choose per day hours"  ng-keyup="calfunc()" ng-click="calfunc()" class="form-control input-md col-md-12 " ng-model="perResHrs" required type="number" size="10"></div>
+              <div class="col-md-2">  = </div>
+              <div class="col-md-3"><input tooltip="Choose total hours"  class="form-control input-md col-md-12 "  ng-model="singleserSelect" required type="text" size="10"></div>
+               <h4 ng-show='selectedDates.length && resmodel.length && per!="P"'>{{calenderresult()}} days * {{resmodel.length}} persons * </h4><input  placeholder="Input the hrs" class="form-control input-md col-md-12 " ng-model="perResHrs" required type="number" size="10"/><h4> = </h4> 
+                <input id="singleserSelect" name="singleserSelect" placeholder="Input the hrs" class="form-control input-md col-md-12 " ng-model="singleserSelect" required type="text" size="10"/> 
+               </div>
+          </div>
+             
+            
+            </div>
+            <h4 >Selection: {{selectedDates.length}} days * 8hrs =  {{calresult()}}hrs</h4>
+             <h4 >Selection: {{selectedDates.length}} days * 8hrs =  {{calresult()}}hrs</h4> 
+            <br>
+            <div ng-show="resource">     
+          <button class="btn btn-primary" ng-show='per=="P"' ng-disabled="!selectedDates.length || !resmodel.length || !sermodel.id" ng-click="add(resource,singleres,selectedDates)">Add</button> 
+          <button class="btn btn-primary" ng-show='per=="P"' ng-disabled="!selectedDates.length || !resmodel.length || !sermodel.id" ng-click="add(selectedDates)">Add</button>
+          <button class="btn btn-primary"  ng-show='per=="H"' ng-disabled="!selectedDates.length || !resmodel.length || !sermodel.id" ng-click="add(selectedDates)">Add</button>
+          </div>
+         </div>
+         <div class="col-md-7 new-wrapper">
+         <div id="inner-wrapper" class=" parent" ng-repeat="n in items |  orderBy:'resource_id' | orderBy : 'service_id' | filter:{ saved: '!1'}" >
+           <div ng-show="showservice({{n.service_id}})">
+            <div class="col-md-6">{{n.service_id}}</div>
+        </div> 
       <div class="one-new-col row">
         <div class="col-md-7" title="{{n.name}} &nbsp; ({{n.project_code}} &nbsp;|| &nbsp;{{n.service_code}})">{{n.name}} &nbsp; ({{n.project_code}} &nbsp;|| &nbsp;{{n.service_code}})</div>
         <div class="col-md-5" title="{{n.percentage_loaded}}% &nbsp; ({{n.percentage_loaded/12.5}}h)">{{n.percentage_loaded}}% &nbsp; ({{n.percentage_loaded/12.5}}h)</div>
@@ -194,7 +308,7 @@
           </div>
           
         </div>
-  </div>
+  </div> -->
  
     </div>
 </div>

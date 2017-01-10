@@ -6,37 +6,31 @@
    .controller('AccountController', AccountController)
    .controller('AccountEditController', AccountEditController)
    .controller('AccountDeleteController', AccountDeleteController)
-
-  // .controller('RowAccountEditCtrl', RowAccountEditCtrl)
-
-  // .service('RowAccountEditor', RowAccountEditor);
   	AccountController.$inject = ['$rootScope','$cookieStore','$scope','$state','$log','$http','UserService', '$location', 'FlashService', 'RowEditor', '$timeout','$routeParams'];
   	function AccountController($rootScope,$cookieStore,$scope,$state,$log,$http,UserService, $location,FlashService,RowEditor,$timeout,$routeParams) {
-  		var vm = this;
+  		  var vm = this;
         $rootScope.shownav=true;
         $rootScope.rootAccess =  $cookieStore.get("rootAccess");
         $rootScope.pmAccess =  $cookieStore.get("pmAccess");
-          // vm.clickHandlers = RowAccountEditor.editAccountRow;
           vm.saveaccount = saveaccount;
           vm.getaccount = getaccount;
           vm.getServices = getServices;
-          // vm.callCurrencyAPI = callCurrencyAPI;
           var rowIndexTemp = 0;
-    var colKeyTemp = '';
-    var availOrgan ='';
-    var availableStatus = "";
-    var availableManagers = "";  
+          var colKeyTemp = '';
+          var availOrgan ='';
+          var availableStatus = "";
+          var availableManagers = "";  
     //clickHandlers = RowAccountEditor.editAccountRow;
-    $rootScope.availableStatus =  [
-        {id: 'Confirmed', name: 'Confirmed'},
-        {id: 'Tentative', name: 'Tentative'}
-      ];
-      $scope.datepickerPopupConfig = {
-  datepickerPopup: "MMM d, yyyy",
-  closeOnDateSelection: true,
-  appendToBody: false,
-  showButtonBar: false
-}
+          $rootScope.availableStatus =  [
+              {id: 'Confirmed', name: 'Confirmed'},
+              {id: 'Tentative', name: 'Tentative'}
+            ];
+          $scope.datepickerPopupConfig = {
+          datepickerPopup: "MMM d, yyyy",
+          closeOnDateSelection: true,
+          appendToBody: false,
+          showButtonBar: false
+        }
  $scope.keylength = function(a) {
    var count = 0;
   var i;
