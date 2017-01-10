@@ -1,3 +1,4 @@
+// Controller for  URL - /timesheet
 (function () {
     'use strict';
 
@@ -18,20 +19,20 @@
         var text_disable='true';
         $scope.userData=[];
         $scope.hov=[];
-$scope.hovering =  function(p){
-  if($scope.hov[p.account_id] == undefined)
-    $scope.hov[p.account_id] = [];
-  if($scope.hov[p.account_id][p.service_id] == undefined)
-    $scope.hov[p.account_id][p.service_id] = [];
-  if($scope.hov[p.account_id][p.service_id][p.project_id] == undefined)
-    $scope.hov[p.account_id][p.service_id][p.project_id] = 0;
-
-    $scope.hov[p.account_id][p.service_id][p.project_id] = 1;
-}
-$scope.remhovering =  function(p){
- 
-    $scope.hov[p.account_id][p.service_id][p.project_id] = 0;
-}
+        // hovering code for comment box
+        $scope.hovering =  function(p){
+          if($scope.hov[p.account_id] == undefined)
+            $scope.hov[p.account_id] = [];
+          if($scope.hov[p.account_id][p.service_id] == undefined)
+            $scope.hov[p.account_id][p.service_id] = [];
+          if($scope.hov[p.account_id][p.service_id][p.project_id] == undefined)
+            $scope.hov[p.account_id][p.service_id][p.project_id] = 0;
+            $scope.hov[p.account_id][p.service_id][p.project_id] = 1;
+        }
+        $scope.remhovering =  function(p){
+            $scope.hov[p.account_id][p.service_id][p.project_id] = 0;
+        }
+        // color code for dial
         $scope.colors = [ '#fdb45c', '#00ADF9', '#f7464a', '#46BFBD', '#32cd32', '#28022f', '#feca9a'];
         $scope.weeknames = [ ".fc-sun",".fc-mon",".fc-tue", ".fc-wed", ".fc-thu", ".fc-fri", ".fc-sat"];
         var currentDate,
@@ -68,6 +69,7 @@ $scope.remhovering =  function(p){
         return 'oth-bac';  
         }
       };
+      // Get Daily Totals in hours
       $scope.getTotal = function(index){
             var total = 0;
             for(var i = 0; i < $scope.projects.length; i++){
@@ -76,13 +78,13 @@ $scope.remhovering =  function(p){
             }
             return total;
         }
+        // Calender event render
       $scope.eventRender = function( event, element, view ) {
         $compile(element)($scope);
       };
+      // Calendar custom button event
       $scope.buttonEvent = function( event) {
-        
         $('#timecalendar').fullCalendar(event);
-
             if(event=="next"){
               weekDates(w_today.add(7,'days'));
             }
@@ -91,13 +93,10 @@ $scope.remhovering =  function(p){
             }
             else{
             }
-       
-       
         for(var j=0;j<$scope.projects.length;j++){
                 for(var i=0;i<$scope.days.length;i++){
                   console.log('start if'+w_start.day(i).format('ddd D'));
                       $scope.temp_arr=[];
-                     /*if(weekStart.day(i).format('ddd')=='Sun' || weekStart.day(i).format('ddd')=='Sat')*/
                      if(moment(w_start.day(i).format('YYYY-MM-DD')).isAfter(moment().format('YYYY-MM-DD'))){
                        $scope.projects[j].bool[i]=true;
                        $scope.temp_arr[i]='';
@@ -117,14 +116,15 @@ $scope.remhovering =  function(p){
        var uid = $rootScope.globals.currentUser.userId;
        var resource_id = $rootScope.globals.currentUser.resource_id;
        $rootScope.currentUser={
-       "Name":name,
-        "user_id":uid,
+         "Name":name,
+         "user_id":uid,
          "resource_id":resource_id 
        };
-   $rootScope.shownav=true;
-	 $rootScope.rootAccess =  $cookieStore.get("rootAccess");
+    $rootScope.shownav=true;
+	  $rootScope.rootAccess =  $cookieStore.get("rootAccess");
     $rootScope.pmAccess =  $cookieStore.get("pmAccess");
     var prevstart = '';
+// Get all projects allocated for a resource on page load
       UserService.getAllResourceProjects(resource_id)
          .then(function (response) {
                 var data = response.data;
@@ -152,7 +152,7 @@ $scope.remhovering =  function(p){
              getpiedata("today");
                 
              });
-
+// Get The Timesheet data for pie chart based  on user enetered filters
      function getpiedata(filter) {
       var text= '#btn-pie-group button' ;
         var myEl = angular.element( document.querySelectorAll( text ) ); 
@@ -176,7 +176,7 @@ $scope.remhovering =  function(p){
         mynewEl.addClass('custactive');
         var piepostData = {"rid":resource_id,"filter":"today","week_id":wid,"dates":$scope.month_full};
       }
-      
+      // The Server call to fetch data
       UserService.getResourcePieData(piepostData)
              .then(function (response) {
              $scope.labels = response.data.label;
@@ -194,7 +194,7 @@ $scope.remhovering =  function(p){
         w_start = w_today.clone().endOf('week');  
       
    }
-
+// Custom code to track calendar previous and next week events
     function fetchEvents(start, end, timezone, callback) {
       
       var startdate=$('#timecalendar').fullCalendar('getView').start.format('x');
@@ -231,9 +231,9 @@ $scope.remhovering =  function(p){
 
     }
    // $('#timecalendar').fullCalendar.formatDate(calEvent.start, 'dd/MM/yyyy HH:mm');
+   //UI Configurations for calendar
    $scope.uiConfig = {
         calendar:{
-          // height: 750,
           editable: false,
           header:{
             left: 'title',
@@ -242,9 +242,6 @@ $scope.remhovering =  function(p){
           },
           eventBackgroundColor: "#000000",
           defaultView: "basicWeek",
-          //eventRender: $scope.eventRender,
-
-
           columnFormat: {
 		        month: 'MMMM yyyy',                            // September 2009
 		        week: "ddd D ", // Sep 7 - 13 2009
@@ -276,11 +273,7 @@ $scope.remhovering =  function(p){
           }
         }
       };
-   
-    
-    
-
-
+// Function to frame the JSON data to make the post calll
     function setCurrentDate(aMoment,c,wkid,num){
       // var wkid=aMoment.format(weekYear);
      // var wid=moment().format(weekYear);
@@ -382,7 +375,7 @@ $scope.remhovering =  function(p){
      });
     }
 
-    
+    // Save the timeshhet to DB
 
        function savetimesheet(val) {  
         console.log('value...'+val);
@@ -401,25 +394,13 @@ $scope.remhovering =  function(p){
 
         
           var postData = { "Exists":$scope.exists,"WeekID":$scope.weekYear,"user":$rootScope.currentUser,"projects":$scope.projects,'Dates':$scope.curr_date};
-         // var postData = { };
           UserService.saveTimeCard(postData)
            .then(function (response) {
             if(val=="save"){
               $('#timecalendar').fullCalendar("today");
             }
-            // console.log(response);
-              // $state.go("timesheet", {}, {reload: true});
            });
           
-      //    $http
-      //   .post('/addTimecard',{ "Exists":$scope.exists,"WeekID":$scope.weekYear,"user":$rootScope.currentUser,"projects":$scope.projects,'Dates':$scope.today_full})
-      //   .success(function(data){
-      //     console.log('in posting..'+$scope.weekYear+'...exis'+$scope.exists+'....'+$scope.projects[0].temp);
-      //       //what to do here? it's up to you and the data you write from server.
-      //   })
-      //   .error(function(data){
-      //       console.log('Error: ' + data);
-      //   });
        };
         
 
