@@ -45,28 +45,33 @@
               groupByTextProvider: function(groupValue) { if (groupValue === 'F') { return 'Suggested'; } else { return 'Remaining'; } } 
             };
             $scope.events = [] ;
-            $scope.uiConfig = {
-              calendar:{
-                height: 450,
-                width: 650,
-                editable: false,
-                header:{
-                  left: 'title',
-                  center: '',
-                  right: 'today prev,next'
-                },
-                eventClick: $scope.alertOnEventClick,
-                eventDrop: $scope.alertOnDrop,
-                eventResize: $scope.alertOnResize,
-                eventRender: $scope.eventRender,
-                eventLimit: true, 
-                views: {
-                  agenda: {
-                            eventLimit: 2 // adjust to 6 only for agendaWeek/agendaDay
-                          }
-                        }
-                      }
-                    };
+            
+
+               $scope.uiConfig = {
+                calendar:{
+                  height: 450,
+                  width: 650,
+                  editable: false,
+                  header:{
+                    left: 'title',
+                    center: '',
+                    right: 'today prev,next'
+                  },
+                  eventBackgroundColor: "#000000",
+                  eventClick: $scope.alertOnEventClick,
+                  eventDrop: $scope.alertOnDrop,
+                  eventResize: $scope.alertOnResize,
+                  eventRender: $scope.eventRender,
+                  eventLimit: true, 
+                  weekends: false,
+                  views: {
+                    agenda: {
+                      // eventLimit: 2 // adjust to 6 only for agendaWeek/agendaDay
+                      eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+                    }
+                  }
+                }
+              };
 
             $scope.person = {};
             $scope.reshowButtons =function(){
@@ -117,8 +122,19 @@
               }
             };
             $scope.eventRender = function( event, element, view ) {
+               if (event.type=="free") {
+          if((event.perc === "100.0") || (event.perc === "100")){
+            var s="background-color:#378006;border-color:#378006";
+            }else{
+              var s="background-color:#378006;border-color:#378006";
+            }
+          } else{
+              var s="background-color:#8B4513;border-color:#8B4513";
+          };
             element.attr({
-              'tooltip': event.title,
+              // 'tooltip': event.title,
+              'tooltip': event.description.split("|").join(','),
+              'style':s,
               'tooltip-append-to-body': true,
               'eventColor': '#378006'});
             $compile(element)($scope);
@@ -188,14 +204,20 @@
                 $scope.eventSources = [fetchEvents];
                 function fetchEvents(start, end, timezone, callback) {
                   var aid = "";
-                  aid=$scope.accountmodel.id;
+                  aid=$scope.accountmodel.id.toString();
+                  var startdate=$('#mycalendar').fullCalendar('getView').start.format('x');
+                  var enddate = $('#mycalendar').fullCalendar('getView').end.format('x');
                   var newEvents = [];
-                  UserService.getAccountResource(aid).then(function(response) {
+                  UserService.getNewDates({"accounts":String($scope.accountmodel.id),"services":"","skills":"","resources":"",'startdate':startdate,'enddate':enddate}).then(function (response) {
+                  // UserService.getAccountResource(aid).then(function(response) {
                     angular.forEach(response.data, function (obj) {
                      newEvents.push({
                       title: obj.title,
                       start: new Date(Number(obj.start)+19800),
                       allDay: true,
+                      description: obj.description,
+                      type: obj.type,
+                      perc: obj.perc,
                     });
                    });
                     angular.copy(newEvents, $scope.events);
@@ -205,6 +227,16 @@
                 $('#mycalendar').fullCalendar('refetchEvents') ;
               },
             };
+      //        $scope.eventRender = function( event, element, view ) {
+        
+      //   element.attr({
+      //     // 'tooltip': event.description.split("|").join('\n'),
+      //     // 'tooltip': event.description.split("|").join(','),
+      //     'style':s,
+      //    'tooltip-append-to-body': true,
+      //     'eventColor': '#378006'});
+      //   $compile(element)($scope);
+      // };
             $scope.yourEvents = {
              onItemSelect: function(item) {
               $scope.selectedDates.length = 0;
