@@ -19,6 +19,20 @@
     border-radius: 5px;
     padding: 8px 0;
 }
+
+.col-md-4.bg-account {
+   
+    border-radius: 5px;
+    padding: 8px 0;
+}
+
+
+
+
+
+
+
+
 .font17{
   font-size: 17px;
 }
@@ -81,7 +95,7 @@
 }
 span.amp {
    /*font-family:Baskerville,"Goudy Old Style","Palatino","Book Antiqua",serif;*/
-   font-size:22px;
+   font-size:18px;
    /*font-style:italic;*/
    /*color:#ef6e24;*/
 }
