@@ -11,12 +11,8 @@
         $scope.managermodel= [];
            $scope.peoplemodel= [];
         vm.getreportdata = getreportdata;
-<<<<<<< HEAD
         vm.getnewreport = getnewreport;
         vm.resetdata = resetdata ; 
-=======
-        vm.getnewreport= getnewreport;
->>>>>>> export introduced report controller
         var splits=$location.url().toString().split("/");
          $scope.managercustomTexts = {buttonDefaultText: 'Select Manager'};
           $scope.peoplecustomTexts = {buttonDefaultText: 'People'};

@@ -1,41 +1,10 @@
 
-
-<!-- <div class="Modal-backdrop" ng-show="popoverIsVisible" ></div>
-<div ng-show="popoverIsVisible" class="Modal-report-holder"  autoscroll="false">
-<div  >
-					<div class="modal-container" >
-					<span class="popuptext">{{name}} -- {{emp_id}} -- Utilization for {{filter}}</span>
-					<div class="pierepdata">{{perc}} %</div>
-					  <canvas id="doughnut" class="chart chart-doughnut mar-top"
-					          chart-data="ydata" chart-colors="colors" chart-labels="labels">
-					        </canvas>
-					<button class="btn btn-danger" ng-click="mousedleave()">Close</button>
-
-					</div>
-
-					</div>
-</div> -->
-<!-- For Managers -->
-    <!-- <div class="row">
-        <div class="col-md-2">
-      <div class="col-md-12 text-left">
-        <div ng-dropdown-multiselect="" events="managerEvents"  translation-texts="managercustomTexts" options="managerdata"  selected-model="managermodel" extra-settings="managersettings"></div>
-       
-      </div>
-      </div>
-       <div class="col-md-2" ng-show='people'>
-        <div class="col-md-12 text-left">
-          <div ng-dropdown-multiselect="" events="peopleEvents" options="peopledata" translation-texts="peoplecustomTexts" selected-model="peoplemodel" extra-settings="peoplesettings"></div>
-         
-        </div>
-      </div>
-    </div> -->
 <div class="row">
   <div class="col-md-3 bg-account">
-    <div class="col-md-6">
+    <div class="col-md-3">
       <span class='amp'>Reporting Manager</span>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
       <div  ng-dropdown-multiselect="" events="managerEvents" options="managerdata" selected-model="managermodel" extra-settings="managersettings"></div>
     </div>
     <br>
@@ -47,60 +16,111 @@
           </li>
           </ul>
           </div>
-          
-    <!-- <br>
-    <br>
-    <div class="newwrapper col-md-12"  ng-disabled="sermodel.length">
-         <ul class="nav navbar-nav custom-nav">
-          <li ng-repeat="field in sermodel">
-              <button class='btn btn-default' disabled >{{field.service_code}}</button>
-          </li>
-          </ul>
-          </div> -->
-  </div>
+          </div>
+     
+
+
   <div class="col-md-1">
     <span class="amp">&amp;</span>
   </div>
   <div class="col-md-3 bg-account">
+    <div class="col-md-3">
+       <span class='amp' >From Date</span>
+    </div>
     <div class="col-md-6">
+
+      <p class="input-group">
+      <input type="text" size="8"  uib-datepicker-popup ng-model="startdate" ng-change="vm.myFunc()" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+      <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+  </div>
+    <br>
+    <br>
+
+
+    <div class="col-md-1">
+    <span class="amp">&amp;</span>
+  </div>
+  <div class="col-md-4 bg-account">
+    <div class="col-md-3">
+       <span class='amp' >To Date</span>
+    </div>
+     
+    <div class="col-md-6">
+       
+  <p class="input-groupp">
+         <input type="text" size="8" uib-datepicker-popup ng-model="enddate" ng-change="vm.myFunc()" is-open="popup4.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+
+   </div>
+    <br>
+    <br>
+   </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+<!--<div class="col-md-1">
+    <span class="amp">&amp;</span>
+  </div>
+  <div class="col-md-3 bg-account">
+    <div class="col-md-3">
+       <span class='amp' >To Date</span>
+    </div>
+    <div class="col-md-3">
+  <p class="input-group">
+          <input type="text" size="8"  uib-datepicker-popup ng-model="enddate" ng-change="vm.myFunc()" is-open="popup4.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+
+   </div>
+    <br>
+    <br>
+   </div>-->
+
+
+
+<div class="col-md-1">
+      <span class="amp">&amp;</span>
+</div>
+<div class="col-md-3 bg-account">
+    <div class="col-md-3">
        <span class='amp' >People</span>
     </div>
-    <div class="col-md-6">
-        <div  ng-dropdown-multiselect="" events="peopleEvents" options="peopledata" selected-model="peoplemodel" extra-settings="peoplesettings"></div>
+             <div class="col-md-6">
+                    <div  ng-dropdown-multiselect="" events="peopleEvents" options="peopledata" selected-model="peoplemodel" extra-settings="peoplesettings">
+                    </div>
 
-    </div>
+             </div>
     <br>
     <br>
-    <div class="newwrapper col-md-12" ng-disabled="peoplemodel.length">
-         <ul class="nav navbar-nav custom-nav">
-          <li ng-repeat="field in peoplemodel">
+          <div class="newwrapper col-md-12" ng-disabled="peoplemodel.length">
+             <ul class="nav navbar-nav custom-nav">
+              <li ng-repeat="field in peoplemodel">
               <button class='btn btn-default'   disabled >{{field.employee_name}}</button>
-          </li>
-          </ul>
+               </li>
+                </ul>
           </div>
-  </div>
-  <div class="col-md-1">
-  <button class="btn  btn-default" ng-click="vm.resetdata()">Reset</button>
-    <!-- <span class="amp">&amp;</span> -->
-  </div>
-  <!-- <div class="col-md-3">
-    <div class="col-md-6">
-       <span class='amp' >Utilization</span>
-    </div>
-    <div class="col-md-6">
-      <div  ng-dropdown-multiselect="" events="skillEvents" options="skilldata" selected-model="skillmodel" extra-settings="skillsettings"></div>
-    </div>
-    <br>
-    <br>
-    <div class="newwrapper col-md-12"  ng-disabled="resourcemodel.length">
-         <ul class="nav navbar-nav custom-nav">
-          <li ng-repeat="field in skillmodel">
-              <button class='btn btn-default' disabled >{{field.skill_name}}</button>
-          </li>
-          </ul>
-          </div>
-  </div> -->
-      </div>
+   </div>
+
+ 
+
+ 
+ </div>
 <br>
 <br>
 
@@ -109,43 +129,164 @@
         <div class="row">
         <div class="col-md-4">
         <div >
-      		<button ui-sref="calendar" class="btn btn-primary">View Calendar</button>
+      		<button ui-sref="calendar" class="btn btn-primary">View Calendar</button>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp;
+          <button class="btn  btn-primary" ng-click="vm.resetdata()">Reset</button>
       	</div>
         </div>
         <div class="col-md-offset-4 col-md-4">
     		<div class="btn-toolbar custpiebutton">
                     <div id='btn-pie-group' class="btn-group report-grp">
-                        <button id='btn-today' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.getnewreport('today')">Today</button>
-                        <button id='btn-week' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.getnewreport('week')">This Week</button>
-                        <button id='btn-month' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.getnewreport('month')">This Month</button>
-                    </div>
+                        
+                        <button ng-click="toggle()">Day</button>
+                        <button ng-click="toggleweek()">Week</button>
+                        <button ng-click="togglemonth()">Month</button>
+                           <br><br>
+
+                         
+
+                         <p ng-show="myVar">
+
+                              <button id='btn-today' class="btn btn-primary btn-primary btn-sm" ng-click="vm.getnewreport('today')">Today</button> &nbsp &nbsp;
+                          
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.myprevFunc()">Prev</button> &nbsp &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.mynextFunc()">Next</button>
+
+                          </p>
+
+
+                       <p ng-show="myVar1">
+
+                              <button id='btn-today' class="btn btn-primary btn-primary btn-sm" ng-click="vm.getnewreport('week')">This Week</button>&nbsp &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('previousWeek')">Prev</button>&nbsp &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('nextWeek')">Next</button>
+
+                          </p>
+
+
+
+
+                           <p ng-show="myVar2">
+
+                              <button id='btn-today' class="btn btn-primary btn-primary btn-sm" ng-click="vm.getnewreport('month')">This Month</button> &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('previousMonth')">Prev</button> &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('nextMonth')">Next</button>
+
+                          </p>    
+
+                        
+
+                       
+                    </div> 
            </div>
            </div>
-           <!-- <div class="pieinsdata">{{totalutil}} %</div> -->
+           
     </div>
-    <hr class="horline">
+
+<!--<div id='btn-pie-group' class="btn-group report-grp">
+                        
+                        <button ng-click="toggle()">Day</button>
+                        <button ng-click="toggleweek()">Week</button>
+                        <button ng-click="togglemonth()">Month</button>
+                           <br><br>
+
+                         
+
+                         <p ng-show="myVar">
+
+                              <button id='btn-today' class="btn btn-primary btn-primary btn-sm" ng-click="vm.getnewreport('today')">Today</button> &nbsp &nbsp;
+                          
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.myprevFunc()">Prev</button> &nbsp &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.mynextFunc()">Next</button>
+
+                          </p>
+
+
+                       <p ng-show="myVar1">
+
+                              <button id='btn-today' class="btn btn-primary btn-primary btn-sm" ng-click="vm.getnewreport('week')">This Week</button>&nbsp &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('previousWeek')">Prev</button>&nbsp &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('nextWeek')">Next</button>
+
+                          </p>
+
+
+
+
+                           <p ng-show="myVar2">
+
+                              <button id='btn-today' class="btn btn-primary btn-primary btn-sm" ng-click="vm.getnewreport('month')">This Month</button> &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('previousMonth')">Prev</button> &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('nextMonth')">Next</button>
+
+                          </p>    
+
+                        
+
+                       
+                    </div>-->
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr class="horline">
     <div class="row">
 	    <div class=" col-md-3 col-md-offset-3 reportfont">
 	    	<div class=" col-md-12">Hours</div>
 	    	<div class=" col-md-12 innerfont">{{util_hrs}} / {{total_hrs}}</div>
 	    </div>
-	    <!-- <div class="col-md-3 col-md-offset-1 reportfont">
-	       <div class=" col-md-12">Utilized hours</div>
-	    	<div class=" col-md-12 innerfont">{{util_hrs}}</div>
-	    </div> -->
+	   
 		<div class=" col-md-4">
 		    <div class="mainknob">
 		        <ui-knob value="knobvalue" options="knoboptions"></ui-knob>
-                  <!--if knob value < 50
-                      colour = "red"
-                  elsif knob value < 70
-                    colour = "chocolate"
-                  elsif knob value < 85
-                       colour = "green"
-                   else
-                     colour = "red"
-                      end   -->   
-
+                  
 
 		    </div>
 	    </div>
@@ -161,3 +302,26 @@
 
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
