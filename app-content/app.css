@@ -562,7 +562,7 @@ div#mycalendar{
 }
 .nav.header-pad.navbar-nav.navbar-left {
     color: #ef6e24;
-    font-size: 24px;
+    font-size: 100%;
     padding-bottom: 12px;
 }
 
@@ -1621,4 +1621,38 @@ textarea.hoverclass {
 /*----*/
 .cuspad{
   padding: 4px;
+}
+
+.pad-top{
+  padding-top: 5%;
+}
+
+.aicon {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 2px;
+    color:white;
+    background-color:black;
+    font-size:18px
+}
+.icondiv{
+  width:200px; height:100px; opacity: 0.8;
+  background-size: 200px 100px;
+}
+.backpanel{
+  background-color:white;
+  color:black;
+  width: 200px;
+}
+.panelfont p {
+    font-size: 13px !important;
+}
+ul#top li {
+    margin: 3px;
+}
+
+
+ul.paneldata li{
+    font-size: 11px;
+    text-align: left;
 }

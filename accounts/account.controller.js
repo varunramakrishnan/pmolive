@@ -15,6 +15,7 @@
           vm.saveaccount = saveaccount;
           vm.getaccount = getaccount;
           vm.getServices = getServices;
+          vm.toggle = toggle;
           var rowIndexTemp = 0;
           var colKeyTemp = '';
           var availOrgan ='';
@@ -31,6 +32,10 @@
           appendToBody: false,
           showButtonBar: false
         }
+    function toggle(){
+      $scope.variable = !$scope.variable
+      console.log($scope.variable);
+    }
  $scope.keylength = function(a) {
    var count = 0;
   var i;
