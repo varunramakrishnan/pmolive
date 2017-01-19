@@ -1304,7 +1304,7 @@ padding-top: 0px !important;
 .cushead {
     background-color: #333333;
     border-radius: 6px;
-    height: 43px;
+    height: 50px;
     padding: 10px;
 }
 .dropdown {
@@ -1628,5 +1628,16 @@ textarea.hoverclass {
 
 .dropdown-content > a {
      text-decoration: none;
+}
+.required-field::before { 
+    content: "*";
+    float: right;
+    color: red;
+}
+ul.ui-grid-menu-items li{
+  display: none;
+}
+ul.ui-grid-menu-items li#menuitem-1{
+  display: block !important;
 }
 /*----*/

@@ -9,9 +9,10 @@
 
         var vm = this;
         $scope.managermodel= [];
-           $scope.peoplemodel= [];
+        $scope.peoplemodel= [];
         vm.getreportdata = getreportdata;
-        vm.getDates = getDates;
+        // vm.getDates = getDates;
+        vm.switcher = switcher;
         vm.getnewreport = getnewreport;
         vm.resetdata = resetdata ; 
          vm.myFunc = myFunc ;
@@ -41,8 +42,54 @@
   $scope.open3 = function() {
     $scope.popup3.opened = true;
   };
+  $scope.myVar = true;
   $scope.popup3={};
+  function switcher(filter) {
+      var text= '#btn-pie-group button' ;
+      var myEl = angular.element( document.querySelectorAll( text ) ); 
+      myEl.removeClass('custactive');
+      // var wid=moment().format(weekYear);
+      // var date = moment().format(fullWeekFormat);
+      if(filter=="day"){
+        $scope.myVar = true;
+        $scope.myVar1 = false;
+        $scope.myVar2 = false;
+        var newtext= '#btn-day' ;
+        var mynewEl = angular.element( document.querySelector( newtext ) );
+        mynewEl.addClass('custactive');
+        getnewreport('today');
+        // var piepostData = {"rid":resource_id,"filter":"today","week_id":wid,"dates":[date]};
+        
+      }else if(filter=="week"){
+         $scope.myVar1 = true;
+          $scope.myVar = false;
+          $scope.myVar2 = false;
+        var newtext= '#btn-week' ;
+        var mynewEl = angular.element( document.querySelector( newtext ) );
+        mynewEl.addClass('custactive');
+        getnewreport('week');
+        // var piepostData = {"rid":resource_id,"filter":"today","week_id":wid,"dates":$scope.week_full};
+      }else{
+        $scope.myVar2 = true;
+        $scope.myVar = false;
+        $scope.myVar1 = false;
+        var newtext= '#btn-month' ;
+        var mynewEl = angular.element( document.querySelector( newtext ) );
+        mynewEl.addClass('custactive');
+        getnewreport('month');
+        // var piepostData = {"rid":resource_id,"filter":"today","week_id":wid,"dates":$scope.month_full};
+      }
+      $scope.startdate = "";
+      $scope.enddate = "";
+      
+      // UserService.getResourcePieData(piepostData)
+      //        .then(function (response) {
+      //        $scope.labels = response.data.label;
+      //        $scope.doughdata = response.data.doughdata;
+      //        $scope.totalutil = response.data.totalutil;
 
+      //        });
+      }
 
 
 
@@ -52,35 +99,6 @@
   $scope.popup4={};
 
 
- $scope.myVar = false;
-$scope.toggle = function() {
-  $scope.myVar = !$scope.myVar;
-  $scope.myVar1 = false;
-  $scope.myVar2 = false;
-  $scope.startdate = "";
-  $scope.enddate = "";
-  };
-
-
-   $scope.myVar1 = false;
-$scope.toggleweek = function() {
-  $scope.myVar1 = !$scope.myVar1;
-   $scope.myVar = false;
-    $scope.myVar2 = false;
-    $scope.startdate = "";
-    $scope.enddate = "";
-  };
-
-
-
-   $scope.myVar2 = false;
-$scope.togglemonth = function() {
-  $scope.myVar2 = !$scope.myVar2;
-  $scope.myVar = false;
-   $scope.myVar1 = false;
-   $scope.startdate = "";
-   $scope.enddate = "";
-  };
 
 
 
@@ -156,7 +174,7 @@ $scope.knoboptions = {
             $scope.managermodel.length = 0;
             $scope.startdate = "";
             $scope.enddate = "";
-            $scope.myVar = false;
+            $scope.myVar = true;
             $scope.myVar1 = false;
             $scope.myVar2 = false;
 
@@ -169,108 +187,128 @@ $scope.knoboptions = {
        var data = $scope.repdata = response.donut;
             $scope.gridOptions.data = data;
             });    
+
    }
           
           
               
-           
-           UserService.getManagers()
+           function getManagers(){
+              UserService.getManagers()
                            .then(function (response) {
-
                   $scope.managerdata = response.data.success;
-
                   });
-           UserService.getResources().then(function (response) {
-            $scope.peopledata = response.data;
-            $scope.originalpeopledata = angular.copy($scope.peopledata);
+           }
+           getManagers();
+           function getResources(){
+               UserService.getResources().then(function (response) {
+                $scope.peopledata = response.data;
+                $scope.originalpeopledata = angular.copy($scope.peopledata);
 
-            var filtered = [];
-                  angular.forEach($scope.peopledata, function(item) {
-                    filtered.push(item);
-                  });
-                  filtered.sort(function (a, b) {
-                    return (a.employee_name > b.employee_name? 1 : -1);
-                  });
-            $scope.peopledata=filtered;
+                var filtered = [];
+                      angular.forEach($scope.peopledata, function(item) {
+                        filtered.push(item);
+                      });
+                      filtered.sort(function (a, b) {
+                        return (a.employee_name > b.employee_name? 1 : -1);
+                      });
+                $scope.peopledata=filtered;
 
-          });
+             });
+           }
+           getResources();
+            function getActualResources(){
+              if($scope.managermodel.length != 0){
+                UserService.resourcesUnderManager($scope.managermodel)
+                           .then( function (response) {
+                  $scope.peopledata=response.data.success;
+                  myFunc();
+                            });
+
+              }else{
+                getResources();
+                myFunc();
+              }
+            }
+            function fetchreport(filter){
+              getreportdata(filter).then(function(response){
+                      $scope.knobvalue = response.util;
+                      $scope.total_hrs = response.total_hrs;
+                      $scope.util_hrs = response.util_hrs;
+                     var data = $scope.repdata = response.donut;
+                          $scope.gridOptions.data = data;
+                          });
+            }
+          
 
             $scope.managerEvents = {
              onItemSelect: function(item) {
               $scope.people=item;
               $scope.peoplemodel.length = 0;
-              UserService.resourcesUnderManager($scope.managermodel)
-                           .then( function (response) {
-                  $scope.peopledata=response.data.success;
-                  getreportdata("today").then(function(response){
-                      $scope.knobvalue = response.util;
-                      $scope.total_hrs = response.total_hrs;
-                      $scope.util_hrs = response.util_hrs;
-                     var data = $scope.repdata = response.donut;
-                          $scope.gridOptions.data = data;
-                          });
-                            });
-
-
-
+              getActualResources();
              },
              onItemDeselect: function(item) {
               $scope.peoplemodel.length = 0;
-                UserService.resourcesUnderManager($scope.managermodel)
-                           .then( function (response) {
-                  $scope.peopledata=response.data.success;
-                  getreportdata("today").then(function(response){
-                      $scope.knobvalue = response.util;
-                      $scope.total_hrs = response.total_hrs;
-                      $scope.util_hrs = response.util_hrs;
-                     var data = $scope.repdata = response.donut;
-                          $scope.gridOptions.data = data;
-                          });
-                            });
+              getActualResources();
+                // UserService.resourcesUnderManager($scope.managermodel)
+                //            .then( function (response) {
+                //   $scope.peopledata=response.data.success;
+                //   getreportdata("today").then(function(response){
+                //       $scope.knobvalue = response.util;
+                //       $scope.total_hrs = response.total_hrs;
+                //       $scope.util_hrs = response.util_hrs;
+                //      var data = $scope.repdata = response.donut;
+                //           $scope.gridOptions.data = data;
+                //           });
+                //             });
             },
              onDeselectAll: function() {
-          $scope.peoplemodel.length = 0;
-                UserService.resourcesUnderManager($scope.managermodel)
-                           .then( function (response) {
-                  $scope.peopledata=response.data.success;
-                  getreportdata("today").then(function(response){
-                      $scope.knobvalue = response.util;
-                      $scope.total_hrs = response.total_hrs;
-                      $scope.util_hrs = response.util_hrs;
-                     var data = $scope.repdata = response.donut;
-                          $scope.gridOptions.data = data;
-                          });
-                            });
+              $scope.peoplemodel.length = 0;
+              $scope.managermodel.length = 0;
+              getActualResources();
+                // UserService.resourcesUnderManager($scope.managermodel)
+                //            .then( function (response) {
+                //   $scope.peopledata=response.data.success;
+                //   getreportdata("today").then(function(response){
+                //       $scope.knobvalue = response.util;
+                //       $scope.total_hrs = response.total_hrs;
+                //       $scope.util_hrs = response.util_hrs;
+                //      var data = $scope.repdata = response.donut;
+                //           $scope.gridOptions.data = data;
+                //           });
+                //             });
           },
            }
            $scope.peopleEvents = {
              onItemSelect: function(item) {
               // $scope.people=item;
-              getreportdata("today").then(function(response){
-                $scope.knobvalue = response.util;
-                $scope.total_hrs = response.total_hrs;
-                $scope.util_hrs = response.util_hrs;
-                var data = $scope.repdata = response.donut;
-                    $scope.gridOptions.data = data;
-                    });
+              // getreportdata("today").then(function(response){
+              //   $scope.knobvalue = response.util;
+              //   $scope.total_hrs = response.total_hrs;
+              //   $scope.util_hrs = response.util_hrs;
+              //   var data = $scope.repdata = response.donut;
+              //       $scope.gridOptions.data = data;
+              //       });\
+              myFunc();
              },
              onItemDeselect: function(item) {
-                getreportdata("today").then(function(response){
-                $scope.knobvalue = response.util;
-                $scope.total_hrs = response.total_hrs;
-                $scope.util_hrs = response.util_hrs;
-                var data = $scope.repdata = response.donut;
-                    $scope.gridOptions.data = data;
-                    });
+                // getreportdata("today").then(function(response){
+                // $scope.knobvalue = response.util;
+                // $scope.total_hrs = response.total_hrs;
+                // $scope.util_hrs = response.util_hrs;
+                // var data = $scope.repdata = response.donut;
+                //     $scope.gridOptions.data = data;
+                //     });
+                myFunc();
             },
             onDeselectAll: function() {
-                getreportdata("today").then(function(response){
-                $scope.knobvalue = response.util;
-                $scope.total_hrs = response.total_hrs;
-                $scope.util_hrs = response.util_hrs;
-                var data = $scope.repdata = response.donut;
-                    $scope.gridOptions.data = data;
-                    });
+                // getreportdata("today").then(function(response){
+                // $scope.knobvalue = response.util;
+                // $scope.total_hrs = response.total_hrs;
+                // $scope.util_hrs = response.util_hrs;
+                // var data = $scope.repdata = response.donut;
+                //     $scope.gridOptions.data = data;
+                //     });
+                myFunc();
           },
            }
 
@@ -281,36 +319,26 @@ $scope.knoboptions = {
     var start = $scope.startdate;
     var end =  $scope.enddate;
     $scope.dateArray = [];
-    var currentDate = moment(start);
-    var endDate = moment(end);
+    $scope.currentstartDate = moment(start);
+    $scope.startDate = angular.copy($scope.currentstartDate);
+    $scope.endDate = moment(end);
      
-    while (endDate >= currentDate) {
-        $scope.dateArray.push(currentDate.format("YYYY-MM-DD"));
-        currentDate = currentDate.add(1, 'days');
-        console.log(currentDate);
-
+    while ($scope.endDate >= $scope.currentstartDate) {
+        $scope.dateArray.push($scope.currentstartDate.format("YYYY-MM-DD"));
+        $scope.currentstartDate = $scope.currentstartDate.add(1, 'days');
     }
     
-              getreportdata("currentDate").then(function(response){
-                $scope.knobvalue = response.util;
-                $scope.total_hrs = response.total_hrs;
-                $scope.util_hrs = response.util_hrs;
-                var data = $scope.repdata = response.donut;
-                    $scope.gridOptions.data = data;
-                    });
+              fetchreport("currentDate");
+              }else{
+                fetchreport("today");
               }
 };
 
 
 
   function myprevFunc() {
-
-    var previousDay  = moment();
-    previousDay = previousDay.subtract(1, "days");
-    $scope.previousDay = previousDay.format("YYYY-MM-DD");
-     console.log(previousDay)
-    
-
+    $scope.resultDate = moment(); 
+    $scope.resultDate = $scope.resultDate.subtract(1, "days").format("YYYY-MM-DD");
     getreportdata("previousDay").then(function(response){
                 $scope.knobvalue = response.util;
                 $scope.total_hrs = response.total_hrs;
@@ -436,28 +464,28 @@ var startdateFormat='YYYY-MM-DD';
 var enddateFormat='YYYY-MM-DD';
 
 
-function getDates() {
-  var start = $scope.startdate;
-  var end =  $scope.enddate;
-  var dateArray = [];
-   var currentDate = moment(start);
-     var endDate = moment(end);
+// function getDates() {
+//   var start = $scope.startdate;
+//   var end =  $scope.enddate;
+//   var dateArray = [];
+//    var currentDate = moment(start);
+//      var endDate = moment(end);
      
-    while (endDate >= currentDate) {
-        dateArray.push(currentDate.format("YYYY-MM-DD"));
-        currentDate = currentDate.add(1, 'days');
-        console.log(currentDate);
+//     while (endDate >= currentDate) {
+//         dateArray.push(currentDate.format("YYYY-MM-DD"));
+//         currentDate = currentDate.add(1, 'days');
+//         console.log(currentDate);
 
-    }
-    console.log(dateArray);
-    return dateArray;
-}
+//     }
+//     console.log(dateArray);
+//     return dateArray;
+// }
 
 
        
-        var start = $scope.startdate;
-        var end =  $scope.enddate;
-        var currentDate = moment(start);
+var start = $scope.startdate;
+var end =  $scope.enddate;
+var currentDate = moment(start);
 
 
 
@@ -478,6 +506,7 @@ $scope.month_full=[];
             
 
 var fullWeekFormat='YYYY-MM-DD';
+$scope.resultDate = moment(); 
 var weekFullStart = moment().clone().startOf('week');
 $scope.week_full=[weekFullStart.day(0).format(fullWeekFormat),weekFullStart.day(1).format(fullWeekFormat),weekFullStart.day(2).format(fullWeekFormat),weekFullStart.day(3).format(fullWeekFormat),weekFullStart.day(4).format(fullWeekFormat),weekFullStart.day(5).format(fullWeekFormat),weekFullStart.day(6).format(fullWeekFormat)];
 //$scope.month_full=[];
@@ -497,7 +526,6 @@ var monthday = moment().startOf('month');
         }
            var prevMonth =[];
            $scope.prevMonth = new moment().subtract(1, 'months').date(1).format('YYYY-MM-DD');
-           console.log($scope.prevMonth)
           $scope.prevmonth_full=[];
             var monthday = moment( $scope.prevMonth);
             var month = monthday.month();
@@ -510,7 +538,6 @@ var monthday = moment().startOf('month');
 
             var nexttMonth =[];
            $scope.nexttMonth = new moment().add(1, 'months').date(1).format('YYYY-MM-DD');
-           console.log($scope.nexttMonth)
           $scope.nextmonth_full=[];
             var monthday = moment( $scope.nexttMonth);
             var month = monthday.month();
@@ -545,117 +572,75 @@ var monthday = moment().startOf('month');
 
 
 var getreportdata = function (filter) {
+  
   var deferred = $q.defer();
   if($scope.peoplemodel.length){
     var pdata = $scope.peoplemodel;
   }else{
     var pdata = $scope.peopledata;
     }
-
-
-      var text= '#btn-pie-group button' ;
-        var myEl = angular.element( document.querySelectorAll( text ) ); 
-        myEl.removeClass('custactive');
-      var date = moment().format(fullWeekFormat);
-
-
-      
+      var date = $scope.resultDate.format(fullWeekFormat);
       if(filter=="today"){
-        $scope.filter = "today";
-        var newtext= '#btn-today' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-        //mynewEl.addClass('custactive');
-        var piepostData = {"dates":[date],"resource":pdata};
-        }
-
-
-
-      
-
-         
-      else if(filter=="currentDate"){
-        $scope.filter = "currentDate";
-        var newtext= '#btn-week' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-        /*mynewEl.addClass('custactive');*/
+        $scope.resultDate = moment();
+        $scope.formattedDate = $scope.resultDate.format(fullWeekFormat);
+        var piepostData = {"dates":[$scope.formattedDate],"resource":pdata};
+        }else if(filter=="currentDate"){
         var piepostData = {"dates":$scope.dateArray,"resource":pdata};
-        }
+        }else if(filter=="prevDay"){
+          $scope.resultDate = $scope.resultDate.subtract(1, "days");
+          $scope.formattedDate = $scope.resultDate.format(fullWeekFormat);
+         var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata};
+         }else if(filter=="nextDay"){
+          $scope.resultDate = $scope.resultDate.add(1, "days");
+          $scope.formattedDate = $scope.resultDate.format(fullWeekFormat);
+         var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata};
+         }else if(filter=="week"){
+          console.log("as");
+          $scope.resultDate = moment();
+          var piepostData = {"dates":$scope.week_full,"resource":pdata};
+        }else if(filter=="previousWeek"){
+          $scope.resultDate = $scope.resultDate.subtract(1, "weeks");
+          var prevWeek = $scope.resultDate.startOf('isoWeek');
+          $scope.prevweek_full=[prevWeek.day(0).format(fullWeekFormat),prevWeek.day(1).format(fullWeekFormat),prevWeek.day(2).format(fullWeekFormat),prevWeek.day(3).format(fullWeekFormat),prevWeek.day(4).format(fullWeekFormat),prevWeek.day(5).format(fullWeekFormat),prevWeek.day(6).format(fullWeekFormat)];
+          var piepostData = {"dates":$scope.prevweek_full,"resource":pdata};
+        }else if(filter=="nextWeek"){
+          // $scope.resultDate = moment();
+          $scope.resultDate = $scope.resultDate.add(1, "weeks");
+          var nextWeek = $scope.resultDate.startOf('isoWeek');
+          $scope.nextweek_full=[nextWeek.day(0).format(fullWeekFormat),nextWeek.day(1).format(fullWeekFormat),nextWeek.day(2).format(fullWeekFormat),nextWeek.day(3).format(fullWeekFormat),nextWeek.day(4).format(fullWeekFormat),nextWeek.day(5).format(fullWeekFormat),nextWeek.day(6).format(fullWeekFormat)];
+          var piepostData = {"dates":$scope.nextweek_full,"resource":pdata};
+        }else if(filter=="month"){
+          $scope.resultDate = moment();
+          var piepostData = {"dates":$scope.month_full,"resource":pdata};
+        }else if(filter=="previousMonth"){
 
-     
-
-
-      else if(filter=="previousDay"){
-        $scope.filter = "previousDay";
-        var newtext= '#btn-week' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-         var piepostData = {"dates":[$scope.previousDay],"resource":pdata};
-         }
-
-
-
-      else if(filter=="nextDay"){
-        $scope.filter = "nextDay";
-        var newtext= '#btn-week' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-         var piepostData = {"dates":[$scope.nextDay],"resource":pdata};
-         }
-
-
-
-      else if(filter=="week"){
-        $scope.filter = "this week";
-        var newtext= '#btn-week' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-        mynewEl.addClass('custactive');
-        var piepostData = {"dates":$scope.week_full,"resource":pdata};
-        }
-
-
-
-
-       else if(filter=="previousWeek"){
-        $scope.filter = "previousWeek";
-        var newtext= '#btn-week' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-        mynewEl.addClass('custactive');
-        //var piepostData = {"dates":$scope.prevWeek,"resource":pdata};
-        //var piepostData = {"dates":[$scope.previousWeek],"resource":pdata};
-         var piepostData = {"dates":$scope.prevweek_full,"resource":pdata};
-        }
-
-             
-        else if(filter=="nextWeek"){
-        $scope.filter = "nextWeek";
-        var newtext= '#btn-week' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-        mynewEl.addClass('custactive');
-        var piepostData = {"dates":$scope.nextweek_full,"resource":pdata};
-        }
+            // var prevMonth =[];
+            $scope.resultDate = $scope.resultDate.subtract(1, 'months');
+            $scope.prevMonth = $scope.resultDate.date(1).format(fullWeekFormat);
+            $scope.prevmonth_full=[];
+            var monthday = moment($scope.prevMonth);
+            var month = monthday.month();
+            while(month === monthday.month()){
+              $scope.prevmonth_full.push(monthday.format(fullWeekFormat));
+               monthday = monthday.add(1,'days');
+             }
 
 
-        else if(filter=="month"){
-        $scope.filter = "this month";
-        var newtext= '#btn-month' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-        mynewEl.addClass('custactive');
-        var piepostData = {"dates":$scope.month_full,"resource":pdata};
-      }
-      
-
-        else if(filter=="previousMonth"){
-        $scope.filter = "previousMonth";
-        var newtext= '#btn-month' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-        mynewEl.addClass('custactive');
         var piepostData = {"dates":$scope.prevmonth_full,"resource":pdata};
-      }
+      }else {
 
+           // var nexttMonth =[];
+           $scope.resultDate = $scope.resultDate.add(1, 'months');
+           $scope.nexttMonth = $scope.resultDate.date(1).format(fullWeekFormat);
+           console.log($scope.nexttMonth)
+           $scope.nextmonth_full=[];
+           var monthday = moment($scope.nexttMonth);
+           var month = monthday.month();
+           while(month === monthday.month()){
+              $scope.nextmonth_full.push(monthday.format(fullWeekFormat));
+               monthday = monthday.add(1,'days');
+             }
 
-      else {
-        $scope.filter = "nextMonth";
-        var newtext= '#btn-month' ;
-        var mynewEl = angular.element( document.querySelector( newtext ) );
-        mynewEl.addClass('custactive');
         var piepostData = {"dates":$scope.nextmonth_full,"resource":pdata};
       }
 

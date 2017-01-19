@@ -95,7 +95,6 @@ $scope.remhovering =  function(p){
        
         for(var j=0;j<$scope.projects.length;j++){
                 for(var i=0;i<$scope.days.length;i++){
-                  console.log('start if'+w_start.day(i).format('ddd D'));
                       $scope.temp_arr=[];
                      /*if(weekStart.day(i).format('ddd')=='Sun' || weekStart.day(i).format('ddd')=='Sat')*/
                      if(moment(w_start.day(i).format('YYYY-MM-DD')).isAfter(moment().format('YYYY-MM-DD'))){
@@ -366,7 +365,6 @@ $scope.remhovering =  function(p){
                                $scope.projects[j].temp.length = 0
                                $scope.projects[j].temp = angular.copy(arr);
                                $scope.projects[j].comments = $scope.comments[key][k][l];
-                               console.log($scope.comments[key][k][l]);
                             }
                           }
                       }

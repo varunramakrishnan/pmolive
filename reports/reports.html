@@ -30,7 +30,7 @@
     <div class="col-md-6">
 
       <p class="input-group">
-      <input type="text" size="8"  uib-datepicker-popup ng-model="startdate" ng-change="vm.myFunc()" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+      <input type="text" size="8"  uib-datepicker-popup ng-model="startdate" ng-change="vm.myFunc()" is-open="popup3.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
       <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
@@ -51,7 +51,7 @@
     <div class="col-md-6">
        
   <p class="input-groupp">
-         <input type="text" size="8" uib-datepicker-popup ng-model="enddate" ng-change="vm.myFunc()" is-open="popup4.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+         <input type="text" size="8" uib-datepicker-popup ng-model="enddate" ng-change="vm.myFunc()" is-open="popup4.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
@@ -133,13 +133,13 @@
           <button class="btn  btn-primary" ng-click="vm.resetdata()">Reset</button>
       	</div>
         </div>
-        <div class="col-md-offset-4 col-md-4">
+        <div ng-hide="startdate && enddate" class="col-md-offset-4 col-md-4">
     		<div class="btn-toolbar custpiebutton">
                     <div id='btn-pie-group' class="btn-group report-grp">
-                        
-                        <button ng-click="toggle()">Day</button>
-                        <button ng-click="toggleweek()">Week</button>
-                        <button ng-click="togglemonth()">Month</button>
+                        <button id='btn-day' class="custactive btn btn-customcolor btn-primary btn-sm " ng-click="vm.switcher('day')">Day</button>
+                        <button id='btn-week' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.switcher('week')">Week</button>
+                        <button id='btn-month' class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.switcher('month')">Month</button>
+
                            <br><br>
 
                          
@@ -148,8 +148,8 @@
 
                               <button id='btn-today' class="btn btn-primary btn-primary btn-sm" ng-click="vm.getnewreport('today')">Today</button> &nbsp &nbsp;
                           
-                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.myprevFunc()">Prev</button> &nbsp &nbsp;
-                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.mynextFunc()">Next</button>
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('prevDay')">Prev</button> &nbsp &nbsp;
+                              <button id='btn-today' class="btn btn-danger btn-primary btn-sm" ng-click="vm.getnewreport('nextDay')">Next</button>
 
                           </p>
 
@@ -277,6 +277,16 @@
 
 
 <hr class="horline">
+<div ng-hide="startdate && enddate">
+<div ng-if="myVar"><b>{{resultDate.format("Do,MMMM") }}</b></div>
+<div ng-if="myVar1"><b>{{resultDate.clone().startOf('week').format("Do,MMMM")}} - {{resultDate.clone().endOf('week').format("Do,MMMM")}}</b></div>
+<div ng-if="myVar2"><b>{{resultDate.startOf('month').format("MMMM") }}</b></div>
+</div>
+
+<div ng-show="startdate && enddate">
+<div ><b>{{startDate.format("Do,MMMM")}} - {{endDate.format("Do,MMMM")}}</b></div>
+</div>
+
     <div class="row">
 	    <div class=" col-md-3 col-md-offset-3 reportfont">
 	    	<div class=" col-md-12">Hours</div>
