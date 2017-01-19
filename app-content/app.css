@@ -19,6 +19,20 @@
     border-radius: 5px;
     padding: 8px 0;
 }
+
+.col-md-4.bg-account {
+   
+    border-radius: 5px;
+    padding: 8px 0;
+}
+
+
+
+
+
+
+
+
 .font17{
   font-size: 17px;
 }
@@ -81,7 +95,7 @@
 }
 span.amp {
    /*font-family:Baskerville,"Goudy Old Style","Palatino","Book Antiqua",serif;*/
-   font-size:22px;
+   font-size:18px;
    /*font-style:italic;*/
    /*color:#ef6e24;*/
 }
@@ -1269,8 +1283,8 @@ padding-top: 0px !important;
 }
 .pieinsdata {
     color: black;
-    font-size: 16px;
-    left: 47%;
+    font-size: 15px;
+    left: 44%;
     position: absolute;
     top: 47%;
 }
@@ -1293,7 +1307,7 @@ padding-top: 0px !important;
 .cushead {
     background-color: #333333;
     border-radius: 6px;
-    height: 43px;
+    height: 50px;
     padding: 10px;
 }
 .dropdown {
@@ -1656,3 +1670,15 @@ ul.paneldata li{
     font-size: 11px;
     text-align: left;
 }
+.required-field::before { 
+    content: "*";
+    float: right;
+    color: red;
+}
+ul.ui-grid-menu-items li{
+  display: none;
+}
+ul.ui-grid-menu-items li#menuitem-1{
+  display: block !important;
+}
+/*----*/

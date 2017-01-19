@@ -80,6 +80,7 @@
         service.editSkill=editSkill;
         service.resourcesUnderManager=resourcesUnderManager;
         service.saveimage=saveimage;
+        service.getAccountMetadata=getAccountMetadata;
         return service;
 
         function saveimage(id,type,file) {
@@ -882,6 +883,16 @@
                 headers : { 'Content-Type': 'application/json',
                 "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
                 data:  {"check": check,"account_id":aid}
+            }
+            return $http(req).then(function(response){return response;},function(response){return response;});
+        }
+        function getAccountMetadata() {
+            
+            var req = {
+                method: 'GET',
+                url: 'http://'+hostName+':'+port+'/get-account-attributes.json',
+                headers : { 'Content-Type': 'application/json',
+                "accessToken" : $cookieStore.get('globals').currentUser.accesstoken  } ,
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }

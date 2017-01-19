@@ -12,10 +12,18 @@
     
 	</div>
 	</div>
-    <!--<div class="gridStyle" ng-grid="gridOptions"></div>-->
-    <div  ui-view="modal"></div>
-    <div class="heirarchy-grid" ui-grid="vm.gridOptions"  ui-grid-edit><div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div></div>
+
 
     
+    <!-- <div  ui-view="modal"></div>
+    <div class="heirarchy-grid" ui-grid="vm.gridOptions"  ui-grid-edit><div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div></div>
+    </div> -->
+
+
+    <div  ui-view="modal"></div>
       
-    </div>
+     <div ui-if="vm.gridOptions.data.length>0" class="heirarchy-grid" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize  ><div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div></div>
+    
+        <div class="ui-grid-cell-contents">
+  </div>
+      </div>

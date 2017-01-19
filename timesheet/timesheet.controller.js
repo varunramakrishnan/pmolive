@@ -95,7 +95,6 @@
             }
         for(var j=0;j<$scope.projects.length;j++){
                 for(var i=0;i<$scope.days.length;i++){
-                  console.log('start if'+w_start.day(i).format('ddd D'));
                       $scope.temp_arr=[];
                      if(moment(w_start.day(i).format('YYYY-MM-DD')).isAfter(moment().format('YYYY-MM-DD'))){
                        $scope.projects[j].bool[i]=true;
@@ -112,6 +111,7 @@
          getpiedata("today");
       };
       
+  
        var name = $rootScope.globals.currentUser.username;
        var uid = $rootScope.globals.currentUser.userId;
        var resource_id = $rootScope.globals.currentUser.resource_id;
@@ -358,7 +358,6 @@
                                $scope.projects[j].temp.length = 0
                                $scope.projects[j].temp = angular.copy(arr);
                                $scope.projects[j].comments = $scope.comments[key][k][l];
-                               console.log($scope.comments[key][k][l]);
                             }
                           }
                       }
@@ -398,6 +397,10 @@
            .then(function (response) {
             if(val=="save"){
               $('#timecalendar').fullCalendar("today");
+              vm.getpiedata('today');
+
+
+
             }
            });
           

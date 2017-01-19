@@ -37,17 +37,17 @@
                           managerSelect: null,
                           availableSkillOptions: $rootScope.availableSkillOptions,
                          };*/
-        $timeout(function () {
-        UserService.getSkills()
-                         .then(function (response) {
-                          $scope.data = {
-                          repeatSelect: null,
-                          statusSelect: null,
-                          managerSelect: null,
-                          availableSkillOptions: $rootScope.availableSkillOptions,
-                         };
-                         });
-                       },3000);
+        // $timeout(function () {
+        // UserService.getSkills()
+        //                  .then(function (response) {
+        //                   $scope.data = {
+        //                   repeatSelect: null,
+        //                   statusSelect: null,
+        //                   managerSelect: null,
+        //                   availableSkillOptions: $rootScope.availableSkillOptions,
+        //                  };
+        //                  });
+        //                },3000);
     $scope.clickHandler = RowEditor.editRow;
 		$scope.eventDetails = eventDetails;
     $scope.message = 'Look! I am a Resource page.';
@@ -116,9 +116,9 @@ vm.gridOptions = {
     { name: 'skill_name' },
       { name: 'skill_type' },
       { name: 'skill_code' },
-    ]
-
-  };
+    ],
+    enableGridMenu: true,
+    };
   UserService.getSkills()
      .then(function (response) {
       vm.gridOptions.data = response.data;
