@@ -21,6 +21,17 @@
           var availOrgan ='';
           var availableStatus = "";
           var availableManagers = "";  
+          $scope.accountmodel= [];
+          $scope.accountsettings = {
+            scrollableHeight: '200px',
+            scrollable: true,
+            enableSearch: true,
+            displayProp:'account_name',
+            idProp:'id',
+            externalIdProp:'',
+            buttonClasses:"smbutton btn btn-default",
+
+          };
     //clickHandlers = RowAccountEditor.editAccountRow;
           $rootScope.availableStatus =  [
               {id: 'Confirmed', name: 'Confirmed'},
