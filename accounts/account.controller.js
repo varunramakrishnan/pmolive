@@ -15,11 +15,23 @@
           vm.saveaccount = saveaccount;
           vm.getaccount = getaccount;
           vm.getServices = getServices;
+          vm.toggle = toggle;
           var rowIndexTemp = 0;
           var colKeyTemp = '';
           var availOrgan ='';
           var availableStatus = "";
           var availableManagers = "";  
+          $scope.accountmodel= [];
+          $scope.accountsettings = {
+            scrollableHeight: '200px',
+            scrollable: true,
+            enableSearch: true,
+            displayProp:'account_name',
+            idProp:'id',
+            externalIdProp:'',
+            buttonClasses:"smbutton btn btn-default",
+
+          };
     //clickHandlers = RowAccountEditor.editAccountRow;
           $rootScope.availableStatus =  [
               {id: 'Confirmed', name: 'Confirmed'},
@@ -31,6 +43,10 @@
           appendToBody: false,
           showButtonBar: false
         }
+    function toggle(){
+      $scope.variable = !$scope.variable
+      console.log($scope.variable);
+    }
  $scope.keylength = function(a) {
    var count = 0;
   var i;

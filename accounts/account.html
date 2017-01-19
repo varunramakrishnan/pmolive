@@ -1,7 +1,23 @@
   <!-- <div ng-include="'pages/navigation.html'"></div> -->
   <!-- <div class="loading-spiner-holder" data-loading ><div class="loading-spiner"><img src="..." /></div></div> -->
+  <div class="row">
   <div class="pull-right" style="margin-right:70px;font-weight:bold;"> Total Accounts - {{vm.gridOptions.data.length}}
   </div>
+  </div>
+   <div class="row">
+        
+        <div class="col-md-offset-8 col-md-4">
+        <div class="btn-toolbar custpiebutton">
+                    <div id='btn-pie-group' class="btn-group report-grp">
+                        <button id='btn-today' ng-class="{'custactive' : variable, 'disable': !variable}" class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.toggle()">Grid</button>
+                        <button id='btn-week' ng-class="{'custactive' : !variable, 'disable': variable}" class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.toggle()">Tile</button>
+                    </div>
+           </div>
+           </div>
+    </div>
+  <!-- <md-button ng-click="toggle()" ng-class="{'active' : variable, 'disable': !variable}"></md-button> -->
+  
+    
   <div class="jumbotron text-center">
     <button class="btn btn-primary" ui-sref="account.add" ng-click="addaccount()">Add Account</button>
           <!-- <button class="btn btn-primary" ng-show = "!IsVisible" ng-click="ShowHide()" ui-sref="account.add">+</button>
@@ -11,7 +27,34 @@
       <div  ui-view="modal"></div>
       <!-- <div class="grid" ui-grid="vm.gridOptions"  ui-grid-selection ui-grid-exporter  ><div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div> 
       </div>-->
-      <div ui-if="vm.gridOptions.data.length>0" class="grid" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize  ><div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div></div>
+      <div ng-show='variable' ui-if="vm.gridOptions.data.length>0" class="grid" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize  ><div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div></div>
+      <div ng-show='!variable' class="row">
+      <div class="col-md-4">
+      <div  ng-dropdown-multiselect="" events="accountEvents" options="vm.gridOptions.data" selected-model="accountmodel" extra-settings="accountsettings"></div>
+    </div>
+    </div>
+      <div ng-show='!variable' class="row">
+  <div class="col-md-3 col-sm-3 pad-top" ng-repeat="data in vm.gridOptions.data | orderBy:'name'" >
+  <flip flip-width="200px" flip-height="100px">
+      <flip-panel >
+      <!-- <img style="width:200px; height:100px" onerror="this.src='img/A-default.png'" src="img/A-{{data.account_code}}.png" /> -->
+       
+      <div class="icondiv" style="background-image: url('img/A-{{data.account_code}}.png') , url('img/A-default.png');"> <span class="aicon"> {{data.account_name}} </span> </div>
+      </flip-panel>
+      <flip-panel  class="backpanel">
+        <div class=""><a href="#/account/edit/{{data.id}}"><button type="button" class="btn btn-xs btn-primary"  ><i class="fa fa-edit"></i></button></a>&nbsp<a href="#/account/delete/{{data.id}}"  ><button type="button" class="btn btn-xs danger-class"  ><i  class="fa fa-trash"></i></button></a>
+        <span class="panelfont"><!-- <p>I am a {{data.status}} account in {{data.region}} region held by {{data.manager}} and I provide these services {{data.services}} </p> -->
+          <ul class="paneldata">
+                    <li > Status - {{data.status}}</li>
+                    <li > Region - {{data.region}}</li>
+                    <li > Owner - {{data.manager}}</li>
+                    <li > Services - {{data.services}}</li>
+                    </ul>
+        </span></div>
+      </flip-panel>
+    </flip>
+      </div>
+    </div>
       <!-- <div ui-if="vm.gridOptions.data.length>0" class="grid" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize ng-style="getTableHeight()" ><div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div></div> -->
         <div class="ui-grid-cell-contents">
   </div>
