@@ -7,8 +7,8 @@
         <div class="col-md-offset-8 col-md-4">
         <div class="btn-toolbar custpiebutton">
                     <div id='btn-pie-group' class="btn-group report-grp">
-                        <button id='btn-today' ng-class="{'custactive' : variable, 'disable': !variable}" class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.toggle()">Grid</button>
                         <button id='btn-week' ng-class="{'custactive' : !variable, 'disable': variable}" class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.toggle()">Tile</button>
+                        <button id='btn-today' ng-class="{'custactive' : variable, 'disable': !variable}" class="btn btn-customcolor btn-primary btn-sm" ng-click="vm.toggle()">Grid</button>
                     </div>
            </div>
            </div>
@@ -36,11 +36,74 @@
       <div ng-show='variable' ui-if="vm.gridOptions.data.length>0" class="grid" ui-grid="vm.gridOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize  ><div class="watermark" ng-show="!vm.gridOptions.data.length">No data available</div></div>
       <div ng-show='!variable' class="row">
       <div class="col-md-4">
-      <div  ng-dropdown-multiselect="" events="accountEvents" options="vm.gridOptions.data" selected-model="accountmodel" extra-settings="accountsettings"></div>
+      <div class="row">
+        <div class="col-md-7"><div  ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Sort By'}" events="accountEvents" options="availableAccountSort" selected-model="accountmodel" extra-settings="accountsettings"></div></div>
+        <div class="col-md-5">
+          <button class="btn btn-default" ng-click="sortReverse = !sortReverse">Sort Order
+          <span  ng-class="{'fa-caret-down' : !sortReverse, 'fa-caret-up': sortReverse}" class="fa"></span>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-md-5">
+    <div class="row">
+        <div class="col-md-6">
+          <div class="col-md-12"><div  ng-dropdown-multiselect="" translation-texts="{buttonDefaultText: 'Filter By'}" events="accountFilterEvents" options="availableAccountSort" selected-model="accountFilterModel" extra-settings="accountsettings"></div></div>
+          
+        </div>
+        <div ng-show='filterByAccount' class="col-md-6 select-style">
+          <select name="accountFilter"   id="accountFilter" class="form-control" ng-model="search" 
+                ng-options="option.account_name as option.account_name for option in vm.gridOptions.data | unique:'account_name'"
+                selected>
+              </select>
+        </div>
+        <div ng-show='filterByManager' class="col-md-6 select-style">
+           <select name="accountFilter"    id="accountFilter" class="form-control" ng-model="search" ng-options="option.manager as option.manager for option in vm.gridOptions.data | unique:'manager'"
+                selected>
+              </select> 
+        </div>
+        <div ng-show='filterByRegion' class="col-md-6 select-style">
+          <select name="accountFilter"   id="accountFilter" class="form-control" ng-model="search" 
+                ng-options="option.region as option.region for option in vm.gridOptions.data | unique:'region'"
+                selected></select>
+        </div>
+        <div ng-show='filterBySalesStage' class="col-md-6 select-style">
+          <select name="accountFilter"   id="accountFilter" class="form-control" ng-model="search" 
+                ng-options="option.sales_stage as option.sales_stage for option in vm.gridOptions.data | unique:'sales_stage'"
+                selected></select>
+        </div>
+        <div ng-show='filterByOwner' class="col-md-6 select-style">
+          <select name="accountFilter"   id="accountFilter" class="form-control" ng-model="search" 
+                ng-options="option.owner as option.owner for option in vm.gridOptions.data | unique:'owner'"
+                selected></select>
+        </div>
+        <div ng-show='filterByMarketSize' class="col-md-6 select-style">
+          <select name="accountFilter"   id="accountFilter" class="form-control" ng-model="search" 
+                ng-options="option.market_size as option.market_size for option in vm.gridOptions.data | unique:'market_size'"
+                selected></select>
+        </div>
+        <div ng-show='filterByECM' class="col-md-6 select-style">
+          <select name="accountFilter"   id="accountFilter" class="form-control" ng-model="search" 
+                ng-options="option.expected_close_month as option.expected_close_month for option in vm.gridOptions.data | unique:'expected_close_month'"
+                selected></select>
+        </div>
+        <div ng-show='filterByACM' class="col-md-6 select-style">
+          <select name="accountFilter"   id="accountFilter" class="form-control" ng-model="search" 
+                ng-options="option.actual_close_month as option.actual_close_month for option in vm.gridOptions.data | unique:'actual_close_month'"
+                selected></select>
+        </div>
+      </div>
+    
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-danger" ng-click="resetfilter()">Reset
+          
+          </button>
     </div>
     </div>
       <div ng-show='!variable' class="row">
-  <div class="col-md-3 col-sm-3 pad-top" ng-repeat="data in vm.gridOptions.data | orderBy:'name'" >
+  <div class="col-md-3 col-sm-3 pad-top" ng-repeat="data in vm.gridOptions.data| filter:search | orderBy:sortType:sortReverse" >
   <flip flip-width="200px" flip-height="100px">
       <flip-panel >
       <!-- <img style="width:200px; height:100px" onerror="this.src='img/A-default.png'" src="img/A-{{data.account_code}}.png" /> -->
@@ -53,7 +116,7 @@
           <ul class="paneldata">
                     <li > Status - {{data.status}}</li>
                     <li > Region - {{data.region}}</li>
-                    <li > Owner - {{data.manager}}</li>
+                    <li > Delivery Manager - {{data.manager}}</li>
                     <li > Services - {{data.services}}</li>
                     </ul>
         </span></div>

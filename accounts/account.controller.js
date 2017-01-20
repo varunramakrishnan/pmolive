@@ -16,6 +16,7 @@
     var vm = this;
     // $scope.nextv = false;
     $rootScope.shownav=true;
+    $scope.search = '';
     $rootScope.rootAccess =  $cookieStore.get("rootAccess");
     $rootScope.pmAccess =  $cookieStore.get("pmAccess");
           // vm.clickHandlers = RowAccountEditor.editAccountRow;
@@ -42,16 +43,96 @@
       showButtonBar: false
     };
     $scope.accountmodel= [];
+    $scope.accountFilterModel= [];
+    $scope.accountFilteredModel= [];
           $scope.accountsettings = {
+            scrollableHeight: '200px',
+            scrollable: true,
+            enableSearch: true,
+            displayProp:'attribute_value',
+            idProp:'id',
+            selectionLimit: 1,
+            externalIdProp:'',
+            buttonClasses:"smbutton btn btn-default",
+            smartButtonMaxItems: 1,
+            showUncheckAll :false,
+
+          };
+          $scope.accountFilteredSettings = {
             scrollableHeight: '200px',
             scrollable: true,
             enableSearch: true,
             displayProp:'account_name',
             idProp:'id',
+            selectionLimit: 1,
             externalIdProp:'',
             buttonClasses:"smbutton btn btn-default",
+            smartButtonMaxItems: 1,
+            showUncheckAll :false,
 
           };
+          $scope.resetfilter = function(){
+            $scope.search = '';
+            $scope.sortType = false;
+            $scope.sortReverse = false;
+            $scope.accountmodel = '';
+            $scope.accountFilterModel = '';
+            // console.log($scope.search);
+          };
+          $scope.accountFilterEvents = {
+            onItemSelect: function(item) {
+              $scope.filterByAccount = false;
+              $scope.filterByManager = false;
+              $scope.filterByRegion = false;
+              $scope.filterBySalesStage = false;
+              $scope.filterByOwner = false;
+              $scope.filterByMarketSize = false;
+              $scope.filterByECM = false;
+              $scope.filterByACM = false;
+              if(item.attribute_value == "Account Name"){
+                $scope.filterByAccount = true;
+              }else if(item.attribute_value == "Delivery Manager"){
+                $scope.filterByManager = true;
+              }else if(item.attribute_value == "Region"){
+                $scope.filterByRegion = true;
+              }else if(item.attribute_value == "Sales Stage"){
+                $scope.filterBySalesStage = true;
+              }else if(item.attribute_value == "Owner"){
+                $scope.filterByOwner = true;
+              }else if(item.attribute_value == "Market Size"){
+                $scope.filterByMarketSize = true;
+              }else if(item.attribute_value == "Expected Close Month"){
+                $scope.filterByECM = true;
+              }else if(item.attribute_value == "Actual Close Month"){
+                $scope.filterByACM = true;
+              }
+             },
+          }
+          $scope.accountEvents = {
+             onItemSelect: function(item) {
+              if(item.attribute_value == "Account Name"){
+                $scope.sortType = 'account_name';
+                // $scope.sortReverse = 'account_name';
+              }else if(item.attribute_value == "Delivery Manager"){
+                $scope.sortType = 'manager';
+              }else if(item.attribute_value == "Region"){
+                $scope.sortType = 'region';
+              }else if(item.attribute_value == "Sales Stage"){
+                $scope.sortType = 'sales_stage';
+              }else if(item.attribute_value == "Owner"){
+                $scope.sortType = 'owner';
+              }else if(item.attribute_value == "Market Size"){
+                $scope.sortType = 'market_size';
+              }else if(item.attribute_value == "Expected Close Month"){
+                $scope.sortType = 'expected_close_month';
+              }else if(item.attribute_value == "Actual Close Month"){
+                $scope.sortType = 'actual_close_month';
+              }
+             },
+             onItemDeselect: function(item) {
+              $scope.sortType = null;
+              },
+           };
     function toggle(){
       $scope.variable = !$scope.variable
       console.log($scope.variable);
@@ -282,6 +363,7 @@ $scope.currencycheck = function() {
     $scope.availableTimeZone =  response.data.timezone;
     $scope.availableSowType =  response.data.sow_type;
     $scope.availableSowStatus=  response.data.sow_status;
+    $scope.availableAccountSort=  response.data.account_sort;
     
     // $scope.data.availableRegionTypes = $rootScope.availableRegionTypes;
   });
@@ -337,30 +419,42 @@ $scope.currencycheck = function() {
     columnDefs: [
     { name: 'id',  name: 'E/D', cellTemplate:'<div class="ui-grid-cell-contents"><a href="#/account/edit/{{row.entity.id}}"><button type="button" class="btn btn-xs btn-primary"  ><i class="fa fa-edit"></i></button></a>&nbsp<a href="#/account/delete/{{row.entity.id}}"  ><button type="button" class="btn btn-xs danger-class"  ><i  class="fa fa-trash"></i></button></a></div>', width: 70 },
     { name: 'account_name',minWidth: 260, enableCellEdit: true},
-
-
     { name: 'organisational_unit_code' ,displayName:'OU Code',minWidth: 130},
     { name: 'services' ,minWidth: 260},
         // {  name: 'resource_needed',minWidth: 180 },
+        { name: 'owner' ,minWidth: 130},
+        { name: 'sales_stage' ,minWidth: 130},
         { name: 'manager' ,minWidth: 260},
         { name: 'status',minWidth: 180 },
+        { name: 'account_contact' ,minWidth: 400},
         // { name: 'start_date' ,minWidth: 180},
         // { name: 'end_date'  ,minWidth: 180},
         // { name: 'resource_allocated'  ,minWidth: 200},
         // { name: 'request_type' ,minWidth: 260},
         { name: 'region' ,minWidth: 160},
-        { name: 'location' ,minWidth: 200},
+        { name: 'time_zone' ,minWidth: 130},
+        { name: 'market_size' ,minWidth: 130},
+        { name: 'currency' ,minWidth: 130},
+        { name: 'annual_forecast' ,minWidth: 400},
+        { name: 'closure_probability' ,minWidth: 400},
+        { name: 'weighted_forecast' ,minWidth: 400},
+        { name: 'expected_close_month' ,minWidth: 400},
+        { name: 'expected_close_date' ,minWidth: 400},
+        { name: 'actual_close_month' ,minWidth: 400},
+        { name: 'actual_close_date' ,minWidth: 400},
+        
+
         // { name: 'contract_type' ,minWidth: 160},
         // { name: 'customer_contact' ,minWidth: 260},
         // { name: 'other_persons' ,minWidth: 260},
         // { name: 'other_sales_email' ,minWidth: 260},
         // { name: 'sow_status' ,minWidth: 260},
         { name: 'comments' ,minWidth: 400},
-        { name: 'account_lob' ,minWidth: 400},
+        // { name: 'account_lob' ,minWidth: 400},
         // { name: 'overall_health' ,minWidth: 400},
-        { name: 'account_contact' ,minWidth: 400},
-        { name: 'csm_contact' ,minWidth: 400},
-        { name: 'sales_contact' ,minWidth: 400},
+        
+        // { name: 'csm_contact' ,minWidth: 400},
+        // { name: 'sales_contact' ,minWidth: 400},
         // { name: 'anticipated_value' ,minWidth: 160},
         ],
         enableGridMenu: true,

@@ -1682,3 +1682,25 @@ ul.ui-grid-menu-items li#menuitem-1{
   display: block !important;
 }
 /*----*/
+.select-style {
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa no-repeat 90% 50%;
+    padding: 0px !important;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    /*width: 130%;*/
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
