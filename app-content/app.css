@@ -19,6 +19,20 @@
     border-radius: 5px;
     padding: 8px 0;
 }
+
+.col-md-4.bg-account {
+   
+    border-radius: 5px;
+    padding: 8px 0;
+}
+
+
+
+
+
+
+
+
 .font17{
   font-size: 17px;
 }
@@ -81,7 +95,7 @@
 }
 span.amp {
    /*font-family:Baskerville,"Goudy Old Style","Palatino","Book Antiqua",serif;*/
-   font-size:22px;
+   font-size:18px;
    /*font-style:italic;*/
    /*color:#ef6e24;*/
 }
@@ -562,7 +576,7 @@ div#mycalendar{
 }
 .nav.header-pad.navbar-nav.navbar-left {
     color: #ef6e24;
-    font-size: 24px;
+    font-size: 100%;
     padding-bottom: 12px;
 }
 
@@ -1269,8 +1283,8 @@ padding-top: 0px !important;
 }
 .pieinsdata {
     color: black;
-    font-size: 16px;
-    left: 47%;
+    font-size: 15px;
+    left: 44%;
     position: absolute;
     top: 47%;
 }
@@ -1293,7 +1307,7 @@ padding-top: 0px !important;
 .cushead {
     background-color: #333333;
     border-radius: 6px;
-    height: 43px;
+    height: 50px;
     padding: 10px;
 }
 .dropdown {
@@ -1621,4 +1635,72 @@ textarea.hoverclass {
 /*----*/
 .cuspad{
   padding: 4px;
+}
+
+.pad-top{
+  padding-top: 5%;
+}
+
+.aicon {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 2px;
+    color:white;
+    background-color:black;
+    font-size:18px
+}
+.icondiv{
+  width:200px; height:100px; opacity: 0.8;
+  background-size: 200px 100px;
+}
+.backpanel{
+  background-color:white;
+  color:black;
+  width: 200px;
+}
+.panelfont p {
+    font-size: 13px !important;
+}
+ul#top li {
+    margin: 3px;
+}
+
+
+ul.paneldata li{
+    font-size: 11px;
+    text-align: left;
+}
+.required-field::before { 
+    content: "*";
+    float: right;
+    color: red;
+}
+ul.ui-grid-menu-items li{
+  display: none;
+}
+ul.ui-grid-menu-items li#menuitem-1{
+  display: block !important;
+}
+/*----*/
+.select-style {
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa no-repeat 90% 50%;
+    padding: 0px !important;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    /*width: 130%;*/
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
 }

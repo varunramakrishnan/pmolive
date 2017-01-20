@@ -48,7 +48,8 @@
     { name: 'role_name' ,width:150},
     { name: 'role_code' ,width:150},
     { name: 'heirarchy_id' ,width:150},
-    ]
+    ],
+     enableGridMenu: true,
 
   };
   

@@ -1,31 +1,34 @@
 <style>
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+  @import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
 
-body {
-  background-color: #3e94ec;
-  font-family: "Roboto", helvetica, arial, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  text-rendering: optimizeLegibility;
-}
-.firstfill.container,.secondfill.container {
+  body {
+    background-color: #3e94ec;
+    font-family: "Roboto", helvetica, arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+  }
+  .firstfill.container,.secondfill.container {
     border: 5px solid #d9d9d9;
     border-radius: 5px;
     padding: 10px;
-}
-.firstfill.container button.btn-primary,.secondfill.container button.btn-primary {
+  }
+  .secondfill.container{
+    width: 576px;
+  }
+  .firstfill.container button.btn-primary,.secondfill.container button.btn-primary {
     margin-top: 10px;
-}
+  }
 
-div.table-title {
+  div.table-title {
    display: block;
-  margin: auto;
-  max-width: 600px;
-  padding:5px;
-  width: 100%;
-}
+   margin: auto;
+   max-width: 600px;
+   padding:5px;
+   width: 100%;
+ }
 
-.table-title h3 {
+ .table-title h3 {
    color: #fafafa;
    font-size: 30px;
    font-weight: 400;
@@ -33,12 +36,12 @@ div.table-title {
    font-family: "Roboto", helvetica, arial, sans-serif;
    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
    text-transform:uppercase;
-}
+ }
 
 
-/*** Table Styles **/
+ /*** Table Styles **/
 
-.table-fill {
+ .table-fill {
   background: white;
   border-radius:3px;
   border-collapse: collapse;
@@ -63,7 +66,7 @@ div.table-title {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   animation: float 5s infinite;
 }
- 
+
 .table-fill th {
   color:#D5DDE5;;
   background:#1b1e24;
@@ -80,12 +83,12 @@ div.table-title {
 .table-fill th:first-child {
   border-top-left-radius:3px;
 }
- 
+
 .table-fill th:last-child {
   border-top-right-radius:3px;
   border-right:none;
 }
-  
+
 .table-fill tr {
   border-top: 1px solid #C1C3D1;
   border-bottom-: 1px solid #C1C3D1;
@@ -94,14 +97,14 @@ div.table-title {
   font-weight:normal;
   text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
 }
- 
+
 .table-fill tr:hover td {
   background:#4E5066;
   color:#FFFFFF;
   border-top: 1px solid #22262e;
   border-bottom: 1px solid #22262e;
 }
- 
+
 .table-fill tr:first-child {
   border-top:none;
 }
@@ -109,11 +112,11 @@ div.table-title {
 .table-fill tr:last-child {
   border-bottom:none;
 }
- 
+
 .table-fill tr:nth-child(odd) td {
   background:#EBEBEB;
 }
- 
+
 .table-fill tr:nth-child(odd):hover td {
   background:#4E5066;
 }
@@ -121,11 +124,11 @@ div.table-title {
 .table-fill tr:last-child td:first-child {
   border-bottom-left-radius:3px;
 }
- 
+
 .table-fill tr:last-child td:last-child {
   border-bottom-right-radius:3px;
 }
- 
+
 .table-fill td {
   background:#FFFFFF;
   padding:1px 12px 0px 37px;
@@ -171,148 +174,297 @@ div.table-title {
 .text-center.ng-scope{
   padding: 0px !important;
 }
+.custommargin{
+  margin-left: 0px !important;
+}
 
 </style><html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Accounts</title>
+  <title>Accounts </title>
   <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
 </head>
 
 <body ng-keyup="myFunct($event)">
   <div class="Modal-backdrop"></div>
- <div class="Modal-holder"  autoscroll="true">
-  <div ng-class="{ 'alert text-left': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind-html="flash.message">
-                </div>
-  <div class="row">
+  <div class="Modal-holder"  autoscroll="true">
+    <div ng-class="{ 'alert text-left': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind-html="flash.message">
+    </div>
+    <div class="row">
 <!-- <div class="table-title">
 <h3>Data Table</h3>
 </div> -->
 <form name="myForm">
-<div class="firstfill container" ng-hide="nextv">
-<div class="row">
-<div class="col-md-6">
-<table class="table-fill">
-<tbody class="table-hover" >
-<tr>
-<td class="text-left">Account</td>
-<td class="text-left">
-  <input id="Account" name="Account" placeholder="placeholder" class="form-control input-md col-md-12 " ng-model="vm.account.account_name" ng-required="true" required type="text" size="10">
-</td>
-</tr>
-<tr>
-<td class="text-left">Account Code</td>
-<td class="text-left">
-<input id="Account Code" name="Account Code" ng-required="true" placeholder="placeholder" class="form-control input-md col-md-12" ng-model="vm.account.account_code" required="" type="text" size="10">
-</td>
-</tr>
-<tr>
-<td class="text-left">Organisational Unit</td>
-<td class="text-left">
-<select name="organisationalUnit"   ng-click="vm.getServices()" id="organisationalUnit" class="form-control" ng-model="vm.account.organisational_unit_id" ng-options="option.unit_code for option in data.availableOptions | orderBy:'unit_name'"
-       required selected>
-              <!-- <option value="">Please select</option> -->
-              <!-- <option ng-repeat="option in data.availableOptions"  value="{{option.id}}">{{option.unit_code}}</option> -->
-    </select>
-</td>
-</tr>
-<tr>
-<td class="text-left">Account Status</td>
-<td class="text-left">
-          <select name="status" id="status" ng-model="vm.account.project_status" class="form-control">
-              <option ng-repeat="option in data.availableStatusOptions | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
-          </select>
-        </td>
-</tr>
-<tr>
-<td class="text-left">Manager Contact</td>
-<td class="text-left">
-<select name="manager" id="manager" ng-model="vm.account.resource_id" class="form-control">
-              <option ng-repeat="option in data.availableManagerOptions | orderBy:'employee_name'" value="{{option.id}}">{{option.employee_name}}</option>
-          </select>
-</td>
-</tr>
-<tr>
-<td class="text-left">Region</td>
-<!-- <button class="btn btn-primary" ng-click="">Account logo</button> -->
-<td class="text-left">
-  <select name="region" id="region" ng-model="vm.account.region" class="form-control">
-              <option ng-repeat="option in data.availableRegionTypes | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
-    </select>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="col-md-6">
-<table class="table-fill">
-<tbody class="table-hover" >
-<tr>
-<td class="text-left">Account Image</td>
-<td class="text-left">
-<div class="row">
-<!-- <div class="col-md-4"> -->
-  <input class="aimginput" type="file" ngf-select ng-model="vm.account.accountFile" name="file"    
-             accept="image/*" ngf-max-size="2MB" 
-             ngf-model-invalid="errorFile">  
-<!-- </div> -->
-<!-- <div class="col-md-7"> -->
-  <i ng-show="form.file.$error.maxSize">File too large 
-                  {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
-              <img   ngf-thumbnail="vm.account.accountFile  || 'img/A-{{vm.account.account_code}}.png'" src="img/A-{{vm.account.account_code}}.png"  class="athumb"> <span class="athumbnailremove" ng-click="vm.account.accountFile = null" ng-show="vm.account.accountFile">x</span>
-<!-- </div> -->
-</div>
-
+  <div class="firstfill container" ng-hide="nextv">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table-fill">
+          <tbody class="table-hover" >
+            <tr>
+              <td class="text-left required-field">Account Name </td>
+              <td class="text-left">
+                <input id="Account" name="Account" placeholder="The name of the Account" class="form-control input-md col-md-12 " ng-model="vm.account.account_name" ng-required="true" required type="text" size="10">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left required-field">Account Short Code</td>
+              <td class="text-left">
+                <input id="Account Code" name="Account Code" ng-required="true" placeholder="The Shortcode of the Account(Unique Identifier )" class="form-control input-md col-md-12" ng-model="vm.account.account_code" required="" type="text" size="10">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left">Organisational Unit</td>
+              <td class="text-left">
+                <select name="organisationalUnit"   ng-click="vm.getServices()" id="organisationalUnit" class="form-control" ng-model="vm.account.organisational_unit_id" 
+                required selected>
+                <option ng-repeat="option in data.availableOptions | orderBy:'unit_name'" value="{{option.id}}">{{option.unit_code}}</option>
+                <!-- <option value="">Please select</option> -->
+                <!-- <option ng-repeat="option in data.availableOptions"  value="{{option.id}}">{{option.unit_code}}</option> -->
+              </select>
+            </td>
+          </tr>
+          <tr>
+              <td class="text-left">Owner</td>
+              <td class="text-left">
+                <!-- <input id="Account Owner" name="Account Owner"  placeholder="Lister Owner" class="form-control input-md col-md-12" ng-model="vm.account.owner" required="" type="text" size="10"> -->
+                <select name="Account Owner" id="Account Owner" ng-model="vm.account.owner"  class="form-control">
+                <option ng-repeat="option in availableOwner | orderBy:'attribute_value'" value="{{option.attribute_key}}">{{option.attribute_value}}</option>
+              </select>
+              </td>
+          </tr>
+          <!-- <tr>
+            <td class="text-left">Account Status</td>
+            <td class="text-left">
+              <select name="status" id="status" ng-model="vm.account.project_status" class="form-control">
+                <option ng-repeat="option in data.availableStatusOptions | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
+              </select>
+            </td>
+          </tr> -->
+          <tr>
+            <td class="text-left">Sales Stage</td>
+            <td class="text-left">
+              <!-- <input id="customerContact" name="customerContact" placeholder="Current Sales Stage" ng-model="vm.account.sales_stage" class="form-control input-md col-md-12"  type="text" size="10"> -->
+              <select name="sales_stage" id="sales_stage" ng-model="vm.account.sales_stage"  class="form-control">
+                <option ng-repeat="option in availableSalesStage | orderBy:'attribute_value'" value="{{option.attribute_key}}">{{option.attribute_value}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">Sales Contact</td>
+            <td class="text-left">
+              <input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.sales_contact" class="form-control input-md col-md-12"  type="text" size="10">
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">Account Contact</td>
+            <td class="text-left">
+              <input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.account_contact" class="form-control input-md col-md-12"  type="text" size="10">
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">Regions</td>
+            <!-- <button class="btn btn-primary" ng-click="">Account logo</button> -->
+            <td class="text-left">
+             <!--  <select name="region" id="region" ng-model="vm.account.region" ng-options="option.attribute_value for option in availableRegionTypes" class="form-control"> -->
+              <select name="region" id="region" ng-change='changeTimeZone()' ng-model="vm.account.region"  class="form-control">
+                <option ng-repeat="option in availableRegionTypes | orderBy:'attribute_value'" value="{{option.attribute_key}}">{{option.attribute_value}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">Timezone</td>
+            <td class="text-left">
+              <!-- <input id="timezone" name="timezone" placeholder="Timezone" ng-model="vm.account.time_zone" class="form-control input-md col-md-12"  type="text" size="10"> -->
               
-</td>
-</tr>
+              <select name="time_zone" id="time_zone" ng-model="vm.account.time_zone"  class="form-control">
+                <option ng-repeat="option in availableTimeZone | orderBy:'attribute_value'" value="{{option.attribute_key}}">{{option.attribute_value}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">Market Size</td>
+            <td class="text-left">
+              <!-- <input id="market_size" name="market_size" placeholder="Market Size" ng-model="vm.account.market_size" class="form-control input-md col-md-12"  type="text" size="10"> -->
+              <select name="market_size" id="market_size" ng-model="vm.account.market_size"  class="form-control">
+                <option ng-repeat="option in availableMarketSize | orderBy:'attribute_value'" value="{{option.attribute_key}}">{{option.attribute_value}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">Currency</td>
+            <td class="text-left">
+              <!-- <input id="currency" name="currency" placeholder="Currency" ng-model="vm.account.currency" class="form-control input-md col-md-12"  type="text" size="10"> -->
+              <select name="currency" id="currency" ng-change='vm.convertForecast()'  ng-model="vm.account.currency"  class="form-control">
+                <option ng-repeat="option in availableCurrency | orderBy:'attribute_value'" value="{{option.attribute_key}}">{{option.attribute_value}}</option>
+              </select>
+            </td>
+          </tr>
+           <tr>
+            <td class="text-left">Account Image</td>
+            <td class="text-left">
+              <div class="row">
+                <!-- <div class="col-md-4"> -->
+                <input class="aimginput" type="file" ngf-select ng-model="vm.account.accountFile" name="file"    
+                accept="image/*" ngf-max-size="2MB" 
+                ngf-model-invalid="errorFile">  
+                <!-- </div> -->
+                <!-- <div class="col-md-7"> -->
+                <i ng-show="form.file.$error.maxSize">File too large 
+                  {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+                  <img   ngf-thumbnail="vm.account.accountFile  || 'img/A-{{vm.account.account_code}}.png'" src="img/A-{{vm.account.account_code}}.png"  class="athumb"> <span class="athumbnailremove" ng-click="vm.account.accountFile = null" ng-show="vm.account.accountFile">x</span>
+                  <!-- </div> -->
+                </div>
+
+
+              </td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <table class="table-fill">
+        <tbody class="table-hover" >
+          
 <!-- <tr>
 <td class="text-left">Location</td>
 <td class="text-left">
 <input id="location" name="location" placeholder="placeholder" ng-model="vm.account.location"  class="form-control input-md col-md-12"  type="text" size="10">
 </td>
-</tr> -->
-<tr>
-<td class="text-left">Comments</td>
-<td class="text-left">
-<textarea class="form-control" id="comments" ng-model="vm.account.comments"  name="comments">default text</textarea>
-</td>
-</tr>
-<tr>
-<td class="text-left">CSM Contact</td>
-<td class="text-left">
-<textarea  rows="1" cols="26" id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.csm_contact" class="form-control input-md col-md-12"  type="text" size="10"></textarea>
-</td>
-</tr>
-<tr>
-<td class="text-left">Sales Contact</td>
-<td class="text-left">
-<input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.sales_contact" class="form-control input-md col-md-12"  type="text" size="10">
-</td>
-</tr>
-<tr>
-<td class="text-left">Account Contact</td>
-<td class="text-left">
-<input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.account_contact" class="form-control input-md col-md-12"  type="text" size="10">
-</td>
-</tr>
-<!-- <tr>
-<td class="text-left">Overall Health</td>
-<td class="text-left">
-  <input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.overall_health" class="form-control input-md col-md-12"  type="text" size="10"></td>
-</tr> -->
-<!-- <tr>
-<td class="text-left">Account LoB</td>
-<td class="text-left">
-<input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.account_lob" class="form-control input-md col-md-12"  type="text" size="10">
-</td>
-</tr> -->
-<tr>
-<td class="text-left">Services</td>
-<td class="text-left">
-<div ng-dropdown-multiselect="" events="serEvents" options="serdata" selected-model="sermodel" extra-settings="sersettings"></div>
-</td>
-</tr>
+</tr> -->   
+            <tr>
+              <td class="text-left">Annual Forecast</td>
+              <td class="text-left">
+              <div class="row">
+              <div class="col-md-1" ng-if='vm.account.currency == "USD"'>&#x0024;</div>
+              <div class="col-md-1" ng-if='vm.account.currency == "INR"'>&#x20b9;</div>
+              <div class="col-md-1" ng-if='vm.account.currency == "EUR"'>&#x20ac;</div>
+                  <div class="col-md-4">
+                    <input id="annual_forecast" ng-change="vm.convertForecast()" name="annual_forecast" placeholder="Annual Forecast" ng-model="vm.account.annual_forecast" class="form-control input-md col-md-12"  type="text" size="10">
+                  </div>
+                  <div ng-show='vm.account.currency == "INR" || vm.account.currency == "EUR"'>
+                  <div class="col-md-1" >&#x0024;</div>
+                  <div class="col-md-4">
+                    <input id="converted_forecast" name="converted_forecast" placeholder="Converted Forecast" ng-model="converted_forecast" class="form-control input-md col-md-12"  type="text" size="10">
+                  </div>
+                  </div>
+              </div>
+            </td>
+            </tr>
+            <tr>
+              <td class="text-left">Closure Probability</td>
+              <td class="text-left">
+              <!-- <input id="closure_probability" name="closure_probability" placeholder="Closure Probability" ng-model="vm.account.closure_probability" class="form-control input-md col-md-12"  type="text" size="10"> -->
+              <select name="closure_probability" id="closure_probability" ng-model="vm.account.closure_probability"  class="form-control">
+                <option ng-repeat="option in availableProbability | orderBy:'attribute_value'" value="{{option.attribute_key}}">{{option.attribute_value}}</option>
+              </select>
+            </td>
+            </tr>
+            <tr>
+              <td class="text-left">Weighted Forecast</td>
+              <td class="text-left">
+              <input id="weighted_forecast" name="weighted_forecast" ng-disabled='true' ng-value='vm.account.annual_forecast * vm.account.closure_probability / 100' placeholder="Weighted Forecast" ng-model="weighted_forecast" class="form-control input-md col-md-12"  type="text" size="10">
+            </td>
+            </tr>
+            <tr>
+              <td class="text-left">Received Date</td>
+              <td class="text-left">
+              <!-- <input id="received_date" name="received_date" placeholder="Received Date" ng-model="vm.account.received_date" class="form-control input-md col-md-12"  type="text" size="10"> -->
+              <p class="input-group">
+                  <input type="text"   uib-datepicker-popup ng-model="vm.account.received_date" is-open="popup5.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open5()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+            </td>
+            </tr>
+            <tr>
+              <td class="text-left">Expected Close Date</td>
+              <td class="text-left">
+              <!-- <input id="expected_close_date" name="expected_close_date" placeholder="Expected Close Date" ng-model="vm.account.expected_close_date" class="form-control input-md col-md-12"  type="text" size="10"> -->
+              <p class="input-group">
+                  <input type="text"   uib-datepicker-popup ng-model="vm.account.expected_close_date" is-open="popup6.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open6()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+            </td>
+            </tr>
+            <tr>
+              <td class="text-left">Expected Close Month</td>
+              <td class="text-left">
+              <!-- <input id="expected_close_month" name="expected_close_month" placeholder="Expected Close Month" ng-model="vm.account.expected_close_month" class="form-control input-md col-md-12"  type="text" size="10"> -->
+              <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="MM/yyyy" ng-model="vm.account.expected_close_month" is-open="popup9.opened" datepicker-options="{minMode: 'month'}" datepicker-mode="'month'"/>
+              <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open9()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+              </p>
+            </td>
+            </tr>
+            <tr>
+              <td class="text-left">Actual Close Date</td>
+              <td class="text-left">
+              <!-- <input id="actual_close_date" name="actual_close_date" placeholder="Actual Close Date" ng-model="vm.account.actual_close_date" class="form-control input-md col-md-12"  type="text" size="10"> -->
+              <p class="input-group">
+                  <input type="text"  uib-datepicker-popup ng-model="vm.account.actual_close_date" is-open="popup7.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open7()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+            </td>
+            </tr>
+            <tr>
+              <td class="text-left">Actual Close Month</td>
+              <td class="text-left">
+              <!-- <input id="actual_closed_month" name="actual_closed_month" placeholder="Expected Close Month" ng-model="vm.account.actual_closed_month" class="form-control input-md col-md-12"  type="text" size="10"> -->
+              <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="MM/yyyy" ng-model="vm.account.actual_closed_month" is-open="popup8.opened" datepicker-options="{minMode: 'month'}" datepicker-mode="'month'"/>
+              <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open8()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+              </p>
+            </td>
+            </tr>
+            <tr>
+            <td class="text-left">Delivery Manager</td>
+            <td class="text-left">
+              <select name="manager" id="manager" ng-model="vm.account.resource_id" class="form-control">
+                <option ng-repeat="option in data.availableManagerOptions | orderBy:'employee_name'" value="{{option.id}}">{{option.employee_name}}</option>
+              </select>
+            </td>
+          </tr>
+            <tr>
+              <td class="text-left">Comments</td>
+              <td class="text-left">
+                <textarea class="form-control" id="comments" ng-model="vm.account.comments"  name="comments">default text</textarea>
+              </td>
+            </tr>
+            <!-- <tr>
+              <td class="text-left">CSM Contact</td>
+              <td class="text-left">
+                <textarea  rows="1" cols="26" id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.csm_contact" class="form-control input-md col-md-12"  type="text" size="10"></textarea>
+              </td>
+            </tr> -->
+
+
+            <!-- <tr>
+            <td class="text-left">Overall Health</td>
+            <td class="text-left">
+              <input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.overall_health" class="form-control input-md col-md-12"  type="text" size="10"></td>
+            </tr> -->
+            <!-- <tr>
+            <td class="text-left">Account LoB</td>
+            <td class="text-left">
+            <input id="customerContact" name="customerContact" placeholder="placeholder" ng-model="vm.account.account_lob" class="form-control input-md col-md-12"  type="text" size="10">
+            </td>
+            </tr> -->
+            <tr>
+              <td class="text-left">Services</td>
+              <td class="text-left">
+                <div ng-dropdown-multiselect="" events="serEvents" options="serdata" selected-model="sermodel" extra-settings="sersettings"></div>
+              </td>
+            </tr>
 <!-- <tr>
 <td class="text-left">Mapped Services</td>
 <td class="text-left">
@@ -326,7 +478,7 @@ div.table-title {
           </div>
 </td>
 </tr> -->
- 
+
 </tbody>
 </table>
 </div>
@@ -335,169 +487,180 @@ div.table-title {
 </div>
 </div>
 <div class="secondfill container" ng-show="nextv">
-<div class="row">
-<div class="col-md-6">
-<table class="table-fill">
-<tbody class="table-hover">
-<tr>
-<td class="text-left">Select a service</td>
-<td class="text-left">
-  <div class="col-md-8">
-  <div ng-dropdown-multiselect="" events="serIndEvents" options="sermodel" selected-model="serIndModel" extra-settings="serIndsettings"></div>
-  </div>
-  <div class="col-md-4">
-  <button type="button" class="btn btn-default" ng-show="keylength(vm.ser) && serIndModel.id" ng-click="fill(vm.ser)"><i class="fa fa-check" aria-hidden="true"></i></button>
-  </div>
-</td>
-</tr>
-<tr>
-<td class="text-left">No Of Resources Needed</td>
-<td class="text-left">
-<input id="noOfResources" name="noOfResources" placeholder="placeholder" class="form-control input-md col-md-12" type="text" size="10" ng-model="vm.service.no_of_people_needed">
-</td>
-</tr>
-<tr>
-<td class="text-left">No Of Resources Allocated</td>
-<td class="text-left">
-<input id="noOfResources" name="noOfResources" placeholder="placeholder" class="form-control input-md col-md-12" type="text" size="10" ng-model="vm.service.no_of_people_allocated">
-</td>
-</tr>
-<tr>
-<td class="text-left">Request Date</td>
-<td class="text-left">
-  <p class="input-group">
-          <input type="text" size="10" class="form-control" uib-datepicker-popup ng-model="vm.service.request_date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p></td>
-</tr>
-<tr>
-<td class="text-left">SOW Signed Date</td>
-<td class="text-left">
-<p class="input-group">
-          <input type="text" size="10" class="form-control" uib-datepicker-popup ng-model="vm.service.sow_signed_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
-</td>
-</tr>
-<tr>
-<td class="text-left">Contract Type</td>
-<td class="text-left">
-<select name="contactType" id="contactType" ng-model="vm.service.contract_type" class="form-control">
-              <option ng-repeat="option in data.availableContactType" value="{{option.id}}">{{option.name}}</option>
-    </select>
-</td>
-</tr>
-<tr>
-<td class="text-left">SOW Status</td>
-<td class="text-left">
-<select name="sowStatus" id="sowStatus" ng-model="vm.service.sow_status" class="form-control">
-              <option ng-repeat="option in data.availableSowStatus" value="{{option.id}}">{{option.name}}</option>
-    </select>
-</td>
-</tr>
-<tr>
-<td class="text-left">Service Status</td>
-<td class="text-left">
-<select name="status" id="status" ng-model="vm.service.project_status" class="form-control">
-              <option ng-repeat="option in data.availableStatusOptions | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
-          </select>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="col-md-6">
-<table class="table-fill">
-<tbody class="table-hover" >
-<tr>
-<td class="text-left">Currency</td>
-<td class="text-left">
-<select name="anticipatedValueCurrency" id="anticipatedValueCurrency" ng-model="vm.service.anticipated_value_currency" ng-click="currencycheck()" class="form-control">
-              <option ng-repeat="option in data.availableAnticipatedValueCurrency | orderBy:'name'" value="{{option.id}}" selected="{{option.selected}}">{{option.name}}</option>
-    </select>
-</td>
-</tr>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table-fill">
+        <tbody class="table-hover">
+          <tr>
+            <td class="text-left">Select a service</td>
+            <td class="text-left">
+              <div class="col-md-8">
+                <div ng-dropdown-multiselect="" events="serIndEvents" options="sermodel" selected-model="serIndModel" extra-settings="serIndsettings"></div>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-default" ng-show="keylength(vm.ser) && serIndModel.id" ng-click="fill(vm.ser)"><i class="fa fa-check" aria-hidden="true"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">No Of Resources Needed</td>
+            <td class="text-left">
+              <input id="noOfResources" name="noOfResources" placeholder="placeholder" class="form-control input-md col-md-12" type="text"  ng-model="vm.service.no_of_people_needed">
+            </td>
+          </tr>
+          <!-- <tr>
+            <td class="text-left">No Of Resources Allocated</td>
+            <td class="text-left">
+              <input id="noOfResources" name="noOfResources" placeholder="placeholder" class="form-control input-md col-md-12" type="text" size="10" ng-model="vm.service.no_of_people_allocated">
+            </td>
+          </tr> -->
+          <tr>
+              <td class="text-left">SOW Type</td>
+              <td class="text-left">
+                <select name="contactType" id="contactType" ng-model="vm.service.contract_type" class="form-control">
+                  <option ng-repeat="option in availableSowType | orderBy:'attribute_value'" value="{{option.attribute_key}}">{{option.attribute_value}}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left">SOW Signed Date</td>
+              <td class="text-left">
+                <p class="input-group custommargin">
+                  <input ng-change='changeSowStatus(vm.service)' type="text" size="10" class="form-control" uib-datepicker-popup ng-model="vm.service.sow_signed_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left">SOW Status</td>
+              <td class="text-left">
+                <select name="sowStatus" id="sowStatus" ng-model="vm.service.sow_status" class="form-control">
+                  <option ng-repeat="option in availableSowStatus | orderBy:'attribute_value'" value="{{option.attribute_key}}">{{option.attribute_value}}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left">Service Start Date</td>
+              <td class="text-left">
+                <p class="input-group custommargin">
+                  <input type="text"   uib-datepicker-popup ng-model="vm.service.start_date" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left">Service End Date</td>
+              <td class="text-left">
+                <p class="input-group custommargin">
+                  <input type="text"  uib-datepicker-popup ng-model="vm.service.end_date" is-open="popup4.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left">Comments</td>
+              <td class="text-left">
+                <input id="anticipatedValue" name="anticipatedValue" placeholder="placeholder" ng-model="vm.service.comments" class="form-control input-md col-md-12"  type="text" size="10">
+              </td>
+            </tr>
+          <!-- <tr>
+            <td class="text-left">Request Date</td>
+            <td class="text-left">
+              <p class="input-group">
+                <input type="text" size="10" class="form-control" uib-datepicker-popup ng-model="vm.service.request_date" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p></td>
+            </tr>
+            
+            
+            
+            <tr>
+              <td class="text-left">Service Status</td>
+              <td class="text-left">
+                <select name="status" id="status" ng-model="vm.service.project_status" class="form-control">
+                  <option ng-repeat="option in data.availableStatusOptions | orderBy:'name'" value="{{option.id}}">{{option.name}}</option>
+                </select>
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+      <!-- Metadata for Services -->
+      <!-- <div class="col-md-6">
+        <table class="table-fill">
+          <tbody class="table-hover" >
+            <tr>
+              <td class="text-left">Currency</td>
+              <td class="text-left">
+                <select name="anticipatedValueCurrency" id="anticipatedValueCurrency" ng-model="vm.service.anticipated_value_currency" ng-click="currencycheck()" class="form-control">
+                  <option ng-repeat="option in data.availableAnticipatedValueCurrency | orderBy:'name'" value="{{option.id}}" selected="{{option.selected}}">{{option.name}}</option>
+                </select>
+              </td>
+            </tr>
 
-<tr>
-<td class="text-left">Start Date</td>
-<td class="text-left">
-  <p class="input-group">
-          <input type="text" size="10"  uib-datepicker-popup ng-model="vm.service.start_date" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
-</td>
-</tr>
-<tr>
-<td class="text-left">End Date</td>
-<td class="text-left">
-  <p class="input-group">
-          <input type="text" size="10"  uib-datepicker-popup ng-model="vm.service.end_date" is-open="popup4.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
-</td>
-</tr>
-<tr>
-<td class="text-left">Comments</td>
-<td class="text-left">
-  <input id="anticipatedValue" name="anticipatedValue" placeholder="placeholder" ng-model="vm.service.comments" class="form-control input-md col-md-12"  type="text" size="10">
-</td>
-</tr>
-<tr>
-  
-<td class="text-left">Anticipated INR Value</td>
-<td class="text-left">
-<input id="anticipatedValue" name="anticipatedValue" placeholder="placeholder" ng-keyup="callCurrencyAPI()" ng-readonly="!USDcur" ng-model="vm.service.anticipated_value" class="form-control input-md col-md-12"  type="text" size="10">
-</td>
-</tr>
-<tr>
-<td class="text-left">Actual INR Value</td>
-<td class="text-left">
-  <input id="actualValue" name="actualValue" placeholder="placeholder" ng-keyup="callCurrencyAPI()" ng-readonly="!USDcur" ng-model="vm.service.actual_value" class="form-control input-md col-md-12"  type="text" size="10">
-</td>
-</tr>
-<tr>
-<td class="text-left">Anticipated  USD Value</td>
-<td class="text-left">
-<input id="anticipatedValue" name="anticipatedValue" ng-readonly="USDcur" ng-keyup="callCurrencyAPI()"  placeholder="placeholder" ng-model="vm.service.anticipated_usd_value" class="form-control input-md col-md-12"  type="text" size="10"></td>
-</tr>
-<tr>
-<td class="text-left">Actual USD Value</td>
-<td class="text-left">
-<input id="anticipatedValue" name="anticipatedValue" ng-readonly="USDcur" ng-keyup="callCurrencyAPI()" placeholder="placeholder" ng-model="vm.service.actual_usd_value" class="form-control input-md col-md-12"  type="text" size="10">
-</td>
-</tr>
-<!-- <tr>
+            
+            <tr>
+              <td class="text-left">Comments</td>
+              <td class="text-left">
+                <input id="anticipatedValue" name="anticipatedValue" placeholder="placeholder" ng-model="vm.service.comments" class="form-control input-md col-md-12"  type="text" size="10">
+              </td>
+            </tr>
+            <tr>
+
+              <td class="text-left">Anticipated INR Value</td>
+              <td class="text-left">
+                <input id="anticipatedValue" name="anticipatedValue" placeholder="placeholder" ng-keyup="callCurrencyAPI()" ng-readonly="!USDcur" ng-model="vm.service.anticipated_value" class="form-control input-md col-md-12"  type="text" size="10">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left">Actual INR Value</td>
+              <td class="text-left">
+                <input id="actualValue" name="actualValue" placeholder="placeholder" ng-keyup="callCurrencyAPI()" ng-readonly="!USDcur" ng-model="vm.service.actual_value" class="form-control input-md col-md-12"  type="text" size="10">
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left">Anticipated  USD Value</td>
+              <td class="text-left">
+                <input id="anticipatedValue" name="anticipatedValue" ng-readonly="USDcur" ng-keyup="callCurrencyAPI()"  placeholder="placeholder" ng-model="vm.service.anticipated_usd_value" class="form-control input-md col-md-12"  type="text" size="10"></td>
+              </tr>
+              <tr>
+                <td class="text-left">Actual USD Value</td>
+                <td class="text-left">
+                  <input id="anticipatedValue" name="anticipatedValue" ng-readonly="USDcur" ng-keyup="callCurrencyAPI()" placeholder="placeholder" ng-model="vm.service.actual_usd_value" class="form-control input-md col-md-12"  type="text" size="10">
+                </td>
+              </tr>
+ <tr>
 <td class="text-left"></td>
 <td class="text-left">
   <button class="btn btn-primary"  ng-click="add(vm.service,serIndModel)">Add</button>
 </td>
-</tr> -->
+</tr> 
 
 </tbody>
 </table>
-</div>
+</div> -->
 </div>
 
 
 <div class="row">
-<button class="btn btn-primary" ng-click="back()">Back To Account</button>
+  <button class="btn btn-primary" ng-click="back()">Back To Account</button>
   
 </div>
 </div>
 </div>
 <br>
 <div class="row">
-<button class="btn btn-primary" type="submit" ng-click="vm.saveaccount()">Save</button>
+  <button class="btn btn-primary" type="submit" ng-click="vm.saveaccount()">Save</button>
   <button id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
 </div>
 </form>
 </div>
-  </body>
+</body>

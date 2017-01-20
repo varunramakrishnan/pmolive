@@ -49,7 +49,8 @@
     { field: 'id',  name: 'E/D', cellTemplate:'<div class="ui-grid-cell-contents"><a href="#/units/edit/{{row.entity.id}}"><button type="button" class="btn btn-xs btn-primary"  ><i class="fa fa-edit"></i></button></a>&nbsp<a href="#/units/delete/{{row.entity.id}}"  ><button type="button" class="btn btn-xs danger-class"  ><i  class="fa fa-trash"></i></button></a></div>', width: 70 },
     { name: 'unit_name' ,width:150 },
     { name: 'unit_code' ,width:150 },
-    ]
+    ],
+     enableGridMenu: true,
 
   };
   

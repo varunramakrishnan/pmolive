@@ -157,6 +157,7 @@ vm.gridOptions = {
     // { name: 'end_date' ,minWidth: 260},
 
     ],
+    enableGridMenu: true,
     enableCellEdit: false,
     enableHorizontalScrollbar: 0, 
     enableVerticalScrollbar:2,

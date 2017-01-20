@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default" >
-            <div class="padding-header">
-                <h2 class="nav header-pad navbar-nav navbar-left">
+            <div class="row padding-header">
+                <h2 class="nav header-pad navbar-nav navbar-left col-md-2 col-sm-2">
                 <div class="text-left">
                             <a href="http://www.listertechnologies.com">  
                                            <img src="img/lister-digital-logo.png" alt="Lister Technologies" title="Lister Technologies">             
@@ -8,7 +8,7 @@
                 </div>
                  OMC | PMO
                 </h2>
-                <ul id="top" class="nav navbar-nav navbar-right">
+                <ul id="top" class="nav navbar-nav col-md-10 col-sm-10">
                     <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/home')" href="#home"><i class="fa fa-tachometer"></i> Dashboard</a></li>
                     <!-- <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/reports')" href="#reports"><i class="fa fa-tachometer"></i> Reports</a></li> -->
                     <li ><a ng-class="getClass('/timesheet')" href="#timesheet"><i class="fa fa-clock-o"></i> Timesheet</a></li>
