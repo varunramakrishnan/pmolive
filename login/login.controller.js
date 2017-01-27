@@ -19,17 +19,17 @@
         function login() {
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.user.id) {
-                    AuthenticationService.SetCredentials(response.user.id,vm.username, vm.password,response.access_token,response.user.resource_id,response.user.employee_id);
+                if (response.user.mail) {
+                    AuthenticationService.SetCredentials(response.user.resource_id,vm.username, vm.password,response.access_token,response.user.resource_id,response.user.employee_id);
                     
                     $rootScope.accesstoken=response.access_token;
                     $cookieStore.put("rootAccess",0) ;
                     $cookieStore.put("pmAccess",0) ;
                     $cookieStore.put("user",0) ;
-                    if(response.user.role=="root"){
+                    if(response.user.role=="0"){
                         $location.path('/home');
                        $cookieStore.put("rootAccess",1) ;
-                    }else if(response.user.role=="pm" || response.user.role=="pl"){
+                    }else if(response.user.role=="1"){
                         $location.path('/home');
                         $cookieStore.put("pmAccess",1) ;
                     }else{
@@ -38,7 +38,12 @@
                     }
                     $rootScope.shownav=true;
                 } else {
-                    FlashService.Error("No User Present");
+                    if (response.user.error) {
+                        FlashService.Error(response.user.error);
+                    } else {
+                        FlashService.Error("No User Present");    
+                    }
+                    
                     vm.dataLoading = false;
                 }
                 

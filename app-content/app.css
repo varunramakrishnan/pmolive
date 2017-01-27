@@ -1642,12 +1642,14 @@ textarea.hoverclass {
 }
 
 .aicon {
-    border: 1px solid black;
+    background-color: black;
+    /*border: 1px solid chocolate;*/
     border-radius: 4px;
+    color:  white;
+    font-size: 18px;
+    opacity: 0.8;
     padding: 2px;
-    color:white;
-    background-color:black;
-    font-size:18px
+    width: 100%;
 }
 .icondiv{
   width:200px; height:100px; opacity: 0.8;
@@ -1703,4 +1705,14 @@ ul.ui-grid-menu-items li#menuitem-1{
 
 .select-style select:focus {
     outline: none;
+}
+/*div.icondiv:before{content:" "; background:url(img/A-default.png); display: block; position:absolute;}*/
+div.icondiv{
+  /*background-image: url('img/A-default.png') ;*/
+  }
+.icondiv span{
+  position: absolute;
+}
+.flip {
+    height: 100px;
 }

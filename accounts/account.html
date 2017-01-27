@@ -106,9 +106,11 @@
   <div class="col-md-3 col-sm-3 pad-top" ng-repeat="data in vm.gridOptions.data| filter:search | orderBy:sortType:sortReverse" >
   <flip flip-width="200px" flip-height="100px">
       <flip-panel >
-      <!-- <img style="width:200px; height:100px" onerror="this.src='img/A-default.png'" src="img/A-{{data.account_code}}.png" /> -->
+      <!-- <div class="icondiv" style="background-image: url('img/A-{{data.account_code}}.png') , url('img/A-default.png');"> -->
        
-      <div class="icondiv" style="background-image: url('img/A-{{data.account_code}}.png') , url('img/A-default.png');"> <span class="aicon"> {{data.account_name}} </span> </div>
+      <div class="icondiv">
+      <span class="aicon"> {{data.account_name}} </span>
+      <img style="width:200px; height:100px" onerror="this.src='img/A-default.png'" src="img/A-{{data.account_code}}.png" />  </div>
       </flip-panel>
       <flip-panel  class="backpanel">
         <div class=""><a href="#/account/edit/{{data.id}}"><button type="button" class="btn btn-xs btn-primary"  ><i class="fa fa-edit"></i></button></a>&nbsp<a href="#/account/delete/{{data.id}}"  ><button type="button" class="btn btn-xs danger-class"  ><i  class="fa fa-trash"></i></button></a>
