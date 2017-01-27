@@ -7,7 +7,7 @@ angular.module('customFlip', [])
   
 		  function setDim(element, width, height){
 		    // element.style.width = width;
-		    element.style.height = height;
+		    // element.style.height = height;
 		  }
 		  
 		  var cssString =
@@ -15,6 +15,8 @@ angular.module('customFlip', [])
 		    .flip {display: block; overflow: hidden} \
 		    .flipBasic { \
 		    position: absolute; \
+		    border: 4px solid white; \
+		    border-radius: 4px; \
 		    left: 17%; \
 		    -webkit-backface-visibility: hidden; \
 		    backface-visibility: hidden; \

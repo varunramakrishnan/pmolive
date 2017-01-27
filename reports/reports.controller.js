@@ -174,19 +174,20 @@ $scope.knoboptions = {
             $scope.managermodel.length = 0;
             $scope.startdate = "";
             $scope.enddate = "";
-            $scope.myVar = true;
-            $scope.myVar1 = false;
-            $scope.myVar2 = false;
+            switcher('day');
+            // $scope.myVar = true;
+            // $scope.myVar1 = false;
+            // $scope.myVar2 = false;
 
 
 
-   getreportdata("today").then(function(response){
-        $scope.knobvalue = response.util;
-        $scope.total_hrs = response.total_hrs;
-        $scope.util_hrs = response.util_hrs;
-       var data = $scope.repdata = response.donut;
-            $scope.gridOptions.data = data;
-            });    
+   // getreportdata("today").then(function(response){
+   //      $scope.knobvalue = response.util;
+   //      $scope.total_hrs = response.total_hrs;
+   //      $scope.util_hrs = response.util_hrs;
+   //     var data = $scope.repdata = response.donut;
+   //          $scope.gridOptions.data = data;
+   //          });    
 
    }
           

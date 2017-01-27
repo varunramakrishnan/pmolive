@@ -128,7 +128,8 @@ $scope.data = {
             vm.userdetails.user={};
             vm.userdetails.user.username = vm.resource.employee_name;
             vm.userdetails.user.password = vm.resource.employee_name;
-            vm.userdetails.user.employee_id = vm.resource.employee_id;                    
+            vm.userdetails.user.employee_id = vm.resource.employee_id;
+            vm.userdetails.user.mail = vm.resource.mail;                    
                     UserService.Create(JSON.stringify(vm.userdetails))
                       .then(function (response) {
                           console.log(response.data);
@@ -187,6 +188,7 @@ $scope.example13settings = {
     
 };
 $scope.$scope = $scope;
+var d=new Date();
 vm.gridOptions = {
    enableColumnResizing: true,
    enableCellEdit: false,
@@ -195,6 +197,7 @@ vm.gridOptions = {
     { field: 'DP',name: 'Profile',  cellTemplate:'<img class="gridthumb" ng-src="img/{{row.entity.employee_id}}.png" onerror="this.src=\'img/default.png\'" lazy-src />', width: 70 },
     // { field: 'DP',name: 'Profile',  cellTemplate:'<img class="gridthumb" src="img/{{grid.appScope.imgexists(row.entity.employee_id)}}.png">', width: 70 },
     { name: 'employee_name', width: 260 },
+    { name: 'mail', width: 260 },
       { name: 'employee_id' , width: 130},
       { name: 'role' , width: 180},
       // { name: 'heirarchy_id' , width: 140},
@@ -204,6 +207,27 @@ vm.gridOptions = {
         enableColumnHeavyVirt: true,
         virtualizationThreshold: 10,
         enableGridMenu: true,
+        exporterMenuPdf: false,
+        exporterCsvFilename: 'OMC_People_'+d.toDateString().split(' ').join('_')+'.csv',
+        // exporterPdfDefaultStyle: {fontSize: 9},
+        // exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+        // exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+        // exporterPdfHeader: { text: "My Header", style: 'headerStyle' },
+        // exporterPdfFooter: function ( currentPage, pageCount ) {
+        //   return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+        // },
+        // exporterPdfCustomFormatter: function ( docDefinition ) {
+        //   docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+        //   docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+        //   return docDefinition;
+        // },
+        // exporterPdfOrientation: 'portrait',
+        // exporterPdfPageSize: 'LETTER',
+        // exporterPdfMaxGridWidth: 500,
+        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+        onRegisterApi: function(gridApi){
+          $scope.gridApi = gridApi;
+        }
 
   };
   $scope.imgexists = function(id) {

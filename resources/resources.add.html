@@ -5,7 +5,6 @@
   <br>
   <br>
 
-  {{vm.resource}}
   <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
   <div class="form-account">
     <form name="form" ng-submit="vm.saveresource()" role="form" class="form-horizontal">
@@ -14,6 +13,12 @@
         <label class="col-md-4 control-label labelcustom" for="username">Employee name</label>  
         <div class="col-md-4">
         <input id="employee_name" name="employee_name" placeholder="placeholder" class="form-control" ng-model="vm.resource.employee_name" required="" type="text">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label labelcustom" for="username">E-Mail</label>  
+        <div class="col-md-4">
+        <input id="mail" name="mail" placeholder="placeholder" class="form-control" ng-model="vm.resource.mail" required="" type="text">
         </div>
       </div>
       <div class="form-group">
