@@ -1299,6 +1299,11 @@ padding-top: 0px !important;
     border-color: #4a4a4a !important;
     color: #fff;
 }
+.btn-customorange {
+    background-color: orange !important;
+    border-color: orange !important;
+    color: #fff;
+}
 .customText {
     background-color: #333333;
     border: medium none;
