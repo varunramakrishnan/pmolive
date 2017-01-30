@@ -130,11 +130,11 @@ $scope.data = {
             vm.userdetails.user.password = vm.resource.employee_name;
             vm.userdetails.user.employee_id = vm.resource.employee_id;
             vm.userdetails.user.mail = vm.resource.mail;                    
-                    UserService.Create(JSON.stringify(vm.userdetails))
-                      .then(function (response) {
-                          console.log(response.data);
-                          if (response.data.success) {
-                              FlashService.Success('Registration successful', true);
+                    // UserService.Create(JSON.stringify(vm.userdetails))
+                    //   .then(function (response) {
+                    //       console.log(response.data);
+                    //       if (response.data.success) {
+                              // FlashService.Success('Registration successful', true);
                               UserService.saveResource(vm.resource)
                                   .then(function (response) {
                                       if (response.data.success) {
@@ -156,6 +156,9 @@ $scope.data = {
                                         if(response.data.error.heirarchy_name){
                                           FlashService.Error('Heirarchy Name ' +response.data.error.heirarchy_name[0]);
                                         }
+                                        if(response.data.error.mail){
+                                          FlashService.Error('Mail ' +response.data.error.mail[0] + "or " + response.data.error.mail[1] );
+                                        }
                                           vm.dataLoading = false;
                                       }
                                       ///
@@ -163,11 +166,11 @@ $scope.data = {
 
                                       ////
                                   });
-                          } else {
-                              FlashService.Error('Username '+response.data.error.username[0]);
-                              vm.dataLoading = false;
-                          }
-                      });
+                          // } else {
+                          //     FlashService.Error('Username '+response.data.error.username[0]);
+                          //     vm.dataLoading = false;
+                          // }
+                      // });
 
 
             
@@ -201,7 +204,7 @@ vm.gridOptions = {
       { name: 'employee_id' , width: 130},
       { name: 'role' , width: 180},
       // { name: 'heirarchy_id' , width: 140},
-      { name: 'skill', enableColumnResizing: true },
+      { name: 'skill', enableColumnResizing: true,minWidth: 180 },
       {name: 'manager_name',width: 180},
     ],
         enableColumnHeavyVirt: true,

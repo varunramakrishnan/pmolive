@@ -124,12 +124,12 @@
                 // controller  : 'AccountController',
                 })
 
-            .state('register', {
-                url: "/register",
-                controller: 'RegisterController',
-                templateUrl: 'register/register.view.html',
-                controllerAs: 'vm'
-            })
+            // .state('register', {
+            //     url: "/register",
+            //     controller: 'RegisterController',
+            //     templateUrl: 'register/register.view.html',
+            //     controllerAs: 'vm'
+            // })
             
             .state('timesheet', {
                     url: "/timesheet",
