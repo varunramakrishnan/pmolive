@@ -582,7 +582,7 @@ div#mycalendar{
 }
 .nav.header-pad.navbar-nav.navbar-left {
     color: #ef6e24;
-    font-size: 100%;
+    font-size: 28px;
     padding-bottom: 12px;
 }
 
@@ -1726,4 +1726,11 @@ div.icondiv{
 }
 .flip {
     height: 100px;
+}
+.jumbotron{
+  min-height: 100%;
+  margin-bottom: 0px !important;
+}
+.footer {
+    padding: 25px;
 }
