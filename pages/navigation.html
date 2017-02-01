@@ -9,7 +9,14 @@
                  OMC | PMO
                 </h2>
                 <ul id="top" class="nav navbar-nav col-md-10 col-sm-10">
-                    <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/home')" href="#home"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+                    <li class="dropdown-das" ng-show="rootAccess || pmAccess"><a ng-class="getClass('/home')" href="#home"><i class="fa fa-tachometer"></i> Dashboard</a>
+
+                        <div class="dropdown-content-das">
+                            <a href="#/calendar"><i class="fa fa-user"></i>Calendar</a>
+                            
+                        </div>
+
+                    </li>
                     <!-- <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/reports')" href="#reports"><i class="fa fa-tachometer"></i> Reports</a></li> -->
                     <li ><a ng-class="getClass('/timesheet')" href="#timesheet"><i class="fa fa-clock-o"></i> Timesheet</a></li>
                     <li ng-show="rootAccess || pmAccess"><a ng-class="getClass('/mapping')" href="#mapping"><i class="fa fa-tag"></i>Mapping</a></li>
@@ -22,17 +29,20 @@
                     
                     <li ng-show="rootAccess"><a ng-class="getClass('/units')" href="#units"><i class="fa fa-underline"></i> OU</a></li>
                     <!-- <li><a href="#/login"><i class="fa fa-power-off"></i>Logout</a></li> -->
-                    <li class="dropdown"><a class="overflowname "><img class="dpthumb" ng-src="img/{{globals.currentUser.employee_id}}.png?{{getDate()}}"></img>{{globals.currentUser.employee_id}}<i class="fa fa-caret-down" aria-hidden="true"></i></a>
-                    
-                    <div class="dropdown-content">
-                        <a href="#/profile"><i class="fa fa-user"></i>Change Profile Picture</a>
-                        <br>
-                        <a href="#/login"><i class="fa fa-power-off"></i>Logout</a>
-                      </div>
-                      </li>
+                    <li class="dropdown">
+                        <a class="overflowname ">
+                            <img class="dpthumb" ng-src="img/{{globals.currentUser.employee_id}}.png?{{getDate()}}">
+                                {{globals.currentUser.employee_id}}
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="#/profile"><i class="fa fa-user"></i>Change Profile Picture</a>
+                            <br>
+                            <a href="#/login"><i class="fa fa-power-off"></i>Logout</a>
+                        </div>
+                    </li>
 
                     
-                    </div>
                     
                 </ul>
             </div>

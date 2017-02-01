@@ -29,7 +29,7 @@
                     if(response.user.role=="0"){
                         $location.path('/home');
                        $cookieStore.put("rootAccess",1) ;
-                    }else if(response.user.role=="1"){
+                    }else if(response.user.role=="1" || response.user.role=="2"){
                         $location.path('/home');
                         $cookieStore.put("pmAccess",1) ;
                     }else{
