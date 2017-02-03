@@ -40,7 +40,7 @@
   $scope.gridOptions= {
     enableHorizontalScrollbar : 0,
     columnDefs : [
-    { field:'id',name:'id', width:50 ,visible:false },
+    { field:'id', width:50 ,visible:false },
     { field:'emp_id',name:'Emp Id', width:100 },
     { field:'name' , name:'Name',width:100 },
     { field:'hours', name:'Hours', width:80 },
@@ -212,7 +212,6 @@ $scope.knoboptions = {
             idProp:'id',
             externalIdProp:'',
             // selectionLimit: 1,
-            showUncheckAll :false,
             closeOnSelect:true
 
           };
@@ -304,7 +303,8 @@ $scope.knoboptions = {
               if($scope.managermodel.length != 0){
                 UserService.resourcesUnderManager($scope.managermodel)
                            .then( function (response) {
-                  $scope.peopledata=response.data.success;
+                  // $scope.peopledata=response.data.success;
+                  // $scope.peoplemodel=response.data.success;
                   myFunc();
                             });
 
@@ -364,16 +364,17 @@ $scope.knoboptions = {
                           $scope.getArray.length = 0;
                           $scope.getArrayRaw.length = 0;
                            $scope.getArrayRaw = response.timedata;
-                          angular.forEach(data, function (obj) {
-                            var empdata = {};
-                            empdata.Name = obj.name;
-                            empdata.EmployeeId = obj.emp_id;
-                            empdata.Hours = obj.hours;
-                            empdata.Split = obj.spark.label.join();
-                            empdata.Percentage = obj.perc;
-                            // empdata.Color = obj.colour;
-                            $scope.getArray.push(empdata);
-                          });
+                           $scope.getArray = response.timeaggData;
+                          // angular.forEach(data, function (obj) {
+                          //   var empdata = {};
+                          //   empdata.Name = obj.name;
+                          //   empdata.EmployeeId = obj.emp_id;
+                          //   empdata.Hours = obj.hours;
+                          //   empdata.Split = obj.spark.label.join();
+                          //   empdata.Percentage = obj.perc;
+                          //   // empdata.Color = obj.colour;
+                          //   $scope.getArray.push(empdata);
+                          // });
 
                           });
 
@@ -390,53 +391,67 @@ $scope.knoboptions = {
              },
              onItemDeselect: function(item) {
               $scope.peoplemodel.length = 0;
+              
               getActualResources();
             },
              onDeselectAll: function() {
               $scope.peoplemodel.length = 0;
               $scope.managermodel.length = 0;
+              
               getActualResources();
           },
            };
            $scope.peopleEvents = {
              onItemSelect: function(item) {
+              
               myFunc();
              },
              onItemDeselect: function(item) {
+              
                 myFunc();
             },
             onDeselectAll: function() {
+              
                 myFunc();
           },
            };
            $scope.accountEvents = {
              onItemSelect: function(item) {
                 $scope.servicemodel.length = 0 ;
+                
                 getActualServices(item);
                 
              },
              onItemDeselect: function(item) {
               $scope.servicemodel.length = 0 ;
+                
                 getActualServices(item);
             },
             onDeselectAll: function() {
                 $scope.servicemodel.length = 0 ;
+                
                 getActualServices(item);
           },
            };
            $scope.serviceEvents = {
              onItemSelect: function(item) {
+                
                 myFunc();
              },
              onItemDeselect: function(item) {
+                
                 myFunc();
             },
             onDeselectAll: function() {
+                
                 myFunc();
           },
            }
-
-    
+    /**
+     * filter the list of people to be displayed on the grid
+     * @return {[type]}
+     */
+       
 
     function myFunc() {
       $scope.serstr = '';
@@ -482,16 +497,17 @@ $scope.knoboptions = {
                     $scope.getArray.length = 0;
                     $scope.getArrayRaw.length = 0;
                     $scope.getArrayRaw = response.timedata;
-                    angular.forEach(data, function (obj) {
-                            var empdata = {};
-                            empdata.Name = obj.name;
-                            empdata.EmployeeId = obj.emp_id;
-                            empdata.Hours = obj.hours;
-                            empdata.Split = obj.spark.label.join();
-                            empdata.Percentage = obj.perc;
-                            // empdata.Color = obj.color;
-                            $scope.getArray.push(empdata);
-                          });
+                    $scope.getArray = response.timeaggData;
+                    // angular.forEach(data, function (obj) {
+                    //         var empdata = {};
+                    //         empdata.Name = obj.name;
+                    //         empdata.EmployeeId = obj.emp_id;
+                    //         empdata.Hours = obj.hours;
+                    //         empdata.Split = obj.spark.label.join();
+                    //         empdata.Percentage = obj.perc;
+                    //         // empdata.Color = obj.color;
+                    //         $scope.getArray.push(empdata);
+                    //       });
                     });
 };
 
@@ -514,16 +530,16 @@ $scope.knoboptions = {
                     $scope.getArray.length = 0;
                     $scope.getArrayRaw.length = 0;
                     $scope.getArrayRaw = response.timedata;
-                    angular.forEach(data, function (obj) {
-                            var empdata = {};
-                            empdata.Name = obj.name;
-                            empdata.EmployeeId = obj.emp_id;
-                            empdata.Hours = obj.hours;
-                            empdata.Split = obj.spark.label.join();
-                            empdata.Percentage = obj.perc;
-                            // empdata.Color = obj.color;
-                            $scope.getArray.push(empdata);
-                          });
+                    // angular.forEach(data, function (obj) {
+                    //         var empdata = {};
+                    //         empdata.Name = obj.name;
+                    //         empdata.EmployeeId = obj.emp_id;
+                    //         empdata.Hours = obj.hours;
+                    //         empdata.Split = obj.spark.label.join();
+                    //         empdata.Percentage = obj.perc;
+                    //         // empdata.Color = obj.color;
+                    //         $scope.getArray.push(empdata);
+                    //       });
                     });
 
    };
@@ -565,16 +581,17 @@ $scope.knoboptions = {
                     $scope.getArray.length = 0;
                     $scope.getArrayRaw.length = 0;
                     $scope.getArrayRaw = response.timedata;
-                    angular.forEach(data, function (obj) {
-                            var empdata = {};
-                            empdata.Name = obj.name;
-                            empdata.EmployeeId = obj.emp_id;
-                            empdata.Hours = obj.hours;
-                            empdata.Split = obj.spark.label.join();
-                            empdata.Percentage = obj.perc;
-                            // empdata.Color = obj.color;
-                            $scope.getArray.push(empdata);
-                          });
+                    $scope.getArray = response.timeaggData;
+                    // angular.forEach(data, function (obj) {
+                    //         var empdata = {};
+                    //         empdata.Name = obj.name;
+                    //         empdata.EmployeeId = obj.emp_id;
+                    //         empdata.Hours = obj.hours;
+                    //         empdata.Split = obj.spark.label.join();
+                    //         empdata.Percentage = obj.perc;
+                    //         // empdata.Color = obj.color;
+                    //         $scope.getArray.push(empdata);
+                    //       });
                     });
 
 };
@@ -628,16 +645,17 @@ function getnewreport(filter) {
       $scope.getArray.length = 0;
       $scope.getArrayRaw.length = 0;
       $scope.getArrayRaw = response.timedata;
-      angular.forEach(data, function (obj) {
-                            var empdata = {};
-                            empdata.Name = obj.name;
-                            empdata.EmployeeId = obj.emp_id;
-                            empdata.Hours = obj.hours;
-                            empdata.Split = obj.spark.label.join();
-                            empdata.Percentage = obj.perc;
-                            // empdata.Color = obj.color;
-                            $scope.getArray.push(empdata);
-                          });
+      $scope.getArray = response.timeaggData;
+      // angular.forEach(data, function (obj) {
+      //                       var empdata = {};
+      //                       empdata.Name = obj.name;
+      //                       empdata.EmployeeId = obj.emp_id;
+      //                       empdata.Hours = obj.hours;
+      //                       empdata.Split = obj.spark.label.join();
+      //                       empdata.Percentage = obj.perc;
+      //                       // empdata.Color = obj.color;
+      //                       $scope.getArray.push(empdata);
+      //                     });
       });
    }
   $scope.mousedleave = function() {
@@ -758,44 +776,51 @@ var monthday = moment().startOf('month');
 
 
 var getreportdata = function (filter) {
+
   $scope.csvFileName = '';
   
   var deferred = $q.defer();
     if($scope.peoplemodel.length){
       var pdata = $scope.peoplemodel;
-      var resArray = [];
-      angular.forEach($scope.peoplemodel, function (obj) {
-                            resArray.push(obj.employee_name);
-                          });
-      $scope.csvFileName = resArray.join();
+      // var resArray = [];
+      // angular.forEach($scope.peoplemodel, function (obj) {
+      //                       resArray.push(obj.employee_name);
+      //                     });
+      // $scope.csvFileName = resArray.join();
     }else{
       // var pdata = $scope.peopledata;
       var pdata = [];
-      $scope.csvFileName = "All_Resources";
+      // $scope.csvFileName = "All_Resources";
+    }
+    if($scope.managermodel.length){
+      var mdata = $scope.managermodel;
+    }else{
+      // var pdata = $scope.peopledata;
+      var mdata = [];
     }
     if($scope.accountmodel.length){
       var adata = $scope.accountmodel;
-      var resArray = [];
-      angular.forEach($scope.accountmodel, function (obj) {
-                            resArray.push(obj.account_name);
-                          });
-      $scope.csvFileName = $scope.csvFileName +"_" + resArray.join();
+      // var resArray = [];
+      // angular.forEach($scope.accountmodel, function (obj) {
+      //                       resArray.push(obj.account_name);
+      //                     });
+      // $scope.csvFileName = $scope.csvFileName +"_" + resArray.join();
     }else{
       // var adata = $scope.accountdata;
       var adata = [];
-      $scope.csvFileName = $scope.csvFileName +"_" + "All_Accounts";
+      // $scope.csvFileName = $scope.csvFileName +"_" + "All_Accounts";
     }
     if($scope.accountmodel.length == 1){
       var sdata = $scope.servicemodel;
       var resArray = [];
-      angular.forEach($scope.servicemodel, function (obj) {
-                            resArray.push(obj.service_code);
-                          });
-      $scope.csvFileName = $scope.csvFileName +"_" + resArray.join();
+      // angular.forEach($scope.servicemodel, function (obj) {
+      //                       resArray.push(obj.service_code);
+      //                     });
+      // $scope.csvFileName = $scope.csvFileName +"_" + resArray.join();
 
     }else{
       var sdata = [];
-      $scope.csvFileName = $scope.csvFileName +"_" + "All_Services";
+      // $scope.csvFileName = $scope.csvFileName +"_" + "All_Services";
     }
       var date = $scope.resultDate.format(fullWeekFormat);
       if(filter=="today"){
@@ -804,41 +829,40 @@ var getreportdata = function (filter) {
         $scope.resultDate = moment();
         $scope.formattedDate = $scope.resultDate.format(fullWeekFormat);
         // $scope.csvFileName = $scope.csvFileName +"_" + $scope.formattedDate;
-        var piepostData = {"dates":[$scope.formattedDate],"resource":pdata,"account":adata,"service":sdata};
+        var piepostData = {"dates":[$scope.formattedDate],"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="currentDate"){
           // $scope.csvFileName = $scope.csvFileName +"_" + $scope.dateArray.join();
-        var piepostData = {"dates":$scope.dateArray,"resource":pdata,"account":adata,"service":sdata};
+        var piepostData = {"dates":$scope.dateArray,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="prevDay"){
           $scope.resultDate = $scope.resultDate.subtract(1, "days");
           $scope.formattedDate = $scope.resultDate.format(fullWeekFormat);
           // $scope.csvFileName = $scope.csvFileName +"_" + $scope.formattedDate;
-         var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata,"account":adata,"service":sdata};
-         }else if(filter=="nextDay"){
+         var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
           $scope.resultDate = $scope.resultDate.add(1, "days");
           $scope.formattedDate = $scope.resultDate.format(fullWeekFormat);
           // $scope.csvFileName = $scope.csvFileName +"_" + $scope.formattedDate;
-         var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata,"account":adata,"service":sdata};
+         var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
          }else if(filter=="week"){
           $scope.resultDate = moment();
           // $scope.csvFileName = $scope.csvFileName +"_" + $scope.week_full[0]+"-"+$scope.week_full[$scope.week_full.length-1];
-          var piepostData = {"dates":$scope.week_full,"resource":pdata,"account":adata,"service":sdata};
+          var piepostData = {"dates":$scope.week_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="previousWeek"){
           $scope.resultDate = $scope.resultDate.subtract(1, "weeks");
           var prevWeek = $scope.resultDate.startOf('isoWeek');
           $scope.prevweek_full=[prevWeek.day(0).format(fullWeekFormat),prevWeek.day(1).format(fullWeekFormat),prevWeek.day(2).format(fullWeekFormat),prevWeek.day(3).format(fullWeekFormat),prevWeek.day(4).format(fullWeekFormat),prevWeek.day(5).format(fullWeekFormat),prevWeek.day(6).format(fullWeekFormat)];
           // $scope.csvFileName = $scope.csvFileName +"_" + $scope.prevweek_full[0]+"-"+$scope.prevweek_full[$scope.prevweek_full.length-1];
-          var piepostData = {"dates":$scope.prevweek_full,"resource":pdata,"account":adata,"service":sdata};
+          var piepostData = {"dates":$scope.prevweek_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="nextWeek"){
           // $scope.resultDate = moment();
           $scope.resultDate = $scope.resultDate.add(1, "weeks");
           var nextWeek = $scope.resultDate.startOf('isoWeek');
           $scope.nextweek_full=[nextWeek.day(0).format(fullWeekFormat),nextWeek.day(1).format(fullWeekFormat),nextWeek.day(2).format(fullWeekFormat),nextWeek.day(3).format(fullWeekFormat),nextWeek.day(4).format(fullWeekFormat),nextWeek.day(5).format(fullWeekFormat),nextWeek.day(6).format(fullWeekFormat)];
           // $scope.csvFileName = $scope.csvFileName +"_" + $scope.nextweek_full[0]+"-"+$scope.nextweek_full[$scope.nextweek_full.length-1];
-          var piepostData = {"dates":$scope.nextweek_full,"resource":pdata,"account":adata,"service":sdata};
+          var piepostData = {"dates":$scope.nextweek_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="month"){
           $scope.resultDate = moment();
           // $scope.csvFileName = $scope.csvFileName +"_" + $scope.month_full[0]+"-"+$scope.month_full[$scope.month_full.length-1];
-          var piepostData = {"dates":$scope.month_full,"resource":pdata,"account":adata,"service":sdata};
+          var piepostData = {"dates":$scope.month_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="previousMonth"){
 
             // var prevMonth =[];
@@ -853,7 +877,7 @@ var getreportdata = function (filter) {
              }
              // $scope.csvFileName = $scope.csvFileName +"_" + $scope.prevmonth_full[0]+"-"+$scope.prevmonth_full[$scope.prevmonth_full.length-1];
 
-        var piepostData = {"dates":$scope.prevmonth_full,"resource":pdata,"account":adata,"service":sdata};
+        var piepostData = {"dates":$scope.prevmonth_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
       }else {
 
            // var nexttMonth =[];
@@ -868,19 +892,19 @@ var getreportdata = function (filter) {
                monthday = monthday.add(1,'days');
              }
              // $scope.csvFileName = $scope.csvFileName +"_" + $scope.nextmonth_full[0]+"-"+$scope.nextmonth_full[$scope.nextmonth_full.length-1];
-        var piepostData = {"dates":$scope.nextmonth_full,"resource":pdata,"account":adata,"service":sdata};
+        var piepostData = {"dates":$scope.nextmonth_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
       }
       if(piepostData.dates.length > 1){
-        $scope.csvFileName = $scope.csvFileName +"_" + piepostData.dates[0] + "-" + piepostData.dates[piepostData.dates.length-1];
+        $scope.csvFileName = "PMO_Utilization_Export_" + piepostData.dates[0] + "_" + piepostData.dates[piepostData.dates.length-1];
       }else{
-        $scope.csvFileName = $scope.csvFileName +"_" + piepostData.dates[0];
+        $scope.csvFileName = "PMO_Utilization_Export_" + piepostData.dates[0];
       }
-      $scope.rawcsvFileName = "Raw_"+$scope.csvFileName ;
+      // $scope.rawcsvFileName = "Raw_"+$scope.csvFileName ;
 
 
        UserService.getReportData(piepostData)
              .then(function (response) {
-             // $scope.repdata =   response.data;
+              $scope.repdata =   response.data.donut;
              deferred.resolve(response.data);
              });
       return deferred.promise;
@@ -890,7 +914,17 @@ $scope.hidePopover = function () {
   $scope.popoverIsVisible = false;
 };
 	$scope.gridOptions.rowHeight=50;
-
+  if($scope.manstr){
+    $scope.newmanstr = "Reporting Manager  : " + $scope.manstr;  
+  }
+  if($scope.accstr){
+    $scope.newaccstr = "Accounts  : " + $scope.accstr;
+  }
+  if($scope.serstr){
+    $scope.newserstr = "Services  : " + $scope.serstr;
+  }
+  
+  
 if(splits[3]){
           $scope.repdata.forEach(function (d) {
             if (d.id == splits[3]){
@@ -942,16 +976,17 @@ $scope.knoboptions.barColor =  'red';
       $scope.getArray.length = 0;
       $scope.getArrayRaw.length = 0;
       $scope.getArrayRaw = response.timedata;
-      angular.forEach(data, function (obj) {
-                            var empdata = {};
-                            empdata.Name = obj.name;
-                            empdata.EmployeeId = obj.emp_id;
-                            empdata.Hours = obj.hours;
-                            empdata.Split = obj.spark.label.join();
-                            empdata.Percentage = obj.perc;
-                            // empdata.Color = obj.color;
-                            $scope.getArray.push(empdata);
-                          });
+      $scope.getArray = response.timeaggData;
+      // angular.forEach(data, function (obj) {
+      //                       var empdata = {};
+      //                       empdata.Name = obj.name;
+      //                       empdata.EmployeeId = obj.emp_id;
+      //                       empdata.Hours = obj.hours;
+      //                       empdata.Split = obj.spark.label.join();
+      //                       empdata.Percentage = obj.perc;
+      //                       // empdata.Color = obj.color;
+      //                       $scope.getArray.push(empdata);
+      //                     });
       });
 
         }

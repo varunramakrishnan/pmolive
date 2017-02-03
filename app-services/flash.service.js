@@ -1,4 +1,5 @@
-﻿(function () {
+﻿// To display flash message across the apllication
+(function () {
     'use strict';
 
     angular

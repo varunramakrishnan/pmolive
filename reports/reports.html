@@ -157,10 +157,10 @@
             <span class="caret"></span></button>
             <ul class="dropdown-menu">
               <li>
-                  <a class="btn  " type="button" ng-csv="getArray" csv-header="['Name', 'Employee Id', 'Hours', 'BreakUp', 'Percentage']" filename="{{csvFileName}}.csv">Aggregate</a>
+                  <a class="btn  " type="button" ng-csv="getArrayRaw" csv-header="['Emp Code','Name','Account Code', 'Service Code', 'Project Code', 'Date','Hours']" sort-column='-Date' filename="{{csvFileName}}.csv">Date-Wise</a>
               </li>
               <li>
-                  <a class="btn  " type="button" ng-csv="getArrayRaw" csv-header="['Name','Account Code', 'Service Code', 'Project Code', 'Hours', 'Date']" filename="{{rawcsvFileName}}.csv">Raw</a>
+                  <a class="btn  " type="button" ng-csv="getArray" csv-header="['Emp Code','Name','Account Code', 'Service Code', 'Project Code', 'Hours']" filename="{{csvFileName}}.csv">Aggregate</a>
               </li>
             </ul>
           </div>
@@ -259,9 +259,11 @@
 
 <hr class="horline">
 <div ng-hide="startdate && enddate">
-<div ng-if="manstr"><b>Reporting Manager : </b>{{manstr}}</div>
-<div ng-if="accstr"><b>Accounts : </b>{{accstr}}</div>
-<div ng-if="serstr"><b>Services : </b>{{serstr}}</div>
+<div >
+    <span ng-if="manstr"><b>Reporting Manager : </b>{{manstr}} </span>
+    <span ng-if="accstr">  <b>Accounts : </b>{{accstr}} </span>  
+    <span ng-if="serstr">   <b> Services : </b>{{serstr}}</span>
+</div>
 <div ng-if="myVar"><b>{{resultDate.format("Do,MMMM") }}</b></div>
 <div ng-if="myVar1"><b>{{resultDate.clone().startOf('week').format("Do,MMMM")}} - {{resultDate.clone().endOf('week').format("Do,MMMM")}}</b></div>
 <div ng-if="myVar2"><b>{{resultDate.startOf('month').format("MMMM") }}</b></div>

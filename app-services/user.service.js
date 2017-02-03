@@ -1,4 +1,5 @@
-﻿(function () {
+﻿// All API calls to Rails Server
+(function () {
     'use strict';
 
     angular
@@ -82,7 +83,8 @@
         service.saveimage=saveimage;
         service.getAccountMetadata=getAccountMetadata;
         return service;
-
+        // save image for people
+        
         function saveimage(id,type,file) {
             var fd = new FormData();
             fd.append('file', file);
@@ -97,7 +99,7 @@
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
-
+        // Get Resource Timecard to display in timesheet
         function getResourceTimeCard(data) {
             var req = {
                 method: 'POST',
@@ -108,7 +110,7 @@
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
-
+        // Get all Resources under managers
         function resourcesUnderManager(data){
             
              var req = {
@@ -121,6 +123,7 @@
             return $http(req).then(function(response){return response;},function(response){return response;});
             
         }
+// Get Resouce Pie data
 
         function getResourcePieData(data){
             var req = {
@@ -132,6 +135,11 @@
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
+
+/**
+ * Get Reports for timesheet 
+ */
+
         function getReportData(data){
             var req = {
                 method: 'POST',
@@ -142,6 +150,11 @@
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
+        /**
+         * Save timesheet entry
+         * @param  {object}
+         * @return {object}
+         */
         function saveTimeCard(data) {
             var req = {
                 method: 'POST',
@@ -152,6 +165,10 @@
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
+        /**
+         * @param  {[type]}
+         * @return {[type]}
+         */
         function handleSuccess(res) {
             return function () {
                 return { success: true ,message: res};
@@ -163,6 +180,11 @@
                 return { success: false, message: error };
             };
         }
+        /**
+         * @param  {string}
+         * @param  {string}
+         * @return {object}
+         */             
         function callCurrencyAPI(base,symbol) {
             
             var req = {
@@ -172,7 +194,9 @@
             }
             return $http(req).then(function(response){return response;},function(response){return response;});
         }
-
+        /**
+         * @param {string}
+         */
         function GetByUsername(username) {
             
             var user={"username":username};
