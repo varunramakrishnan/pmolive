@@ -224,7 +224,7 @@ $scope.knoboptions = {
             idProp:'id',
             externalIdProp:'',
             // selectionLimit: 1,
-            showUncheckAll :false,
+            // showUncheckAll :false,
             closeOnSelect:true
 
           };
@@ -480,6 +480,7 @@ $scope.knoboptions = {
               fetchreport("currentDate");
               }else{
                 fetchreport("today");
+                switcher("day");
               }
 };
 
