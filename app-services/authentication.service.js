@@ -1,4 +1,5 @@
-﻿(function () {
+﻿// Service responsible for User login
+(function () {
     'use strict';
 
     angular
@@ -15,7 +16,7 @@
         service.hostName=__env.hostName;
         service.port=__env.port;
         return service;
-        
+        // Login Method to authenticate user my calling rest end point
         function Login(username, password, callback) {
             $http.post('http://'+service.hostName+':'+service.port+'/user/search.json', { username: username, password: password })
                 .success(function (response) {
@@ -23,7 +24,7 @@
                 });
 
         }
-
+        // Adding site specific ,metadata for cookies
         function SetCredentials(uid,username, password,accesstoken,rid,empid) {
             var authdata = Base64.encode(username + ':' + password);
 
@@ -41,7 +42,7 @@
             $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
             $cookieStore.put('globals', $rootScope.globals);
         }
-
+        // Logout Functionality for clearing the cookies Set
         function ClearCredentials() {
             $rootScope.globals = {};
             $cookieStore.remove('globals');
@@ -49,7 +50,7 @@
         }
     }
 
-    // Base64 encoding service used by AuthenticationService
+    // Base64 encoding service used by AuthenticationService to encode and set access token
     var Base64 = {
 
         keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
