@@ -247,6 +247,7 @@ $scope.knoboptions = {
             $scope.startdate = "";
             $scope.enddate = "";
             switcher('day');
+            myFunc();
             // $scope.myVar = true;
             // $scope.myVar1 = false;
             // $scope.myVar2 = false;
@@ -480,7 +481,10 @@ $scope.knoboptions = {
               fetchreport("currentDate");
               }else{
                 fetchreport("today");
-                switcher("day");
+                if(!($scope.startdate || $scope.enddate)){
+                   switcher("day");
+                }
+                
               }
 };
 
