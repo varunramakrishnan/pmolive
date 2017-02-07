@@ -153,6 +153,8 @@ vm.gridOptions = {
     { field: 'id', name: 'E/D', cellTemplate:'<div class="ui-grid-cell-contents"><a href="#/project/edit/{{row.entity.id}}"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-edit"></i></button></a>&nbsp<a href="#/project/delete/{{row.entity.id}}"  ><button type="button" class="btn btn-xs danger-class"  ><i  class="fa fa-trash"></i></button></a></div>', width: 70 },
     { name: 'project_name',width: 180 },
     { name: 'project_code' ,width: 180},
+    { name: 'account_name' ,width: 180},
+    { name: 'service_name' ,width: 180},
     // { name: 'start_date' ,minWidth: 260},
     // { name: 'end_date' ,minWidth: 260},
 
