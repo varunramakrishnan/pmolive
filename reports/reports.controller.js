@@ -781,96 +781,64 @@ var monthday = moment().startOf('month');
 
 
 var getreportdata = function (filter) {
+  var piepostData = {};
 
   $scope.csvFileName = '';
   
   var deferred = $q.defer();
     if($scope.peoplemodel.length){
       var pdata = $scope.peoplemodel;
-      // var resArray = [];
-      // angular.forEach($scope.peoplemodel, function (obj) {
-      //                       resArray.push(obj.employee_name);
-      //                     });
-      // $scope.csvFileName = resArray.join();
     }else{
-      // var pdata = $scope.peopledata;
       var pdata = [];
-      // $scope.csvFileName = "All_Resources";
     }
     if($scope.managermodel.length){
       var mdata = $scope.managermodel;
     }else{
-      // var pdata = $scope.peopledata;
       var mdata = [];
     }
     if($scope.accountmodel.length){
       var adata = $scope.accountmodel;
-      // var resArray = [];
-      // angular.forEach($scope.accountmodel, function (obj) {
-      //                       resArray.push(obj.account_name);
-      //                     });
-      // $scope.csvFileName = $scope.csvFileName +"_" + resArray.join();
     }else{
-      // var adata = $scope.accountdata;
       var adata = [];
-      // $scope.csvFileName = $scope.csvFileName +"_" + "All_Accounts";
     }
     if($scope.accountmodel.length == 1){
       var sdata = $scope.servicemodel;
       var resArray = [];
-      // angular.forEach($scope.servicemodel, function (obj) {
-      //                       resArray.push(obj.service_code);
-      //                     });
-      // $scope.csvFileName = $scope.csvFileName +"_" + resArray.join();
-
     }else{
       var sdata = [];
-      // $scope.csvFileName = $scope.csvFileName +"_" + "All_Services";
     }
       var date = $scope.resultDate.format(fullWeekFormat);
       if(filter=="today"){
-        
-
         $scope.resultDate = moment();
         $scope.formattedDate = $scope.resultDate.format(fullWeekFormat);
-        // $scope.csvFileName = $scope.csvFileName +"_" + $scope.formattedDate;
         var piepostData = {"dates":[$scope.formattedDate],"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="currentDate"){
-          // $scope.csvFileName = $scope.csvFileName +"_" + $scope.dateArray.join();
         var piepostData = {"dates":$scope.dateArray,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="prevDay"){
           $scope.resultDate = $scope.resultDate.subtract(1, "days");
           $scope.formattedDate = $scope.resultDate.format(fullWeekFormat);
-          // $scope.csvFileName = $scope.csvFileName +"_" + $scope.formattedDate;
-         var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
+          var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
+        }else if(filter=="nextDay"){
           $scope.resultDate = $scope.resultDate.add(1, "days");
           $scope.formattedDate = $scope.resultDate.format(fullWeekFormat);
-          // $scope.csvFileName = $scope.csvFileName +"_" + $scope.formattedDate;
-         var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
+          var piepostData = {"dates":[ $scope.formattedDate],"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
          }else if(filter=="week"){
           $scope.resultDate = moment();
-          // $scope.csvFileName = $scope.csvFileName +"_" + $scope.week_full[0]+"-"+$scope.week_full[$scope.week_full.length-1];
           var piepostData = {"dates":$scope.week_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="previousWeek"){
           $scope.resultDate = $scope.resultDate.subtract(1, "weeks");
           var prevWeek = $scope.resultDate.startOf('isoWeek');
           $scope.prevweek_full=[prevWeek.day(0).format(fullWeekFormat),prevWeek.day(1).format(fullWeekFormat),prevWeek.day(2).format(fullWeekFormat),prevWeek.day(3).format(fullWeekFormat),prevWeek.day(4).format(fullWeekFormat),prevWeek.day(5).format(fullWeekFormat),prevWeek.day(6).format(fullWeekFormat)];
-          // $scope.csvFileName = $scope.csvFileName +"_" + $scope.prevweek_full[0]+"-"+$scope.prevweek_full[$scope.prevweek_full.length-1];
           var piepostData = {"dates":$scope.prevweek_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="nextWeek"){
-          // $scope.resultDate = moment();
           $scope.resultDate = $scope.resultDate.add(1, "weeks");
           var nextWeek = $scope.resultDate.startOf('isoWeek');
           $scope.nextweek_full=[nextWeek.day(0).format(fullWeekFormat),nextWeek.day(1).format(fullWeekFormat),nextWeek.day(2).format(fullWeekFormat),nextWeek.day(3).format(fullWeekFormat),nextWeek.day(4).format(fullWeekFormat),nextWeek.day(5).format(fullWeekFormat),nextWeek.day(6).format(fullWeekFormat)];
-          // $scope.csvFileName = $scope.csvFileName +"_" + $scope.nextweek_full[0]+"-"+$scope.nextweek_full[$scope.nextweek_full.length-1];
           var piepostData = {"dates":$scope.nextweek_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="month"){
           $scope.resultDate = moment();
-          // $scope.csvFileName = $scope.csvFileName +"_" + $scope.month_full[0]+"-"+$scope.month_full[$scope.month_full.length-1];
           var piepostData = {"dates":$scope.month_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
         }else if(filter=="previousMonth"){
-
-            // var prevMonth =[];
             $scope.resultDate = $scope.resultDate.subtract(1, 'months');
             $scope.prevMonth = $scope.resultDate.date(1).format(fullWeekFormat);
             $scope.prevmonth_full=[];
@@ -880,12 +848,8 @@ var getreportdata = function (filter) {
               $scope.prevmonth_full.push(monthday.format(fullWeekFormat));
                monthday = monthday.add(1,'days');
              }
-             // $scope.csvFileName = $scope.csvFileName +"_" + $scope.prevmonth_full[0]+"-"+$scope.prevmonth_full[$scope.prevmonth_full.length-1];
-
-        var piepostData = {"dates":$scope.prevmonth_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
+            var piepostData = {"dates":$scope.prevmonth_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
       }else {
-
-           // var nexttMonth =[];
            $scope.resultDate = $scope.resultDate.add(1, 'months');
            $scope.nexttMonth = $scope.resultDate.date(1).format(fullWeekFormat);
            console.log($scope.nexttMonth)
@@ -896,7 +860,6 @@ var getreportdata = function (filter) {
               $scope.nextmonth_full.push(monthday.format(fullWeekFormat));
                monthday = monthday.add(1,'days');
              }
-             // $scope.csvFileName = $scope.csvFileName +"_" + $scope.nextmonth_full[0]+"-"+$scope.nextmonth_full[$scope.nextmonth_full.length-1];
         var piepostData = {"dates":$scope.nextmonth_full,"resource":pdata,"account":adata,"service":sdata,"manager":mdata};
       }
       if(piepostData.dates.length > 1){
@@ -904,8 +867,6 @@ var getreportdata = function (filter) {
       }else{
         $scope.csvFileName = "PMO_Utilization_Export_" + piepostData.dates[0];
       }
-      // $scope.rawcsvFileName = "Raw_"+$scope.csvFileName ;
-
 
        UserService.getReportData(piepostData)
              .then(function (response) {
