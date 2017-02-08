@@ -22,16 +22,16 @@
   }
 
 })
- .controller('HeirarchyController', HeirarchyController)
- .controller('HeirarchyEditController', HeirarchyEditController)
- .controller('HeirarchyDeleteController', HeirarchyDeleteController)
+ .controller('RolesController', RolesController)
+ .controller('RolesEditController', RolesEditController)
+ .controller('RolesDeleteController', RolesDeleteController)
  
 
 .controller('RowEditCtrl', RowEditCtrl)
 
 .service('RowEditor', RowEditor);
-	HeirarchyController.$inject = ['$rootScope','$cookieStore','$scope','$log','$http','UserService', '$location', 'FlashService','RowEditor','$state'];
-	function HeirarchyController($rootScope,$cookieStore,$scope,$log,$http,UserService, $location,FlashService,RowEditor,$state) {
+	RolesController.$inject = ['$rootScope','$cookieStore','$scope','$log','$http','UserService', '$location', 'FlashService','RowEditor','$state'];
+	function RolesController($rootScope,$cookieStore,$scope,$log,$http,UserService, $location,FlashService,RowEditor,$state) {
 		var vm = this;
     $rootScope.shownav=true;
     $rootScope.rootAccess =  $cookieStore.get("rootAccess");
@@ -171,8 +171,8 @@ function RowEditCtrl($modalInstance, $rootScope,PersonSchema, grid, row ,UserSer
   }
 }
 
-HeirarchyEditController.$inject = ['$scope','$state','$log','$http','UserService', '$location', 'FlashService','$timeout','$routeParams'];
-function HeirarchyEditController($scope,$state,$log,$http,UserService, $location,FlashService,$timeout,$routeParams) {
+RolesEditController.$inject = ['$scope','$state','$log','$http','UserService', '$location', 'FlashService','$timeout','$routeParams'];
+function RolesEditController($scope,$state,$log,$http,UserService, $location,FlashService,$timeout,$routeParams) {
   var vm=this;
    vm.saveheirarchy = saveheirarchy;
   var splits=$location.url().toString().split("/");
@@ -220,8 +220,8 @@ function HeirarchyEditController($scope,$state,$log,$http,UserService, $location
 
   }
 
-  HeirarchyDeleteController.$inject = ['$rootScope','$scope','$state','$log','$http','UserService', '$location', 'FlashService', 'RowEditor', '$timeout','$routeParams'];
-function HeirarchyDeleteController($rootScope,$scope,$state,$log,$http,UserService, $location,FlashService,RowEditor,$timeout,$routeParams) {
+  RolesDeleteController.$inject = ['$rootScope','$scope','$state','$log','$http','UserService', '$location', 'FlashService', 'RowEditor', '$timeout','$routeParams'];
+function RolesDeleteController($rootScope,$scope,$state,$log,$http,UserService, $location,FlashService,RowEditor,$timeout,$routeParams) {
   var vm=this;
    vm.deleterole = deleterole;
    
