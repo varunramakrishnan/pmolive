@@ -318,8 +318,8 @@
                 })
             .state('roles', {
                 url: "/roles",
-                templateUrl : 'heirarchy/heirarchy.html',
-                controller  : 'HeirarchyController',
+                templateUrl : 'roles/roles.html',
+                controller  : 'RolesController',
                 controllerAs: 'vm',
                 onEnter: ["$state", function($state) {
                   $(document).on("click", ".btn-danger", function() {
@@ -333,8 +333,8 @@
                 url: '/add',
                 views:{
                       "modal": {
-                        templateUrl: "heirarchy/roles.add.html",
-                        controller  : 'HeirarchyController',
+                        templateUrl: "roles/roles.add.html",
+                        controller  : 'RolesController',
                         controllerAs: 'vm'
 
                       }
@@ -345,8 +345,8 @@
                 url: '/edit/:id',
                 views:{
                       "modal": {
-                        templateUrl: "heirarchy/roles.add.html",
-                        controller  : 'HeirarchyEditController',
+                        templateUrl: "roles/roles.add.html",
+                        controller  : 'RolesEditController',
                         controllerAs: 'vm'
 
                       }
@@ -356,8 +356,8 @@
                 url: '/delete/:id',
                 views:{
                       "modal": {
-                        templateUrl: "heirarchy/roles.delete.html",
-                        controller  : 'HeirarchyDeleteController',
+                        templateUrl: "roles/roles.delete.html",
+                        controller  : 'RolesDeleteController',
                         controllerAs: 'vm'
 
                       }
