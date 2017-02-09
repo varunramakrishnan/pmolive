@@ -56,6 +56,6 @@ Folder
  -services -Refer template above(URL: /services)
  -skills -Refer template above(URL: /skills)
  -timesheet -Refer template above(URL: /timesheet)
- -app.js - Main JS file 
+ -app.js - Main JS file where Configurations and dependencies are specified
  -index.html - Parent HTML 
  		
